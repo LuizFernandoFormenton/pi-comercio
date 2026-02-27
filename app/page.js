@@ -1,4 +1,4 @@
-import Destaques from "./Destaques";
+import Link from "next/link";
 
 export default function Pagina_inicial() {
   return (
@@ -11,12 +11,8 @@ export default function Pagina_inicial() {
         </div>
 
         <div className="col text-end">
-          <button className="btn btn-outline-warning me-2">
-            LOGIN
-          </button>
-          <button className="btn btn-warning">
-            CADASTRAR
-          </button>
+          <Link href="login " > <button className="btn btn-outline-warning me-2">LOGIN</button> </Link>  
+          <Link href="cadastro_usuario" > <button className="btn btn-warning"> CADASTRAR</button> </Link> 
         </div>
       </div>
 

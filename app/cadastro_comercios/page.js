@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CadastroComercios() {
     return (
         <div className="d-flex justify-content-center vh-100">
@@ -78,10 +80,15 @@ export default function CadastroComercios() {
 
                     {/* Botão */}
                     <div className="col-12 text-center">
-                        <button type="submit" className="btn btn-primary px-5">
-                            Cadastrar
-                        </button>
+
+                        <Link href="login" > <button type="submit" className="btn btn-primary px-5">Cadastrar</button> </Link>
+
+                        <br/><br/>
+                        
+                        <p>  Se cadastrar como usuário? <Link href="cadastro_usuario" >Clique aqui</Link> </p>
+
                     </div>
+
 
                 </form>
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -21,7 +22,7 @@ export default function Login() {
             <input id="senha" type="password" className="form-control" />
           </div>
 
-          <button type="button" class="btn btn-outline-dark">Entrar</button>
+           <Link href="/" > <button type="button" class="btn btn-outline-dark">Entrar</button> </Link>
 
         </form>
 
