@@ -1,6 +1,6 @@
 export default function CadastroUsuario() {
   return (
-    <div className="d-flex justify-content-center vh-100 " >
+    <div className="d-flex justify-content-center min-vh-100 " >
 
             <div className="align-self-center border rounded p-5">
                 <form>
@@ -9,37 +9,37 @@ export default function CadastroUsuario() {
 
                     <br />
 
-                    <div class="mb-3">
-                        <label class="form-label">Nome Completo *</label>
-                        <input class="form-control"/>
+                    <div className="mb-3">
+                        <label className="form-label">Nome Completo *</label>
+                        <input className="form-control"/>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">CPF *</label>
-                        <input class="form-control"/>
+                    <div className="mb-3">
+                        <label className="form-label">CPF *</label>
+                        <input className="form-control"/>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Telefone *</label>
-                        <input type="tel" class="form-control"/>
+                    <div className="mb-3">
+                        <label className="form-label">Telefone *</label>
+                        <input type="tel" className="form-control"/>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Email *</label>
-                        <input type="email" class="form-control" />
+                    <div className="mb-3">
+                        <label className="form-label">Email *</label>
+                        <input type="email" className="form-control"/>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Senha *</label>
-                        <input type="password" class="form-control" />
+                    <div className="mb-3">
+                        <label className="form-label">Senha *</label>
+                        <input type="password" className="form-control" />
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Confirmar Senha*</label>
-                        <input type="password" class="form-control" />
+                    <div className="mb-3">
+                        <label className="form-label">Confirmar Senha*</label>
+                        <input type="password" className="form-control" />
                     </div>
 
-                    <button type="button" class="btn btn-outline-dark w-100 my-2">Salvar</button>
+                    <button type="submit" className="btn btn-outline-dark w-100 my-2">Salvar</button>
 
                     <br/>
 
