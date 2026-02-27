@@ -1,8 +1,8 @@
 
-export default function CadastroComercio() {
+export default function TelaLogin() {
   return (
     <div>
-     <h1> pagina inicial do projeto! </h1>
+     <h1> pagina inicial de login! </h1>
     </div>
   );
 }
