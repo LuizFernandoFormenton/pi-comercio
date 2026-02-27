@@ -1,7 +1,9 @@
-export default function CadastroEmpresa() {
+export default function TelaLogin() {
   return (
     <div>
-     <h1> pagina de cadastro de empresa! </h1>
+     <h1> pagina de login! </h1>
+      <h2> Em construção... </h2>
+
     </div>
   );
 }
