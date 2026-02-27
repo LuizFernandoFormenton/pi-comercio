@@ -1,53 +1,59 @@
+import "./Aprovacao_anuncio.css"
+
 export default function TelaDeAprovacao() {
   return (
     <div>
-     <h1 className="text-center"> Página de aprovação de anúncios </h1>
-      <br />
-      <br />
-      <p className="text-center"> <strong> Aqui o anúncio sera aprovado ou recusado...</strong></p>
-      <br />
-      <br />
-      <br />
+      <div className="d-flex justify-content-center min-vh-100">
+      <div className="telaAprovacao align-self-center border rounded p-4 w-100" style={{ maxWidth: "1150px" }}>
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Data de Criação</th>
-            <th scope="col" className="text-center">Ação</th>
-          </tr>
-          <br/>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>anuncio 1</td>
-            <td>comida</td>
-            <td>01/01/1945</td>
-            <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
-          <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>anuncio 2</td>
-            <td>bebida</td>
-            <td>11/09/2000</td>
-            <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
-          <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>anuncio 3</td>
-            <td>materiais escolares</td>
-            <td>06/09/2024</td>
-            <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
-          <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
-          </tr>
+        <h1 className="text-center"> Anúncios aguardando aprovação</h1>
+        <br />
+      
+        <p className="text-center"> <strong> Aprovar ou recusar anúncios de comerciantes:</strong></p>
+        <br />
+        <br />
 
-        </tbody>
-      </table>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Empresa</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Data de Criação</th>
+              <th scope="col" className="text-center">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Burger</td>
+              <td>Comida</td>
+              <td>01/02/2026</td>
+              <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
+                <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Zé Delivery</td>
+              <td>Bebidas</td>
+              <td>11/02/2026</td>
+              <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
+                <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Papelaria Tropical</td>
+              <td>Materiais escolares</td>
+              <td>14/02/2026</td>
+              <td className="text-center"><button type="button" className="btn btn-success">Aprovar</button>
+                <button type="button" className="btn btn-danger ms-2">Recusar</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      </div>
 
     </div>
   );
