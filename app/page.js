@@ -11,6 +11,7 @@ export default function Pagina_inicial() {
         </div>
 
         <div className="col text-end">
+          <Link href="perfil_usuario" > <button><img src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"/></button> </Link>  
           <Link href="login " > <button className="btn btn-outline-warning me-2">LOGIN</button> </Link>  
           <Link href="cadastro_usuario" > <button className="btn btn-warning"> CADASTRAR</button> </Link> 
         </div>
@@ -38,8 +39,7 @@ export default function Pagina_inicial() {
             {/* Card 1 */}
             <div className="col-md-4 d-flex justify-content-center">
               <div className="card shadow" style={{ width: "30rem" }}>
-                <img
-                  src="https://blog.bendize.com.br/wp-content/uploads/2023/09/image-8.jpeg"
+                <img src="https://blog.bendize.com.br/wp-content/uploads/2023/09/image-8.jpeg"
                   className="card-img-top"
                   alt="Burger Prime"
                 />
