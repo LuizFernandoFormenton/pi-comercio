@@ -21,7 +21,7 @@ export default function Login() {
             <input id="senha" type="password" className="form-control" />
           </div>
 
-          <button type="button" class="btn btn-outline-dark">Entrar</button>
+          <button className="btn btn-outline-dark">Entrar</button>
 
         </form>
 
