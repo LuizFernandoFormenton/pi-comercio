@@ -4,7 +4,7 @@ export default function TelaDeAprovacao() {
      <h1 className="text-center"> Página de aprovação de anúncios </h1>
       <br />
       <br />
-      <p className="text-center"> <strong> aqui o anúncio sera aprovado ou recusado</strong></p>
+      <p className="text-center"> <strong> Aqui o anúncio sera aprovado ou recusado...</strong></p>
       <br />
       <br />
       <br />
