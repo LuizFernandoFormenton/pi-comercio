@@ -11,7 +11,7 @@ export default function Pagina_inicial() {
         </div>
 
         <div className="col text-end">
-          <Link href="perfil_usuario" > <button><img src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"/></button> </Link>  
+          <Link href="perfil_comerciante" className="me-2 border border-0 " ><img width="40" src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"/> </Link>  
           <Link href="login " > <button className="btn btn-outline-warning me-2">LOGIN</button> </Link>  
           <Link href="cadastro_usuario" > <button className="btn btn-warning"> CADASTRAR</button> </Link> 
         </div>

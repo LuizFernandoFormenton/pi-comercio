@@ -23,7 +23,7 @@ export default function CadastroAnuncio() {
             <div className="mb-3">
               <label htmlFor="descAnuncio" className="form-label">Planos</label>
               <select className="form-select" id="categoria">
-                <option selected>Selecione</option>
+                <option >Selecione</option>
                 <option>30 dias</option>
                 <option>45 dias</option>
                 <option>60 dias</option>

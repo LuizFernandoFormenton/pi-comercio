@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./Perfil_comerciante.css"
 
 export default function PerfilComerciante() {
@@ -20,8 +21,9 @@ export default function PerfilComerciante() {
                     </div>
 
                     <div className="mt-5 fs-5 list-group list-group-flush">
-                        <a href="#" className="list-group-item list-group-item-action" aria-current="true">Cadastro de Produtos</a>
-                        <a href="#" className="list-group-item list-group-item-action">Gerenciar Anúncios</a>
+                        
+                        <Link href="gerenciador_produtos" > <a  className="list-group-item list-group-item-action bg-secondary " >Cadastro de Produtos</a> </Link>    
+                        <Link href="tela_anuncio" > <a  className="list-group-item list-group-item-action bg-secondary ">Gerenciar Anúncios</a>  </Link>
 
                     </div>
 
@@ -80,7 +82,7 @@ export default function PerfilComerciante() {
                                 </select>
                             </div>
 
-                                <br/>
+                            <br />
 
                             <div className="col-12">
                                 <div className="form-floating">

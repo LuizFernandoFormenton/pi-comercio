@@ -62,7 +62,7 @@ export default function GerenciadorProdutos() {
       {/* FORMULÁRIO */}
       <div className="card shadow mb-5">
         <div className="card-header text-white"
-             style={{ backgroundColor: "#ff6b00" }}>
+          style={{ backgroundColor: "#ff6b00" }}>
           Cadastrar Produto
         </div>
 
@@ -70,19 +70,8 @@ export default function GerenciadorProdutos() {
           <form onSubmit={salvar}>
 
             <div className="row mb-3">
-              <div className="col-md-6">
-                <label className="form-label">Empresa</label>
-                <input
-                  type="text"
-                  name="empresa"
-                  value={form.empresa}
-                  onChange={handleChange}
-                  className="form-control"
-                  required
-                />
-              </div>
 
-              <div className="col-md-6">
+              <div className="col-md-12">
                 <label className="form-label">Produto</label>
                 <input
                   type="text"
