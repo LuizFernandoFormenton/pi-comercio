@@ -1,0 +1,37 @@
+.menuLateral{
+
+    background-color: #656565;
+    color: #fff;
+    height: 100vh;
+    position: relative;
+    margin: 0px 35px 0px 0px;
+
+}
+
+/* .menuLateral button{
+
+    color: #fff;
+
+}  */
+
+.menuLateral .list-group a{
+
+    background-color: transparent;
+    color: white;
+
+}
+
+.menuLateral .list-group a:hover{
+
+    background-color: #454545;
+
+}
+
+.menuLateralPerfil{
+
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+
+}
