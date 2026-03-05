@@ -1,4 +1,4 @@
-import "./Aprovacao_anuncio.css"
+import "./aprovacao_anuncio.css"
 
 export default function TelaDeAprovacao() {
   return (
