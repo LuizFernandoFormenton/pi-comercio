@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
+
 export default function Login() {
   return (
     <div className="d-flex justify-content-center min-vh-100">
