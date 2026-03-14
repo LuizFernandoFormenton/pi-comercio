@@ -1,157 +1,194 @@
-"use client"
+'use client'
 
+import { createClient } from '@supabase/supabase-js'
+import { useEffect, useState } from 'react'
+
+const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
 
 function Gerenciador_Produtos() {
 
-  const produtos = [
-    {
-      empresa: "Moda Elegance",
-      produto: "Vestido Midi Floral",
-      descricao: "Vestido leve com estampa floral para o dia a dia",
-      valor: 179.90
-    },
-    {
-      empresa: "Style Urbano",
-      produto: "Jaqueta Jeans",
-      descricao: "Jaqueta jeans unissex com lavagem moderna",
-      valor: 229.90
-    },
-    {
-      empresa: "Restaurante Sabor Caseiro",
-      produto: "Prato Executivo",
-      descricao: "Arroz, feijão, filé grelhado e salada",
-      valor: 29.90
-    },
-    {
-      empresa: "Restaurante Sabor Caseiro",
-      produto: "Lasanha à Bolonhesa",
-      descricao: "Lasanha tradicional com molho caseiro",
-      valor: 34.90
-    },
-    {
-      empresa: "Pizzaria Bella Massa",
-      produto: "Pizza Portuguesa",
-      descricao: "Presunto, ovo, cebola, ervilha e mussarela",
-      valor: 54.90
-    },
-    {
-      empresa: "Pizzaria Bella Massa",
-      produto: "Pizza Quatro Queijos",
-      descricao: "Mussarela, provolone, parmesão e gorgonzola",
-      valor: 59.90
-    },
-    {
-      empresa: "Lanchonete Burguer Prime",
-      produto: "X-Burguer",
-      descricao: "Hambúrguer artesanal com queijo e molho especial",
-      valor: 24.90
-    },
-    {
-      empresa: "Lanchonete Burguer Prime",
-      produto: "Combo Família",
-      descricao: "4 hambúrgueres, 2 batatas grandes e 1 refrigerante 2L",
-      valor: 89.90
-    },
-    {
-      empresa: "Moda Chic",
-      produto: "Blusa Social Feminina",
-      descricao: "Blusa social em tecido leve para trabalho",
-      valor: 119.90
-    },
-    {
-      empresa: "Restaurante Grill Master",
-      produto: "Churrasco Misto",
-      descricao: "Porção com carnes variadas e acompanhamentos",
-      valor: 79.90
+    const [produtos, alteraProdutos] = useState([])
+    const [autenticado, alteraAutenticado] = useState(true)
+
+    const [empresa, alteraEmpresa] = useState("")
+    const [nome, alteraNome] = useState("")
+    const [descricao, alteraDescricao] = useState("")
+    const [valor, alteraValor] = useState("")
+    const [id_comercio, alteraIdComercio] = useState("")
+
+    async function buscar() {
+        const { data, error } = await supabase
+            .from('produtos')
+            .select()
+        console.log(data)
+        alteraProdutos(data)
     }
-  ];
 
-  return (
+    async function salvar() {
+        const objeto = {
+            nome: nome,
+            descricao: descricao,
+            valor: valor,
+            id_comercio: id_comercio
+        }
 
-    <div className="container py-5">
+        if (objeto.nome.length < 3) {
+            alert("Nome do produto inválido.")
+            return
+        }
 
-      <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
-        Gerenciador de Produtos
-      </h1>
+        if (objeto.valor <= 0) {
+            alert("Valor do produto deve ser maior que zero.")
+            return
+        }
 
-      <div className="d-flex justify-content-center min-vh-40">
+        const { error } = await supabase
+            .from('produtos')
+            .insert(objeto)
 
-        <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
+        console.log(error)
 
-          <form className="row g-3">
+        if (error == null) {
+            alert("Produto cadastrado com sucesso!")
+            alteraEmpresa("")
+            alteraNome("")
+            alteraDescricao("")
+            alteraValor("")
+            alteraIdComercio("")
+            buscar()
+        } else {
+            alert("Dados inválidos, verifique os campos e tente novamente...")
+        }
+    }
 
-            <div className="col-12">
-              <label htmlFor="empresa" className="form-label">Empresa</label>
-              <input id="empresa" className="form-control" />
-            </div>
+    useEffect(() => {
+        buscar()
+    }, [])
 
-            <div className="col-md-12">
-              <label htmlFor="produto" className="form-label">Produtos</label>
-              <input id="produto" className="form-control" />
-            </div>
 
-            <div className="col-md-12">
-              <label htmlFor="descricao" className="form-label">Descrição</label>
-              <input id="descricao" className="form-control" />
-            </div>
 
-            <div className="col-md-5">
-              <label htmlFor="valor" className="form-label">Valor</label>
-              <input id="valor" type="number" className="form-control" />
-            </div>
+    useEffect(() => {
+        const logado = localStorage.getItem("logado")
+        if (logado == "true") {
+            alteraAutenticado(true)
+        }
+    }, [])
 
-            <div className="col-md-5">
-              <label htmlFor="imagem" className="form-label">Imagem</label>
-              <input
-                type="file"
-                className="form-control"
-                id="imagem"
-                accept="image/*"/>
-            </div>
 
-            <div className="col-md-2 p-20">
-            <button type="button" class="btn btn-warning p-4">Enviar</button>
-            </div>
+   return (
+        <div className="container py-5">
+            {autenticado ? (
+                <>
+                    <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
+                        Gerenciador de Produtos
+                    </h1>
 
-          </form>
+                    <div className="d-flex justify-content-center mb-5">
+                        <div className="border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
+                            <form className="row g-3">
+                                <div className="col-12">
+                                    <label htmlFor="empresa" className="form-label">Empresa</label>
+                                    <input
+                                        id="empresa"
+                                        className="form-control"
+                                        value={empresa}
+                                        onChange={e => alteraEmpresa(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="col-md-12">
+                                    <label htmlFor="nome" className="form-label">Produto</label>
+                                    <input
+                                        id="nome"
+                                        className="form-control"
+                                        value={nome}
+                                        onChange={e => alteraNome(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="col-md-12">
+                                    <label htmlFor="descricao" className="form-label">Descrição</label>
+                                    <input
+                                        id="descricao"
+                                        className="form-control"
+                                        value={descricao}
+                                        onChange={e => alteraDescricao(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="col-md-5">
+                                    <label htmlFor="valor" className="form-label">Valor</label>
+                                    <input
+                                        id="valor"
+                                        type="number"
+                                        step="0.01"
+                                        className="form-control"
+                                        value={valor}
+                                        onChange={e => alteraValor(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="col-md-5">
+                                    <label htmlFor="id_comercio" className="form-label">ID Comércio</label>
+                                    <input
+                                        id="id_comercio"
+                                        type="text"
+                                        className="form-control"
+                                        value={id_comercio}
+                                        onChange={e => alteraIdComercio(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="col-md-2 d-flex align-items-end">
+                                    <button type="button" className="btn btn-warning w-100" onClick={salvar}>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <h2 className="text-center mb-4 fw-bold p-3" style={{ color: "#ff6b00" }}>
+                        Produtos cadastrados
+                    </h2>
+                    <hr />
+                    <div className="table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style={{ color: "#ff6b00" }}>Empresa</th>
+                                    <th scope="col" style={{ color: "#ff6b00" }}>Produto</th>
+                                    <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
+                                    <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
+                                    <th scope="col" style={{ color: "#ff6b00" }}>ID Comércio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {produtos.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="5" className="text-center">
+                                            <div className="spinner-border" role="status">
+                                                <span className="visually-hidden">Carregando...</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    produtos.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{item.empresa || '-'}</td>
+                                            <td>{item.nome}</td>
+                                            <td>{item.descricao}</td>
+                                            <td>R$ {item.valor}</td>
+                                            <td>{item.id_comercio}</td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
         </div>
-      </div >
-
-    
-      <h2 className="text-center mb-4 fw-bold p-3" style={{ color: "#ff6b00" }}>
-        Produtos cadastrados
-      </h2>
-
-      <hr />
-
-      <table className="col-md-6 table">
-        <thead>
-          <tr>
-            <th scope="col" style={{color: "#ff6b00" }}>Empresa</th>
-            <th scope="col" style={{color: "#ff6b00" }}>Produto</th>
-            <th scope="col" style={{color: "#ff6b00" }}>Descrição</th>
-            <th scope="col" style={{color: "#ff6b00" }}>Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          {
-            produtos.map(
-              item => <tr>
-                <th scope="row">{item.empresa}</th>
-                <td>{item.produto}</td>
-                <td>{item.descricao}</td>
-                <td>R$ {item.valor}</td>
-              </tr>
-            )
-          }
-
-        </tbody>
-      </table>
-
-    </div>
-
-  )
+    );
 }
-
-export default Gerenciador_Produtos;
+export default Gerenciador_Produtos
