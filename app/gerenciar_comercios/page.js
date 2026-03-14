@@ -1,125 +1,33 @@
 'use client'
+
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
+
 import "./gerenciar_comercios.css"
+import { useEffect, useState } from 'react'
 
 function GerenciarComercios() {
 
-    const listaComercios = [
+    const [comercios, alteraComercios] = useState([])
 
-        {
+    async function buscar() {
 
-            nome: "Pizzaria dos Crias",
-            email: "pizzariacrias@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-1100",
-            whatsapp: "(16) 99371-3443",
-            endereco_completo: "Rua Nicola Zambrano, 174, Jardim Mercedez",
-            categoria: "Pizzaria",
-            logo_empresa: "logo_pizzaria_crias.png",
-            descricao: "Pizzaria fundada em 2004, especializada em pizzas artesanais e atendimento familiar."
-        },
-        {
-            nome: "Hamburgueria Prime Burgers",
-            email: "primeburgers@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-2200",
-            whatsapp: "(16) 99123-4567",
-            endereco_completo: "Av. São Carlos, 1200, Centro",
-            categoria: "Hamburgueria",
-            logo_empresa: "logo_primeburgers.png",
-            descricao: "Hamburgueria artesanal com carnes selecionadas e combinações exclusivas."
-        },
-        {
-            nome: "Mercado Boa Compra",
-            email: "boacompra@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-3300",
-            whatsapp: "(16) 99222-3344",
-            endereco_completo: "Rua Episcopal, 450, Centro",
-            categoria: "Mercado",
-            logo_empresa: "logo_boacompra.png",
-            descricao: "Mercado completo com produtos frescos e preços acessíveis."
-        },
-        {
-            nome: "Padaria Pão Quente",
-            email: "paoquente@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-4400",
-            whatsapp: "(16) 99333-4455",
-            endereco_completo: "Rua Dona Alexandrina, 890, Vila Prado",
-            categoria: "Padaria",
-            logo_empresa: "logo_paoquente.png",
-            descricao: "Padaria tradicional com pães fresquinhos todos os dias."
-        },
-        {
-            nome: "Açaí Tropical",
-            email: "acaitropical@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-5500",
-            whatsapp: "(16) 99444-5566",
-            endereco_completo: "Av. Getúlio Vargas, 300, Centro",
-            categoria: "Açaíteria",
-            logo_empresa: "logo_acaitropical.png",
-            descricao: "Especializada em açaí na tigela com diversos acompanhamentos."
-        },
-        {
-            nome: "Restaurante Sabor Caseiro",
-            email: "saborcaseiro@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-6600",
-            whatsapp: "(16) 99555-6677",
-            endereco_completo: "Rua Major José Inácio, 2100, Centro",
-            categoria: "Restaurante",
-            logo_empresa: "logo_saborcaseiro.png",
-            descricao: "Comida caseira com tempero especial e ambiente acolhedor."
-        },
-        {
-            nome: "Lanchonete Point 24h",
-            email: "point24h@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-7700",
-            whatsapp: "(16) 99666-7788",
-            endereco_completo: "Av. Trabalhador São-Carlense, 500, Jardim Paulistano",
-            categoria: "Lanchonete",
-            logo_empresa: "logo_point24h.png",
-            descricao: "Lanches rápidos e atendimento 24 horas."
-        },
-        {
-            nome: "Churrascaria Boi Forte",
-            email: "boiforte@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-8800",
-            whatsapp: "(16) 99777-8899",
-            endereco_completo: "Rodovia Washington Luís, Km 235",
-            categoria: "Churrascaria",
-            logo_empresa: "logo_boiforte.png",
-            descricao: "Rodízio completo com carnes nobres e buffet variado."
-        },
-        {
-            nome: "Sorveteria Gelato Mix",
-            email: "gelatomix@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3509-9900",
-            whatsapp: "(16) 99888-9900",
-            endereco_completo: "Rua XV de Novembro, 600, Centro",
-            categoria: "Sorveteria",
-            logo_empresa: "logo_gelatomix.png",
-            descricao: "Sorvetes artesanais com sabores exclusivos."
-        },
-        {
-            nome: "Farmácia Vida Mais",
-            email: "vidamais@gmail.com",
-            senha: "123456",
-            telefone: "(16) 3510-1100",
-            whatsapp: "(16) 99999-1122",
-            endereco_completo: "Av. Sallum, 1500, Vila Nery",
-            categoria: "Farmácia",
-            logo_empresa: "logo_vidamais.png",
-            descricao: "Farmácia com ampla variedade de medicamentos e atendimento especializado."
-        }
+        const { data, error } = await supabase
+            .from('comercios')
+            .select()
+        console.log(data)
+        alteraComercios(data)
+        console.log(error)
+
+    }
 
 
+    useEffect(() => {
 
-    ]
+        // console.log("Ola cheguei")
+        buscar()
+
+    }, [])
 
     return (
 
@@ -132,7 +40,7 @@ function GerenciarComercios() {
 
                     <div className="text-center mt-4 mb-3  ">
 
-                        <img className="w-50 mb-3 rounded-4 " src="/imagens/barata.webp" />
+                        <img className="w-50 mb-3 rounded-4 " />
                         <h1 className="fs-6" > <i> BigLouis System </i></h1>
 
                     </div>
@@ -228,58 +136,206 @@ function GerenciarComercios() {
                     <div>
 
                         {/* <!-- ID, foto, nome,  --> */}
-                        <table className="table table-striped table-bordered">
 
-                            <thead>
+                        {
+                            comercios.length == 0 ?
 
-                                <tr className="table-primary">
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">email</th>
-                                    <th scope="col">Telefone</th>
-                                    <th scope="col">WhatsApp</th>
-                                    <th scope="col">Endereço Completo</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col">Logo da impresa</th>
-                                    <th scope="col">Descrição</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {
-
-                                    listaComercios.map(
-
-                                        comercio => <tr>
-
-                                            <td>{comercio.nome}</td>
-                                            <td>{comercio.email}</td>
-                                            <td>{comercio.telefone}</td>
-                                            <td>{comercio.whatsapp}</td>
-                                            <td>{comercio.endereco_completo}</td>
-                                            <td>{comercio.categoria}</td>
-                                            <td>{comercio.logo_empresa}</td>
-                                            <td>{comercio.descricao}</td>
-
+                                <table className="table table-striped table-bordered">
+                                    <thead>
+                                        <tr className="table-primary">
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">Telefone</th>
+                                            <th scope="col">WhatsApp</th>
+                                            <th scope="col">Endereço Completo</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Logo da impresa</th>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Status</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr className='placeholder-glow' >
 
-                                    )
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr>
+                                        <tr className='placeholder-glow' >
 
-                                }
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr>
+                                        <tr className='placeholder-glow' >
 
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr>
+                                        <tr className='placeholder-glow' >
 
-                            </tbody>
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
 
-                        </table>
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
+
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
+
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
+
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
+
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr><tr className='placeholder-glow' >
+
+                                            <td> <span className='placeholder w-100'></span></td>
+                                            <td> <span className='placeholder w-100 '></span> </td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                            <td> <span className='placeholder  w-100'></span></td>
+                                        </tr>
+                                            
+                                        
+                                    </tbody>
+                                </table>
+                            :
+                                
+                                <table className="table table-striped table-bordered">
+                                    <thead>
+                                        <tr className="table-primary">
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">Telefone</th>
+                                            <th scope="col">WhatsApp</th>
+                                            <th scope="col">Endereço Completo</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Logo da impresa</th>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            comercios.map(
+
+                                                comercio => <tr >
+
+                                                    <td> {comercio.id} </td>
+                                                    <td>{comercio.nome}</td>
+                                                    <td>{comercio.email}</td>
+                                                    <td>{comercio.telefone}</td>
+                                                    <td>{comercio.whatsapp}</td>
+                                                    <td>{comercio.endereco}</td>
+                                                    <td>{comercio.categoria}</td>
+                                                    <td><img src='data:image/jpeg;base64,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'/></td>
+                                                    <td>{comercio.descricao}</td>
+                                                    <td>{comercio.status == true ? "Ativo" : "Inativo"}</td>
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+
+                            
+                        }
+
 
                     </div>
+
 
                 </div>
 
             </div>
 
-            {/* <!-- Modals --> */}
+            {/* <!-- Modals -->
             <div>
                 <div class="modal fade" id="exampleModal" tabindex="-1">
                     <div class="modal-dialog">
@@ -317,7 +373,7 @@ function GerenciarComercios() {
                     </div>
                 </div>
 
-            </div>
+            </div> */}
 
         </div>
 
