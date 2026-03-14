@@ -1,33 +1,85 @@
+'use client'
+
 import Link from "next/link";
 
 import { createClient } from '@supabase/supabase-js'
+import { useEffect, useState } from "react";
 const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
 
 export default function Login() {
+
+  const [autenticado, alteraAutenticado] = useState(false)
+
+  const [email, alteraEmail] = useState("")
+  const [senha, alteraSenha] = useState("")
+
+  function autenticar() {
+
+    if (email == "admin" && senha == "123123") {
+      alert("Conectado com SUCESSO ✅")
+      localStorage.setItem("logado", true)
+      alteraAutenticado(true)
+      location.href = "/"
+
+    } else {
+      alert("Erro! Algum dado esta incorreto, tente novamente...")
+    }
+  }
+
+  function desconectar() {
+    alert("Desconectado com sucesso! Até breve!")
+    localStorage.removeItem("logado")
+    alteraAutenticado(false)
+  }
+
+  useEffect(() => {
+    const logado = localStorage.getItem("Logado")
+    if (logado == "true") {
+      alteraAutenticado(true)
+    }
+
+  }, [])
+
+
   return (
+
+
     <div className="d-flex justify-content-center min-vh-100">
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "650px" }}>
 
-        <form className="row g-3">
+        {autenticado == false ?
 
-          <h1 className="text-center mb-3">Login</h1>
+          <form className="row g-3">
 
-          {/* Email */}
-          <div className="col-12">
-            <label htmlFor="email" className="form-label">Email *</label>
-            <input id="email" type="email" className="form-control" />
+            <h1 className="text-center mb-3">Login</h1>
+
+            {/* Email */}
+            <div className="col-12">
+              <label htmlFor="email" className="form-label">Email *</label>
+              <input value={email} onChange={e => alteraEmail(e.target.value)} id="email" type="email" className="form-control" />
+            </div>
+
+            {/* Senha */}
+            <div className="col-12">
+              <label htmlFor="senha" className="form-label">Senha *</label>
+              <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
+            </div>
+
+            <button onClick={autenticar} type="button" class="btn btn-outline-dark">Entrar</button>
+
+          </form>
+
+          :
+
+          <div>
+            <p>Você já esta logado!</p>
+            <button onClick={desconectar} >Sair da Conta</button>
+
           </div>
 
-          {/* Senha */}
-          <div className="col-12">
-            <label htmlFor="senha" className="form-label">Senha *</label>
-            <input id="senha" type="password" className="form-control" />
-          </div>
+        }
 
-           <Link href="/" > <button type="button" class="btn btn-outline-dark">Entrar</button> </Link>
-
-        </form>
 
       </div>
 
