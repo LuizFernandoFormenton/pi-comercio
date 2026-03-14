@@ -1,133 +1,28 @@
+'use client'
+
+import { createClient } from '@supabase/supabase-js'
+import { useEffect, useState } from 'react'
+const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
+
+
 function PainelAdmUsuario() {
 
-    const usuarios = [
-        {
-            nomeCompleto: "Ana Carolina Souza",
-            cpf: "123.456.789-00",
-            telefone: "(11) 98765-4321",
-            email: "ana.souza@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Bruno Henrique Lima",
-            cpf: "234.567.890-11",
-            telefone: "(21) 99876-5432",
-            email: "bruno.lima@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Camila Fernandes Rocha",
-            cpf: "345.678.901-22",
-            telefone: "(31) 97654-3210",
-            email: "camila.rocha@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Daniel Martins Oliveira",
-            cpf: "456.789.012-33",
-            telefone: "(41) 96543-2109",
-            email: "daniel.oliveira@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Eduarda Alves Pereira",
-            cpf: "567.890.123-44",
-            telefone: "(51) 95432-1098",
-            email: "eduarda.pereira@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Felipe Santos Costa",
-            cpf: "678.901.234-55",
-            telefone: "(61) 94321-0987",
-            email: "felipe.costa@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Gabriela Ribeiro Mendes",
-            cpf: "789.012.345-66",
-            telefone: "(71) 93210-9876",
-            email: "gabriela.mendes@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Henrique Carvalho Dias",
-            cpf: "890.123.456-77",
-            telefone: "(81) 92109-8765",
-            email: "henrique.dias@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Isabela Moraes Andrade",
-            cpf: "901.234.567-88",
-            telefone: "(11) 91234-5678",
-            email: "isabela.andrade@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "João Pedro Batista",
-            cpf: "012.345.678-99",
-            telefone: "(21) 92345-6789",
-            email: "joao.batista@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Karina Lopes Freitas",
-            cpf: "123.987.654-10",
-            telefone: "(31) 93456-7890",
-            email: "karina.freitas@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Lucas Gabriel Nunes",
-            cpf: "234.876.543-21",
-            telefone: "(41) 94567-8901",
-            email: "lucas.nunes@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Mariana Tavares Pinto",
-            cpf: "345.765.432-32",
-            telefone: "(51) 95678-9012",
-            email: "mariana.pinto@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Nathan Rodrigues Melo",
-            cpf: "456.654.321-43",
-            telefone: "(61) 96789-0123",
-            email: "nathan.melo@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Olívia Santana Duarte",
-            cpf: "567.543.210-54",
-            telefone: "(71) 97890-1234",
-            email: "olivia.duarte@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Paulo Ricardo Teixeira",
-            cpf: "678.432.109-65",
-            telefone: "(81) 98901-2345",
-            email: "paulo.teixeira@email.com",
-            status: "true"
-        },
-        {
-            nomeCompleto: "Queila Ramos Vieira",
-            cpf: "789.321.098-76",
-            telefone: "(91) 99012-3456",
-            email: "queila.vieira@email.com",
-            status: "false"
-        },
-        {
-            nomeCompleto: "Rafael Moreira Barros",
-            cpf: "890.210.987-87",
-            telefone: "(62) 90123-4567",
-            email: "rafael.barros@email.com",
-            status: "true"
-        }
-    ];
+    const [usuarios, alteraUsuarios] = useState([])
+
+    async function buscar() {
+
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select()
+        console.log(data)
+        alteraUsuarios(data)
+        console.log(error)
+
+    }
+
+    useEffect(() => {
+        buscar()
+    }, [])
 
     return (
 
@@ -210,7 +105,7 @@ function PainelAdmUsuario() {
                             <table className="table table-sm" >
                                 <thead className="table-primary">
                                     <tr>
-                                        <th scope="col">Nome Completo</th>
+                                        <th scope="col">Nome</th>
                                         <th scope="col">CPF</th>
                                         <th scope="col">Telefone</th>
                                         <th scope="col">E-mail</th>
@@ -223,12 +118,15 @@ function PainelAdmUsuario() {
                                     {usuarios.map(
                                         item => <tr>
 
-                                            <td>{item.nomeCompleto}</td>
+                                            <td>{item.nome}</td>
                                             <td>{item.cpf}</td>
                                             <td>{item.telefone}</td>
                                             <td>{item.email}</td>
-                                            <td>{item.status}</td>
-                                            <td> <button>Ativar</button> <button>Desativar</button> </td>
+                                            <td>{item.status ? "Ativo" : "Inativo"}</td>
+                                            <td>
+                                                <button>Ativar</button>
+                                                <button>Desativar</button>
+                                            </td>
 
                                         </tr>
                                     )
