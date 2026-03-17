@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import supabase from "../conexao/supabase";
 
-import { createClient } from '@supabase/supabase-js'
-const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
 
 export default function CadastroUsuario() {
 

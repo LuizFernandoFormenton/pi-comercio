@@ -1,9 +1,7 @@
 'use client'
 
-import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
-
+import supabase from '../conexao/supabase'
 
 function PainelAdmUsuario() {
 
@@ -123,9 +121,7 @@ function PainelAdmUsuario() {
                                             <td>{item.telefone}</td>
                                             <td>{item.email}</td>
                                             <td>{item.status ? "Ativo" : "Inativo"}</td>
-                                            <td>
-                                                <button>Ativar</button>
-                                                <button>Desativar</button>
+                                            <td>{item.status ? <button>Desativar</button> : <button>Ativar</button>}
                                             </td>
 
                                         </tr>
