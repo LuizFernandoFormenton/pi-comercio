@@ -8,13 +8,13 @@ const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_pu
 function Gerenciador_Produtos() {
 
     const [produtos, alteraProdutos] = useState([])
-    const [autenticado, alteraAutenticado] = useState(true)
+    const [autenticado, alteraAutenticado] = useState(false)
 
-    const [empresa, alteraEmpresa] = useState("")
+    
     const [nome, alteraNome] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [valor, alteraValor] = useState("")
-    const [id_comercio, alteraIdComercio] = useState("")
+   
 
     async function buscar() {
         const { data, error } = await supabase
@@ -29,7 +29,7 @@ function Gerenciador_Produtos() {
             nome: nome,
             descricao: descricao,
             valor: valor,
-            id_comercio: id_comercio
+            id_comercio: 10
         }
 
         if (objeto.nome.length < 3) {
@@ -50,11 +50,9 @@ function Gerenciador_Produtos() {
 
         if (error == null) {
             alert("Produto cadastrado com sucesso!")
-            alteraEmpresa("")
             alteraNome("")
             alteraDescricao("")
             alteraValor("")
-            alteraIdComercio("")
             buscar()
         } else {
             alert("Dados inválidos, verifique os campos e tente novamente...")
@@ -86,15 +84,6 @@ function Gerenciador_Produtos() {
                     <div className="d-flex justify-content-center mb-5">
                         <div className="border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
                             <form className="row g-3">
-                                <div className="col-12">
-                                    <label htmlFor="empresa" className="form-label">Empresa</label>
-                                    <input
-                                        id="empresa"
-                                        className="form-control"
-                                        value={empresa}
-                                        onChange={e => alteraEmpresa(e.target.value)}
-                                    />
-                                </div>
 
                                 <div className="col-md-12">
                                     <label htmlFor="nome" className="form-label">Produto</label>
@@ -128,16 +117,6 @@ function Gerenciador_Produtos() {
                                     />
                                 </div>
 
-                                <div className="col-md-5">
-                                    <label htmlFor="id_comercio" className="form-label">ID Comércio</label>
-                                    <input
-                                        id="id_comercio"
-                                        type="text"
-                                        className="form-control"
-                                        value={id_comercio}
-                                        onChange={e => alteraIdComercio(e.target.value)}
-                                    />
-                                </div>
 
                                 <div className="col-md-2 d-flex align-items-end">
                                     <button type="button" className="btn btn-warning w-100" onClick={salvar}>Enviar</button>
