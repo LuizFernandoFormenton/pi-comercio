@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./aprovacao_anuncio.css";
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
+
 
 export default function TelaDeAprovacao() {
 
@@ -12,8 +12,15 @@ export default function TelaDeAprovacao() {
   const manipularAnuncio = (id) => { 
     const novaLista = anuncios.filter(a => a.id !== id); 
     setAnuncios(novaLista);
+    
     console.log(`Anúncio ${id} processado!`);
   };
+
+  async function bucar(anuncios) {
+    const { data, error } = await supabase
+      .from('anuncios')
+      .select()
+  }
 
   return (
     <div>
@@ -35,12 +42,12 @@ export default function TelaDeAprovacao() {
               </tr>
             </thead>
             <tbody>
-              {anuncios.map((anuncio, index) => (
-                <tr key={anuncio.id}>
+              {anuncios.map((anuncios, index) => (
+                <tr key={anuncios.id}>
                   <th scope="row">{index + 1}</th>
-                  <td>{anuncio.nome}</td>
-                  <td>{anuncio.descricao}</td>
-                  <td>{anuncio.data}</td>
+                  <td>{anuncios.nome}</td>
+                  <td>{anuncios.descricao}</td>
+                  <td>{anuncios.data}</td>
                   <td>
                     <div className="d-flex justify-content-center gap-2">
                       <button className="btn btn-success me-2" type="button" onClick={() => manipularAnuncio(anuncio.id)}>Aceitar</button> 
