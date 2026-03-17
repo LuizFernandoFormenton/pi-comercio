@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 
-import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from "react";
-const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
+import supabase from "../conexao/supabase";
+
 
 export default function Login() {
 
