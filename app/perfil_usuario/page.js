@@ -1,6 +1,11 @@
+import supabase from "../conexao/supabase";
 import "./Perfil_usuario.css"
 
+
 export default function PerfilUsuario() {
+
+
+
   return (
     <div className="container-fluid">
 
@@ -32,6 +37,12 @@ export default function PerfilUsuario() {
                         <a href="#" className="list-group-item list-group-item-action">Restaurante</a>
                         <a href="#" className="list-group-item list-group-item-action">Mercados</a>
                         <a href="#" className="list-group-item list-group-item-action">Eventos</a>
+
+                    </div>
+
+                    <div className="text-center mt-auto">
+
+                    <button className= "my-2 text-center btn btn-outline-light">Sair</button>
 
                     </div>
 

@@ -43,23 +43,6 @@ function PainelAdmUsuario() {
 
                     </div>
 
-                    <div className="text-center menuLateralPerfil">
-
-                        <img className="rounded-circle" width="100" src="./Programadora.avif" />
-
-                        <div className="btn-group dropend">
-                            <button type="button" className="btn btn-outline-primary dropdown-toggle ms-5"
-                                data-bs-toggle="dropdown" aria-expanded="false">Perfil</button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Editar</a></li>
-                                <li><a className="dropdown-item" href="#">Sair</a></li>
-
-                            </ul>
-                        </div>
-
-
-                    </div>
-
                 </div>
 
                 <div className="col-10" >

@@ -23,7 +23,7 @@ export default function CadastroUsuario() {
 
     e.preventDefault()
 
-    if (senha == confirmarSenha) {
+    if (senha != confirmarSenha) {
     alert("As senhas não são iguais, confirme a senha digitada")
     return
   }
@@ -52,6 +52,7 @@ export default function CadastroUsuario() {
       alteraTelefone("")
       alteraEmail("")
       alteraSenha("")
+      alteraConfirmarSenha("")
 
     } else {
       alert("Dados inválidos, verifique os campos e tente novamente...")
@@ -102,9 +103,9 @@ export default function CadastroUsuario() {
 
           {/* Confirmar senha */}
 
-          <div className="col-md-6">
-            <label htmlFor="confirmarSenha" className="form-label">Confirmar Senha *</label>
-            <input id="confirmarSenha" type="password" className="form-control" />
+           <div className="col-md-6">
+            <label htmlFor="senha" className="form-label">Confirmar Senha *</label>
+            <input value={confirmarSenha} onChange={e => alteraConfirmarSenha(e.target.value)} id="senha" type="password" className="form-control" />
           </div>
 
           {/* Botão */}
