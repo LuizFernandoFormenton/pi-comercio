@@ -12,12 +12,23 @@ function Produtos() {
     const [valor, alteraValor] = useState("")
     const [created_at, alteraCreated_at] = useState("")
 
+    const [listaComercios, alteralistaComercios] = useState([])
+
+    async function buscarComercios() {
+
+        const { data, error } = await supabase
+            .from('comercios')
+            .select()
+        alteralistaComercios(data)
+    }
+
+
     async function buscar() {
         const { data, error } = await supabase
             .from('produtos')
             .select(`
                 *,
-                id_comercio (nome)
+                id_comercio(*)
             `);
 
         alteraProdutos(data)
@@ -68,8 +79,22 @@ function Produtos() {
         return horas_formatadas
     }
 
+    async function deletar(id) {
+        const opcao = confirm("Tem certeza que deseja excluir?")
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase
+            .from('produtos')
+            .delete()
+            .eq('id', id)
+        
+        console.log(error)
+    }
+
     useEffect(() => {
         buscar();
+        buscarComercios();
     }, []);
 
     return (
@@ -79,15 +104,22 @@ function Produtos() {
                 Gerenciador de Produtos
             </h1>
 
+
             <div className="d-flex justify-content-center min-vh-40">
 
                 <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
 
-                    <form className="row g-3">
+                    <form className="row g-3" onSubmit={salvar}>
 
                         <div className="col-12">
-                            <label htmlFor="empresa" className="form-label">Empresa</label>
-                            <input value={id_comercio} onChange={e => alteraId_comercio(e.target.value)} id="empresa" className="form-control" />
+                            <label htmlFor="empresa" className="form-label">Comércio:</label>
+                            <select id="empresa" className="form-select" value={id_comercio} onChange={e => alteraId_comercio(e.target.value)}>
+                                <option>Selecione o comércio:</option>
+                                {listaComercios.map
+                                    (item => (<option value={item.id}> {item.nome} </option>)
+                                )
+                            }
+                            </select>
                         </div>
 
                         <div className="col-md-12">
@@ -134,6 +166,7 @@ function Produtos() {
                             <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Criado em</th>
+                            <th scope="col" style={{ color: "#ff6b00" }}>Acões</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,17 +179,20 @@ function Produtos() {
                             produtos.map(
                                 (item, index) => (
                                     <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{item.id_comercio.nome}</td>
-                                        <td>{item.nome}</td>
-                                        <td>{item.descricao}</td>
-                                        <td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>{index + 1}</td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>{item.id_comercio.nome}</td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>{item.nome}</td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>{item.descricao}</td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>
                                             R$ {item.valor.toString().split('.')[0]},
                                             <small style={{ fontSize: '12px' }}>
                                                 {item.valor.toString().split('.')[1] || '00'}
                                             </small>
                                         </td>
-                                        <td>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
+                                        <td onClick={() => location.href = "/vendas/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
+                                        <td><button class="badge text-bg-dark" onClick={() => deletar(item.id)}>Excluir 🗑</button></td>
+                                        <td><button class="badge text-bg-dark" onClick={() => editar(item.id)}>Editar 🖊</button></td>
+
                                     </tr>
                                 ))
                         )}
