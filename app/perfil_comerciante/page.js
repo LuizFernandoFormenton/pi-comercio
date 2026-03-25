@@ -3,6 +3,7 @@ import "./Perfil_comerciante.css"
 
 export default function PerfilComerciante() {
     return (
+        
         <div className="container-fluid">
 
             <div className="row">
