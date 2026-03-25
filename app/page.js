@@ -1,97 +1,251 @@
-import Link from "next/link";
+'use client'
 
-export default function Pagina_inicial() {
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import supabase from "./conexao/supabase";
+
+function Pagina_inicial({ params }) {
+
+  const [listaComercios, alteraListaComercios] = useState([])
+  const [listaAnuncios, alteraListaAnuncios] = useState([])
+  const [listaCategorias, alteraListaCategorias] = useState([])
+
+  async function buscarComercios() {
+    const { data, error } = await supabase
+      .from('comercios')
+      .select()
+
+    alteraListaComercios(data)
+  }
+
+  async function buscarCategorias() {
+    const { data, error } = await supabase
+      .from('comercios')
+      .select('*')
+      .eq('categoria', params.categoria)
+
+    alteraListaCategorias(data)
+  }
+
+  async function buscarAnuncios() {
+    const { data, error } = await supabase
+      .from('anuncios')
+      .select('*')
+      console.error("Erro ao buscar anúncios:", error)
+
+      alteraListaAnuncios(data)
+    
+  }
+
+  useEffect(() => {
+    buscarComercios();
+    buscarCategorias();
+    buscarAnuncios()
+
+  }, [params]);
+
   return (
     <div className="container-fluid">
 
-      {/* 🔝 Barra Superior */}
+      {/* LINHA SUPERIOR */}
       <div className="row bg-light p-3 align-items-center">
         <div className="col">
           <h4 className="m-0">Guia Comercial</h4>
         </div>
 
         <div className="col text-end">
-          <Link href="perfil_comerciante" className="me-2 border border-0 " ><img width="40" src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"/> </Link>  
-          <Link href="login " > <button className="btn btn-outline-warning me-2">LOGIN</button> </Link>  
-          <Link href="cadastro_usuario" > <button className="btn btn-warning"> CADASTRAR</button> </Link> 
+          <Link href="/perfil_comerciante" className="me-2 border border-0">
+            <img
+              width="40"
+              src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"
+              alt="Perfil"
+            />
+          </Link>
+
+          <Link href="/login">
+            <button className="btn btn-outline-warning me-2">LOGIN</button>
+          </Link>
+
+          <Link href="/cadastro_usuario">
+            <button className="btn btn-warning">CADASTRAR</button>
+          </Link>
         </div>
       </div>
 
-      {/* 🔹 Conteúdo Principal */}
-      <div className="row mt-4">
 
-        {/* 📌 Menu Lateral - Categorias */}
+      <div className="row mt-4">
+        {/* CATEGORIAS - para fazer esse codigo só precisa de um eq*/}
         <div className="col-md-3 border-end">
           <h5 className="mb-3">Categorias</h5>
-          <ul className="list-group">
-            <li className="list-group-item">🍽️ Restaurantes</li>
-            <li className="list-group-item">🍔 Lanchonetes</li>
-            <li className="list-group-item">🍕 Pizzarias</li>
-            <li className="list-group-item">🛒 Mercados</li>
-            <li className="list-group-item">👗 Moda</li>
+          <ul className="list-group-item"
+            onClick={() => location.href = "/categoria/Restaurantes"}
+          >
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => location.href = "/categoria/Restaurantes"}
+            >
+              🍽️ Restaurantes
+            </li>
+
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => location.href = "/categoria/Lanchonetes"}
+            >
+              🍔 Lanchonetes
+            </li>
+
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => location.href = "/categoria/Pizzarias"}
+            >
+              🍕 Pizzarias
+            </li>
+
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => location.href = "/categoria/Mercados"}
+            >
+              🛒 Mercados
+            </li>
+
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => location.href = "/categoria/Moda"}
+            >
+              👗 Moda
+            </li>
           </ul>
         </div>
 
-        {/* 🛍 Área dos Cards */}
+
+        {/* Cards vindos do banco */}
         <div className="col-md-9">
           <div className="row justify-content-center g-4">
 
-            {/* Card 1 */}
-            <div className="col-md-4 d-flex justify-content-center">
-              <div className="card shadow" style={{ width: "30rem" }}>
-                <img src="https://blog.bendize.com.br/wp-content/uploads/2023/09/image-8.jpeg"
-                  className="card-img-top"
-                  alt="Burger Prime"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Burger Prime</h5>
-                  <p className="card-text">Hambúrguer artesanal e combos especiais.</p>
-                  <p className="card-text">⭐ Nota: 4.8</p>
-                  <p className="card-text">📞 (16) 99999-1111</p>
-                  <p className="card-text">📍 Av. São Carlos, 1300 - Centro</p>
-                  <a href="#" className="btn btn-warning w-100">Ver mais 🔽</a>
+
+
+            {/*ANUNCIO*/}
+
+            <div className="row mt-4">
+              <div className="col-12">
+                <h5 className="mb-3">Anúncios</h5>
+
+                <div className="d-flex gap-3 overflow-auto pb-2">
+                  {listaAnuncios.map((item) => (
+                    <div>
+                      <img
+                        src={item.imagem}
+                        className="card-img-top"
+                        alt="Anúncio"
+                        style={{ height: "180px", objectFit: "cover" }}
+                      />
+
+                      <div className="card-body">
+                        <p className="card-text">{item.descricao}</p>
+
+                        <button
+                          className="btn btn-warning w-100"
+                          onClick={() => location.href = item.url}
+                        >
+                          Ver anúncio
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="col-md-4 d-flex justify-content-center">
-              <div className="card shadow" style={{ width: "30rem" }}>
-                <img
-                  src="https://invexo.com.br/blog/wp-content/uploads/2022/12/pizza-pizzaria-gavea-rio-de-janeiro.jpg"
-                  className="card-img-top"
-                  alt="Pizzaria Bella Massa"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Pizzaria Bella Massa</h5>
-                  <p className="card-text">Pizzas tradicionais e especiais.</p>
-                  <p className="card-text">⭐ Nota: 4.7</p>
-                  <p className="card-text">📞 (16) 98888-2222</p>
-                  <p className="card-text">Av. Episcopal, 572 - Centro</p>
-                  <a href="#" className="btn btn-warning w-100">Ver mais 🔽</a>
+            {listaComercios.map((item) => (
+              <div className="col-md-4 d-flex justify-content-center" key={item.id}>
+                <div className="card shadow" style={{ width: "22rem" }}>
+                  <img
+                    src={item.logo}
+                    className="card-img-top"
+                    alt={item.nome}
+                    style={{ height: "220px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body">
+                    <h5 className="card-title">{item.nome}</h5>
+                    <p className="card-text">{item.descricao}</p>
+                    <p className="card-text">📞 {item.telefone}</p>
+                    <p className="card-text">📍 {item.endereco}</p>
+                    <p className="card-text">🏷️ {item.categoria}</p>
+
+                    <button
+                      className="btn btn-warning w-100" onClick={() => location.href = "/comercio/" + item.id}>
+                      Ver mais 🔽
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+
+            {listaCategorias.map((item) => (
+              <div className="col-md-4 d-flex justify-content-center" key={item.id}>
+                <div className="card shadow" style={{ width: "22rem" }}>
+                  <img
+                    src={item.logo}
+                    className="card-img-top"
+                    alt={item.nome}
+                    style={{ height: "220px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body">
+                    <h5 className="card-title">{item.nome}</h5>
+                    <p className="card-text">{item.descricao}</p>
+                    <p className="card-text">📞 {item.telefone}</p>
+                    <p className="card-text">📍 {item.endereco}</p>
+                    <p className="card-text">🏷️ {item.categoria}</p>
+
+                    <button
+                      className="btn btn-warning w-100" onClick={() => location.href = "/comercio/" + item.id}>
+                      Ver mais 🔽
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* ANÚNCIOS */}
+            <div className="row mt-4">
+              <div className="col-12">
+                <h5 className="mb-3">🔥 Anúncios em destaque</h5>
+
+                <div className="d-flex gap-3 overflow-auto pb-2">
+
+                  {listaAnuncios.map((item) => (
+                    <div>
+                      <img
+                        src={item.imagem}
+                        className="card-img-top"
+                        alt="Anúncio"
+                        style={{ height: "160px", objectFit: "cover" }}
+                      />
+
+                      <div className="card-body">
+                        <p className="card-text">{item.descricao}</p>
+
+                        <button
+                          className="btn btn-warning w-100"
+                          onClick={() => location.href = "/anuncio/" + item.id}
+                        >
+                          Ver oferta 🔥
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+
                 </div>
               </div>
             </div>
-
-            {/* Card 3 */}
-            <div className="col-md-4 d-flex justify-content-center">
-              <div className="card shadow" style={{ width: "30rem" }}>
-                <img
-                  src="https://assets.multiplan.com.br/Multiplan/filer_public/2b/d7/2bd76f5c-a24b-4cf6-8880-12e96054f976/mlf04750.jpg?ims=x800"
-                  className="card-img-top"
-                  alt="Vista-me Modas"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Vista-me Modas</h5>
-                  <p className="card-text">Roupas modernas e acessíveis.</p>
-                  <p className="card-text">⭐ Nota: 4.8</p>
-                  <p className="card-text">📞 (16) 98888-2222</p>
-                  <p className="card-text">📍 Rua Nove de Julho, 837 - Centro</p>
-                  <a href="#" className="btn btn-warning w-100">Ver mais 🔽</a>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
 
@@ -99,3 +253,7 @@ export default function Pagina_inicial() {
     </div>
   );
 }
+
+
+
+export default Pagina_inicial;
