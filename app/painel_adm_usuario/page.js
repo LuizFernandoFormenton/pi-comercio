@@ -9,9 +9,6 @@ function PainelAdmUsuario() {
     //Variavel usada no buscar para listagem dos usuários
     const [usuarios, alteraUsuarios] = useState([])
 
-    const [status, alteraStatus] = useState()
-
-    const [atualizaStatus, alteraAtualizaStatus] = useState()
 
     //Variaveis de pesquisa e filtro
     const [pesquisaUsuario, alteraPesquisaUsuario] = useState("")
@@ -34,35 +31,38 @@ function PainelAdmUsuario() {
     }
 
     // Função para pesquisar o usuário por nome
-    
+
     async function pesquisaPorNomeUsuario() {
         const { data, error } = await supabase
-        .from('usuarios')
-        .select(`*`)
-        .ilike('nome', "%" + pesquisaUsuario + "%")
-        
+            .from('usuarios')
+            .select(`*`)
+            .ilike('nome', "%" + pesquisaUsuario + "%")
+
         alteraUsuarios(data)
+
+        alteraPesquisaUsuario("")
+
     }
-    
+
     // Função para filtrar por ativos e inativos
-    
+
     async function filtrarPorStatus() {
         const { data, error } = await supabase
-        .from('usuarios')
-        .select(`*`)
-        .eq('status', filtraUsuario)
-        
+            .from('usuarios')
+            .select(`*`)
+            .eq('status', filtraUsuario)
+
         alteraUsuarios(data)
-        
+
     }
-    
+
     //Função para desativar e ativar o usuário
-    
+
 
     async function alteraStatusUsuario(item) {
 
         const objeto = {
-           
+
             status: !item.status
         }
 
@@ -72,9 +72,9 @@ function PainelAdmUsuario() {
             .eq('id', item.id)
 
         buscar()
-    
-}
-    
+
+    }
+
     //Mostrar na tela inicial a listagem assim que entrar na tela
 
     useEffect(() => {
@@ -121,8 +121,8 @@ function PainelAdmUsuario() {
 
                             {/* Esse aqui é para pesquisar por nome */}
                             <div className="input-group">
-                                <input onChange={e => alteraPesquisaUsuario(e.target.value)} type="text" className="form-control" placeholder="Pesquisar..."
-                                    aria-label="Recipient’s username" aria-describedby="basic-addon2" />
+                                <input value={pesquisaUsuario} onChange={e => alteraPesquisaUsuario(e.target.value)} type="text" className="form-control" placeholder="Pesquisar..."
+                                    aria-label="Recipients username" aria-describedby="basic-addon2" />
                                 <button onClick={pesquisaPorNomeUsuario} className="input-group-text" id="basic-addon2">🔍</button>
                             </div>
 
@@ -135,7 +135,7 @@ function PainelAdmUsuario() {
 
                             <div className="input-group">
                                 <select onChange={e => alteraFiltraUsuario(e.target.value)} className="form-select" id="inputGroupSelect01">
-                                    <option value="" disabled>Filtrar</option>
+                                    <option value="Filtrar" disabled selected>Filtrar</option>
                                     <option value="true">Ativos</option>
                                     <option value="false">Inativos</option>
                                 </select>
@@ -145,8 +145,7 @@ function PainelAdmUsuario() {
 
 
                         <div className="text-end my-2">
-                            <button onClick={filtrarPorStatus} className="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Localizar</button>
+                            <button onClick={filtrarPorStatus} className="btn btn-primary">Localizar</button>
 
                         </div>
 
@@ -155,7 +154,7 @@ function PainelAdmUsuario() {
 
                         <div className="mt-3 col-12">
 
-                            <table className="table table-sm" >
+                            <table className="table table-striped table-bordered" >
                                 <thead className="table-primary">
                                     <tr>
                                         <th scope="col">Id</th>
@@ -167,7 +166,7 @@ function PainelAdmUsuario() {
                                         <th scope="col">Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-group-divider">
+                                <tbody>
 
 
 
@@ -181,12 +180,7 @@ function PainelAdmUsuario() {
                                             <td>{item.telefone}</td>
                                             <td>{item.email}</td>
                                             <td>{item.status ? "Ativo" : "Inativo"}</td>
-
-
-                                            <td>{item.status ? (<button onClick={()=> alteraStatusUsuario(item)}>Desitivar</button>) : <button onClick={()=> alteraStatusUsuario(item)}>Ativar</button>}
-
-
-                                            </td>
+                                            <td>{item.status ? (<button onClick={() => alteraStatusUsuario(item)}>Desativar</button>) : <button onClick={() => alteraStatusUsuario(item)}>Ativar</button>}</td>
 
                                         </tr>
                                     )

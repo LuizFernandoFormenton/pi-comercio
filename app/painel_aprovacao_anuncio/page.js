@@ -8,20 +8,58 @@ function PainelAdmAnuncios() {
 
     const [anuncios, alteraAnuncios] = useState([])
 
+    const [pesquisaAnuncio, alteraPesquisaAnuncio] = useState("")
+    const [filtraAnuncio, alteraFiltraAnuncio] = useState("")
+
     async function buscar() {
 
         const { data, error } = await supabase
             .from('anuncios')
-            .select(`
-                *,
-                id_comercio(*)
-            `)
+            .select(`*,id_comercio(*)`)
 
         console.log(data)
 
-        alteraAnuncios(data)
+        alteraAnuncios(data || [])
 
         console.log(error)
+
+    }
+
+    async function pesquisaPorNomeAnuncio() {
+        const { data, error } = await supabase
+            .from('anuncios')
+            .select(`*id_comercio(*)`)
+            .ilike('nome', "%" + pesquisaAnuncio + "%")
+
+        alteraAnuncios(data)
+
+        alteraPesquisaAnuncio("")
+
+    }
+
+    async function filtrarPorStatus() {
+        const { data, error } = await supabase
+            .from('anuncios')
+            .select(`*,id_comercio(*)`)
+            .eq('status', filtraAnuncio)
+
+        alteraAnuncios(data)
+
+    }
+
+    async function alteraStatusAnuncio(item) {
+
+        const objeto = {
+
+            status: !item.status
+        }
+
+        const { error } = await supabase
+            .from('anuncios')
+            .update(objeto)
+            .eq('id', item.id)
+
+        buscar()
 
     }
 
@@ -66,7 +104,7 @@ function PainelAdmAnuncios() {
 
                 <div className="col-10" >
 
-                {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
+                    {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 
                     <h1>Painel do Administrativo - Anúncios</h1>
                     <hr />
@@ -76,9 +114,9 @@ function PainelAdmAnuncios() {
                         <div className="col-10">
 
                             <div className="input-group">
-                                <input type="text" className="form-control" placeholder="Pesquisar..."
+                                <input value={pesquisaAnuncio} onChange={e => alteraPesquisaAnuncio(e.target.value)} type="text" className="form-control" placeholder="Pesquisar..."
                                     aria-label="Recipient’s username" aria-describedby="basic-addon2" />
-                                <span className="input-group-text" id="basic-addon2">🔍</span>
+                                <button onClick={pesquisaPorNomeAnuncio} className="input-group-text" id="basic-addon2">🔍</button>
                             </div>
 
                         </div>
@@ -86,10 +124,10 @@ function PainelAdmAnuncios() {
                         <div className="col-2">
 
                             <div className="input-group">
-                                <select className="form-select" id="inputGroupSelect01">
-                                    <option selected>Filtrar</option>
-                                    <option value="1">Ativos</option>
-                                    <option value="2">Inativos</option>
+                                <select value={filtraAnuncio || "Filtrar"} onChange={e => alteraFiltraAnuncio(e.target.value)} className="form-select">
+                                    <option value="Filtrar" disabled>Filtrar</option>
+                                    <option value="true">Ativos</option>
+                                    <option value="false">Inativos</option>
                                 </select>
                             </div>
 
@@ -97,13 +135,12 @@ function PainelAdmAnuncios() {
 
 
                         <div className="text-end my-2">
-                            <button className="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Localizar</button>
+                            <button onClick={filtrarPorStatus} className="btn btn-primary">Localizar</button>
 
                         </div>
 
 
-                    {/* Tabela para exibir as informações do usuário */}
+                        {/* Tabela para exibir as informações do anuncio */}
 
                         <div className="mt-3 col-12">
 
@@ -118,28 +155,27 @@ function PainelAdmAnuncios() {
                                         <th scope="col">Data de Cadastro</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Ações</th>
-                                        
-                                        
+
+
                                     </tr>
                                 </thead>
                                 <tbody className="table-group-divider">
 
 
 
-                                {/* map que faz a listagem de usuários */}
-                                
+                                    {/* map que faz a listagem de usuários */}
+
                                     {anuncios.map(
                                         item => <tr>
 
                                             <td>{item.id}</td>
-                                            <td>{item.id_comercio.nome}</td>
+                                            <td>{item.id_comercio?.nome}</td>
                                             <td>{item.planos}</td>
                                             <td>{item.descricao}</td>
                                             <td>{item.imagem}</td>
                                             <td>{formataData(item.data)} às {formataHoras(item.data)}</td>
                                             <td>{item.status ? "Ativo" : "Inativo"}</td>
-                                            <td><button>Aprovar</button><button>Recusar</button></td>
-
+                                            <td>{item.status ? (<button onClick={() => alteraStatusAnuncio(item)}>Recusar</button>) : <button onClick={() => alteraStatusAnuncio(item)}>Aceitar</button>}</td>
                                         </tr>
                                     )
                                     }
