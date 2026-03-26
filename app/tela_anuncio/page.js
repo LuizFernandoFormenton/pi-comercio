@@ -24,9 +24,9 @@ export default function CadastroAnuncio() {
     }
 
     const obj = {
-      id_comercio: 1,
+      id_comercio: id_comercio(),
       descricao: descricao,
-      planos: parseInt(planos),
+      planos: planos,
       url: link,
       imagem: imagem,
       status: false
@@ -94,9 +94,8 @@ export default function CadastroAnuncio() {
             <div className="mb-3">
               <label className="form-label">Adicione o url da imagem</label>
               <input
-                type="url"
+                type="file"
                 className="form-control"
-                placeholder="https://exemplo.com/imagem.jpg"
                 onChange={(e) => setImagem(e.target.value)}
                 required
               />
