@@ -1,13 +1,95 @@
-import supabase from "../conexao/supabase";
-import "./Perfil_usuario.css"
+'use client'
 
+import { useState } from "react";
+import supabase from "../conexao/supabase";
 
 export default function PerfilUsuario() {
 
+    const [nome, alteraNome] = useState("")
+    const [cpf, alteraCpf] = useState("")
+    const [telefone, alteraTelefone] = useState("")
+    const [email, alteraEmail] = useState("")
+    const [senha, alteraSenha] = useState("")
+    const [confirmarSenha, alteraConfirmarSenha] = useState("")
+    const [imagem, alteraImagem] = useState("")
+
+    const [editando, alteraEditando] = useState("")
 
 
-  return (
-    <div className="container-fluid">
+    async function atualizar() {
+
+        const objeto = {
+            nome: nome,
+            cpf: cpf,
+            telefone: telefone,
+            email: email,
+            
+        }
+
+        const { error } = await supabase
+            .from('usuarios')
+            .update(objeto)
+            .eq('id', editando)
+
+        if (error == null) {
+            alert("Atualização realizada com sucesso! ✅")
+
+        } else {
+            alert("Dados inválidos! Verifique os campos e tente novamente...")
+        }
+
+    }
+
+    async function atualizarSenha() {
+
+        const objeto = {
+            senha: senha
+        }
+
+        if (senha !== confirmarSenha) {
+            alert("As senhas são diferentes, tente novamente...")
+            return
+        }
+
+        const { error } = await supabase
+            .from('usuarios')
+            .update(objeto)
+            .eq('id', editando)
+
+        if (error == null) {
+            alert("Senha alterada com sucesso! ✅")
+
+        } else {
+            alert("Não foi possível alterar a senha, tente novamente...")
+        }
+
+    }
+
+
+    async function atualizarImagem() {
+
+        const objeto = {
+
+            imagem: imagem
+        }
+
+        const { error } = await supabase
+            .from('usuarios')
+            .update(objeto)
+            .eq('id', editando)
+
+        if (error == null) {
+            alert("Imagem alterada com sucesso! ✅")
+
+        } else {
+            alert("Não foi possível alterar a imagem!")
+        }
+
+    }
+
+
+    return (
+        <div className="container-fluid">
 
             <div className="row">
 
@@ -19,30 +101,22 @@ export default function PerfilUsuario() {
                         <img className="my-2 text-center rounded-circle" width="200" src="/Programadora.avif" />
                         <h1 className="mt-1 fs-4">Geovana Ribeiro</h1>
                         <p>Usuário desde 2026</p>
-                        <button className="btn btn-outline-light">Alterar Foto</button>
+                        <button onClick={atualizarImagem} className="btn btn-outline-dark">Alterar Foto</button>
                         <hr />
 
                     </div>
 
-                    <div>
-
-                        <h3>⭐Favoritos</h3>
-
-                    </div>
 
                     <div className="mt-5 fs-5 list-group list-group-flush">
-                        <a href="#" className="list-group-item list-group-item-action" aria-current="true">Pizzaria</a>
-                        <a href="#" className="list-group-item list-group-item-action">Lanchonete</a>
-                        <a href="#" className="list-group-item list-group-item-action">Farmácia</a>
-                        <a href="#" className="list-group-item list-group-item-action">Restaurante</a>
-                        <a href="#" className="list-group-item list-group-item-action">Mercados</a>
-                        <a href="#" className="list-group-item list-group-item-action">Eventos</a>
+                        <a href="#" className="list-group-item list-group-item-action">Cupons</a>
+                        <a href="#" className="list-group-item list-group-item-action">Favoritos</a>
+                        <a href="#" className="list-group-item list-group-item-action">Editar Perfil</a>
 
                     </div>
 
                     <div className="text-center mt-auto">
 
-                    <button className= "my-2 text-center btn btn-outline-light">Sair</button>
+                        <button className="my-2 text-center btn btn-outline-light">Sair</button>
 
                     </div>
 
@@ -57,48 +131,52 @@ export default function PerfilUsuario() {
                     <div className="editarPerfil align-self-center border rounded p-5 my-5">
 
 
-                        <h2 className="my-2">Editar Perfil</h2>
+                        <h2 className="my-2">Perfil do Usuário</h2>
                         <hr />
 
 
-                        <form onsubmit="criarConta(event)">
+                        <form onsubmit={(e) => e.preventDefault()}>
 
                             <div className="mb-3">
                                 <label className="form-label">Nome Completo *</label>
-                                <input type="text" className="form-control" />
+                                <input value={nome} onChange={(e) => alteraNome(e.target.value)} type="text" className="form-control" />
                             </div>
 
                             <div className="mb-3">
                                 <label className="form-label">CPF *</label>
-                                <input type="text" className="form-control" />
+                                <input value={cpf} onChange={(e) => alteraCpf(e.target.value)} type="text" className="form-control" />
                             </div>
 
                             <div className="mb-3">
                                 <label className="form-label">Telefone *</label>
-                                <input type="tel" className="form-control" />
+                                <input value={telefone} onChange={(e) => alteraTelefone(e.target.value)} type="tel" className="form-control" />
                             </div>
 
                             <div className="mb-3">
                                 <label className="form-label">E-mail *</label>
-                                <input type="email" className="form-control" />
+                                <input value={email} onChange={(e) => alteraEmail(e.target.value)} type="email" className="form-control" />
                             </div>
+
+                            <button onClick={atualizar} type="button" class="btn btn-outline-dark">Atualizar Dados</button>
+
+                        </form >
+
+                        <form onSubmit={(e) => e.preventDefault()}>
 
                             <hr />
                             <h3>Alterar Senha</h3>
 
                             <div className="mb-3">
                                 <label className="form-label">Nova Senha *</label>
-                                <input type="password" className="form-control" />
+                                <input value={senha} onChange={(e) => alteraSenha(e.target.value)} type="password" className="form-control" />
                             </div>
 
                             <div className="mb-3">
                                 <label className="form-label">Confirmar Senha *</label>
-                                <input type="password" className="form-control" />
+                                <input value={confirmarSenha} onChange={(e) => alteraConfirmarSenha(e.target.value)} type="password" className="form-control" />
                             </div>
 
-                            <button type="button" class="btn btn-outline-dark">Salvar Alterações</button>
-
-
+                            <button onClick={atualizarSenha} type="button" class="btn btn-outline-dark">Alterar Senha</button>
 
                         </form>
 
@@ -112,5 +190,5 @@ export default function PerfilUsuario() {
 
 
         </div>
-  );
+    );
 }

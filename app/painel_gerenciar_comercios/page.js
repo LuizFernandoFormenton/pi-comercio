@@ -8,16 +8,61 @@ function GerenciarComercios() {
 
     const [comercios, alteraComercios] = useState([])
 
+    const [pesquisaComercio, alteraPesquisaComercio] = useState("")
+    const [filtraComercio, alteraFiltraComercio] = useState("")
+
     async function buscar() {
 
         const { data, error } = await supabase
             .from('comercios')
-            .select()
+            .select(`*`)
+            .order('id', { ascending: true })
+
         console.log(data)
+
         alteraComercios(data)
+
         console.log(error)
+    }
+
+    async function pesquisaPorNomeComercio() {
+        const { data, error } = await supabase
+        .from('comercios')
+        .select(`*`)
+        .ilike('nome', "%" + pesquisaComercio + "%")
+        
+        alteraComercios(data)
+
+        alteraPesquisaComercio("")
 
     }
+
+    async function filtrarPorStatus() {
+        const { data, error } = await supabase
+        .from('comercios')
+        .select(`*`)
+        .eq('status', filtraComercio)
+        
+        alteraComercios(data)
+        
+    }
+
+
+    async function alteraStatusComercio(item) {
+
+        const objeto = {
+           
+            status: !item.status
+        }
+
+        const { error } = await supabase
+            .from('comercios')
+            .update(objeto)
+            .eq('id', item.id)
+
+        buscar()
+    
+}
 
     useEffect(() => {
 
@@ -60,9 +105,9 @@ function GerenciarComercios() {
                         <div className="col-10">
 
                             <div className="input-group">
-                                <input type="text" className="form-control" placeholder="Pesquisar..."
+                                <input value={pesquisaComercio} onChange={e => alteraPesquisaComercio(e.target.value)} type="text" className="form-control" placeholder="Pesquisar..."
                                     aria-label="Recipient’s username" aria-describedby="basic-addon2" />
-                                <span className="input-group-text" id="basic-addon2">🔍</span>
+                                <button onClick={pesquisaPorNomeComercio} className="input-group-text" id="basic-addon2">🔍</button>
                             </div>
 
                         </div>
@@ -70,10 +115,10 @@ function GerenciarComercios() {
                         <div className="col-2">
 
                             <div className="input-group">
-                                <select className="form-select" id="inputGroupSelect01">
-                                    <option selected>Filtrar</option>
-                                    <option value="1">Ativos</option>
-                                    <option value="2">Inativos</option>
+                                <select onChange={e => alteraFiltraComercio(e.target.value)} className="form-select" id="inputGroupSelect01">
+                                    <option value="Filtrar" disabled selected>Filtrar</option>
+                                    <option value="true">Ativos</option>
+                                    <option value="false">Inativos</option>
                                 </select>
                             </div>
 
@@ -81,8 +126,7 @@ function GerenciarComercios() {
 
 
                         <div className="text-end my-2">
-                            <button className="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Localizar</button>
+                            <button onClick={filtrarPorStatus} className="btn btn-primary">Localizar</button>
 
                         </div>
 
@@ -252,24 +296,28 @@ function GerenciarComercios() {
                                             <th scope="col">Logo da impresa</th>
                                             <th scope="col">Descrição</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Ação</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             comercios.map(
 
-                                                comercio => <tr >
+                                                item => <tr >
 
-                                                    <td> {comercio.id} </td>
-                                                    <td>{comercio.nome}</td>
-                                                    <td>{comercio.email}</td>
-                                                    <td>{comercio.telefone}</td>
-                                                    <td>{comercio.whatsapp}</td>
-                                                    <td>{comercio.endereco}</td>
-                                                    <td>{comercio.categoria}</td>
+                                                    <td>{item.id} </td>
+                                                    <td>{item.nome}</td>
+                                                    <td>{item.email}</td>
+                                                    <td>{item.telefone}</td>
+                                                    <td>{item.whatsapp}</td>
+                                                    <td>{item.endereco}</td>
+                                                    <td>{item.categoria}</td>
                                                     <td><img className="text-center rounded-circle" width="150" src="./Programadora.avif" /></td>
-                                                    <td>{comercio.descricao}</td>
-                                                    <td>{comercio.status == true ? "Ativo" : "Inativo"}</td>
+                                                    <td>{item.descricao}</td>
+                                                    <td>{item.status == true ? "Ativo" : "Inativo"}</td>
+                                                    <td>{item.status ? (<button onClick={()=> alteraStatusComercio(item)}>Desativar</button>) : <button onClick={()=> alteraStatusComercio(item)}>Ativar</button>}</td>
+
                                                 </tr>
                                             )
                                         }

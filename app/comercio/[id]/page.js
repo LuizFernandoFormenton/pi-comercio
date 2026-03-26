@@ -7,8 +7,8 @@ import supabase from "../../conexao/supabase";
 function Comercio() {
     const params = useParams()
 
-    const [listaComercios, alteraListaComercios] = useState([])
-    const [listaProdutos, alteraListaProdutos] = useState([])
+    const [listaComercios, alteraListaComercios] = useState(data || [])
+    const [listaProdutos, alteraListaProdutos] = useState(data || [])
 
     async function mostraID() {
         const { data, error } = await supabase
@@ -16,7 +16,7 @@ function Comercio() {
             .select('*')
             .eq('id', params.id)
 
-        alteraListaComercios(data)
+        alteraListaComercios(data || [])
         console.log(error)
 
     }
@@ -24,10 +24,10 @@ function Comercio() {
     async function buscarProdutos() {
         const { data, error } = await supabase
             .from('produtos')
-            .select('*')
+            .select('*,id_comercio')
             .eq('id_comercio', params.id)
 
-        alteraListaProdutos(data)
+        alteraListaProdutos(data || [])
         console.log(error)
     }
 
@@ -66,14 +66,14 @@ function Comercio() {
 
             <hr />
 
-            {listaComercios.map((item, index) => (
-                <div key={index} className="card p-3 shadow mb-4">
+            {listaComercios?.map(item => ( 
+                <div className="card p-3 shadow mb-4">
                     <img
                         src={item.logo}
                         alt="Logo do comércio"
-                        style={{ width: "150px", marginBottom: "10px" }}
+                        style={{ width: "90px", marginBottom: "10px" }}
                     />
-
+                    <p><strong>ID:</strong> {item.id}</p>
                     <p><strong>Comércio:</strong> {item.nome}</p>
                     <p><strong>E-mail:</strong> {item.email}</p>
                     <p><strong>Telefone:</strong> {item.telefone}</p>
@@ -81,7 +81,7 @@ function Comercio() {
                     <p><strong>Endereço:</strong> {item.endereco}</p>
                     <p><strong>Categoria:</strong> {item.categoria}</p>
                     <p><strong>Descrição:</strong> {item.descricao}</p>
-                    <p><strong>Data de criação:</strong> {item.created_at}</p>
+                    <p><strong>Data de criação:</strong> {formataData(item.created_at)} {formataHoras(item.created_at)}</p>
                 </div>
             ))}
 
@@ -89,14 +89,10 @@ function Comercio() {
             <hr />
 
             <div className="row">
-                {listaProdutos.map((item) => (
+                {listaProdutos?.map(item => (
                     <div className="col-md-4 mb-4">
                         <div className="card h-100 shadow p-3">
-                            <img
-                                src={item.imagem}
-                                alt={item.nome}
-                                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-                            />
+                            
                             <p><strong>Produto:</strong> {item.nome}</p>
                             <p><strong>Descrição:</strong> {item.descricao}</p>
                             <p><strong>Valor:</strong> R$ {item.valor}</p>
