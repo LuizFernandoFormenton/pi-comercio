@@ -144,7 +144,7 @@ function PainelAdmAnuncios() {
 
                         <div className="mt-3 col-12">
 
-                            <table className="table table-sm" >
+                            <table className="table table-striped table-bordered" >
                                 <thead className="table-primary">
                                     <tr>
                                         <th scope="col">Id</th>
@@ -159,7 +159,7 @@ function PainelAdmAnuncios() {
 
                                     </tr>
                                 </thead>
-                                <tbody className="table-group-divider">
+                                <tbody>
 
 
 
@@ -175,7 +175,7 @@ function PainelAdmAnuncios() {
                                             <td>{item.imagem}</td>
                                             <td>{formataData(item.data)} às {formataHoras(item.data)}</td>
                                             <td>{item.status ? "Ativo" : "Inativo"}</td>
-                                            <td>{item.status ? (<button onClick={() => alteraStatusAnuncio(item)}>Recusar</button>) : <button onClick={() => alteraStatusAnuncio(item)}>Aceitar</button>}</td>
+                                            <td>{item.status ? (<button onClick={() => alteraStatusAnuncio(item)}>Desativar</button>) : <button onClick={() => alteraStatusAnuncio(item)}>Aceitar</button>}</td>
                                         </tr>
                                     )
                                     }
