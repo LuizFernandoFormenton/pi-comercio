@@ -13,17 +13,22 @@ export default function Login() {
   const [email, alteraEmail] = useState("")
   const [senha, alteraSenha] = useState("")
 
-  function autenticar() {
+  async function autenticar() {
 
-    if (email == "admin" && senha == "123123") {
-      alert("Conectado com SUCESSO ✅")
-      localStorage.setItem("logado", true)
-      alteraAutenticado(true)
-      location.href = "/"
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: senha,
 
-    } else {
-      alert("Erro! Algum dado esta incorreto, tente novamente...")
+    })
+
+    if(data.user == null){
+      alert("Dados inválidos...")
+      return
     }
+
+    alert("Autenticado com sucesso! ✅")
+    localStorage.setItem("id_usuario", data.user.id)
+
   }
 
   function desconectar() {
