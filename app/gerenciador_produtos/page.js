@@ -12,50 +12,30 @@ function Produtos() {
     const [valor, alteraValor] = useState("")
     const [created_at, alteraCreated_at] = useState("")
 
+    const [listaComercios, alteralistaComercios] = useState([])
+    const [editando, alteraEditando ] = useState(false)
+
+
+    async function buscarComercios() {
+
+        const { data} = await supabase
+            .from('comercios')
+            .select()
+        alteralistaComercios(data)
+    }
+
+
     async function buscar() {
-        const { data, error } = await supabase
+        const { data } = await supabase
             .from('produtos')
             .select(`
                 *,
-                id_comercio (nome)
+                id_comercio(*)
             `);
 
         alteraProdutos(data)
     }
-    async function salvar(e) {
-        e.preventDefault();
-
-        const objeto = {
-            id_comercio: id_comercio,
-            nome: nome,
-            descricao: descricao,
-            valor: valor.replaceAll(",", "."),
-            created_at: created_at
-        }
-
-
-        if (objeto.id_comercio.length < 1 || objeto.nome.length < 3 || objeto.descricao.length < 3 || objeto.valor.length < 1) {
-            alert("Campos inválidos ou quantidade de caracteres insuficiente.");
-            return;
-        }
-
-        const { error } = await supabase
-            .from('produtos')
-            .insert([objeto]);
-
-        if (error == null) {
-            alert("Produto cadastrado com sucesso");
-            alteraId_comercio("");
-            alteraNome("");
-            alteraDescricao("");
-            alteraValor("");
-            alteraCreated_at("");
-        } else {
-            console.error(error);
-            alert("Dados inválidos, verifique os campos e tente novamente...");
-        }
-    }
-
+    
     function formataData(data) {
         let data_formatadas = new Date(data)
         data_formatadas = data_formatadas.toLocaleDateString()
@@ -68,8 +48,90 @@ function Produtos() {
         return horas_formatadas
     }
 
+    async function deletar(id) {
+        const opcao = confirm("Tem certeza que deseja excluir?")
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase
+            .from('produtos')
+            .delete()
+            .eq('id', id)
+        
+    }
+
+     function editar(objeto){
+
+        alteraEditando(objeto.id)
+
+        alteraNome(objeto.produtos)
+        alteraDescricao(objeto.descricao)
+        alteraValor(objeto.valor)
+
+    }
+
+     function cancelaEdicao(){
+        
+        alteraEditando(null)
+
+        alteraNome("")
+        alteraDescricao("")
+        alteraValor("")
+    }
+        async function atualizar(){
+
+        const obj = {
+            nome: nome,
+            descricao: descricao,
+            valor: valor
+        }
+
+        const { error } = await supabase
+            .from('produtos')
+            .update(obj)
+            .eq('id', editando)
+
+        if(error == null){
+            alert("Atualização realizada com sucesso!")
+            cancelaEdicao()
+            buscar()
+        }else{
+            alert("Dados inválidos! Verifique os campos e tente novamente...")
+        }
+
+    }
+
+    async function salvar(e) {
+        e.preventDefault();
+
+        const objeto = {
+            id_comercio: id_comercio,
+            nome: nome,
+            descricao: descricao,
+            valor: valor.replaceAll(",", "."),
+            created_at: created_at
+        }
+
+
+        const { error } = await supabase
+            .from('produtos')
+            .insert([objeto]);
+
+        if (error == null) {
+            alert("Produto cadastrado com sucesso");
+            alteraId_comercio("");
+            alteraNome("");
+            alteraDescricao("");
+            alteraValor("");
+            alteraCreated_at("");
+
+        }
+    }
+
+
     useEffect(() => {
         buscar();
+        buscarComercios();
     }, []);
 
     return (
@@ -79,15 +141,22 @@ function Produtos() {
                 Gerenciador de Produtos
             </h1>
 
+
             <div className="d-flex justify-content-center min-vh-40">
 
                 <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
 
-                    <form className="row g-3">
+                    <form className="row g-3" onSubmit={salvar}>
 
                         <div className="col-12">
-                            <label htmlFor="empresa" className="form-label">Empresa</label>
-                            <input value={id_comercio} onChange={e => alteraId_comercio(e.target.value)} id="empresa" className="form-control" />
+                            <label htmlFor="empresa" className="form-label">Comércio:</label>
+                            <select id="empresa" className="form-select" value={id_comercio} onChange={e => alteraId_comercio(e.target.value)}>
+                                <option>Selecione o comércio:</option>
+                                {listaComercios.map
+                                    (item => (<option value={item.id}> {item.nome} </option>)
+                                )
+                            }
+                            </select>
                         </div>
 
                         <div className="col-md-12">
@@ -110,9 +179,17 @@ function Produtos() {
                             <input id="valor" type="number" className="form-control" value={created_at} onChange={e => alteraCreated_at(e.target.value)} />
                         </div>
 
-                        <div className="col-md-2 p-20">
+                    {
+                        editando != null ?
+                                <div>
+                            <button onClick={atualizar} >Atualizar</button>
+                            <button onClick={ ()=> cancelaEdicao() } >Cancelar</button>
+                                </div>
+                        :
+                                 <div className="col-md-2 p-20">
                             <button onClick={salvar} class="btn btn-warning p-4">Salvar</button>
-                        </div>
+                                 </div>
+                    }
 
                     </form>
                 </div>
@@ -134,6 +211,7 @@ function Produtos() {
                             <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Criado em</th>
+                            <th scope="col" style={{ color: "#ff6b00" }}>Acões</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,17 +224,18 @@ function Produtos() {
                             produtos.map(
                                 (item, index) => (
                                     <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{item.id_comercio.nome}</td>
-                                        <td>{item.nome}</td>
-                                        <td>{item.descricao}</td>
-                                        <td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>{index + 1}</td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.id_comercio.nome}</td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.nome}</td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.descricao}</td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>
                                             R$ {item.valor.toString().split('.')[0]},
                                             <small style={{ fontSize: '12px' }}>
                                                 {item.valor.toString().split('.')[1] || '00'}
                                             </small>
                                         </td>
-                                        <td>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
+                                        <td onClick={() => location.href = "/produtos/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
+                                        <td> <button onClick={ ()=> location.href="/produtos/"+item.id } >Ver</button> <button onClick={ ()=> editar(item) } >Editar</button> <button onClick={ ()=> deletar(item.id) } >Excluir</button> </td>
                                     </tr>
                                 ))
                         )}

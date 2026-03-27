@@ -11,7 +11,8 @@ export default function PerfilComerciante() {
 
 
     return (
-        <div className="container-fluid col-">
+        
+        <div className="container-fluid">
 
             <Produtos/>
 
