@@ -73,7 +73,7 @@ function Produtos() {
     }, []);
 
     return (
-        <div className="container py-5">
+        <div className="container-fluid py-5">
 
             <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
                 Gerenciador de Produtos
@@ -118,13 +118,13 @@ function Produtos() {
                 </div>
             </div >
 
-            <h2 className="text-center mb-4 fw-bold p-3 mt-5" style={{ color: "#ff6b00" }}>
+            {/* <h2 className="text-center mb-4 fw-bold p-3 mt-5" style={{ color: "#ff6b00" }}>
                 Produtos Cadastrados
             </h2>
 
-            <hr />
+            <hr /> */}
 
-            <div className="table-responsive">
+            {/* <div className="table-responsive">
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -162,7 +162,7 @@ function Produtos() {
                         )}
                     </tbody>
                 </table>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -1,6 +1,9 @@
+
+import "./perfil_comerciante/Perfil_comerciante.css"
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Script from "next/script";
+import MenuLateral from "./components/Menu_lateral";
 
 
 const geistSans = Geist({
@@ -19,12 +22,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="pt">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
 
-        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"/>
+        {children}
+
+        <MenuLateral/>
+
+        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" />
 
       </body>
     </html>

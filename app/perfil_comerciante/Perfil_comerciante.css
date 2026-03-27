@@ -5,6 +5,10 @@
     box-shadow: 4px 0 12px rgba(0, 0, 0, 4);
 }
 
+.fundo_card{
+    background-color: #ccc;
+}
+
 .editarPerfil {
     box-shadow: 4px 0 12px rgba(0, 0, 0, 4);
 

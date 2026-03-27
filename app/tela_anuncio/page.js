@@ -1,6 +1,7 @@
 'use client'
 
 import { createClient } from '@supabase/supabase-js'
+import Link from 'next/link';
 import { useState } from 'react';
 
 const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
@@ -39,8 +40,13 @@ export default function CadastroAnuncio() {
     <div className="d-flex justify-content-center min-vh-100">
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "1150px" }}>
         <div className="container mt-5">
-          <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
 
+          <Link href= "./perfil_comerciante">
+
+          <button type="submit" className="btn btn-primary">Voltar</button>
+
+          </Link>
+          <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
 
           <form onSubmit={inscrever}>
             <div className="mb-3">
