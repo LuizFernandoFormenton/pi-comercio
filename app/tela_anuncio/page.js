@@ -1,4 +1,7 @@
 'use client'
+
+import { createClient } from '@supabase/supabase-js'
+import Link from 'next/link';
 import "./tala_anuncio.css"
 import { useState } from 'react';
 import supabase from '../conexao/supabase';
@@ -53,6 +56,13 @@ export default function CadastroAnuncio() {
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "1150px" }}>
         <div className="container mt-5">
+
+          <Link href= "./perfil_comerciante">
+
+          <button type="submit" className="btn btn-primary">Voltar</button>
+
+          </Link>
+          <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
 
           <form onSubmit={inscrever}>
             <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>

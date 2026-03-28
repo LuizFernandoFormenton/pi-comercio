@@ -1,5 +1,9 @@
 'use client'
 
+import "./gerenciar_comercios.css"
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import supabase from "../conexao/supabase"
 import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
 import Link from "next/link"
@@ -14,7 +18,10 @@ function GerenciarComercios() {
     async function buscar() {
 
         const { data, error } = await supabase
+
             .from('comercios')
+            .select()
+            
             .select(`*`)
             .order('id', { ascending: true })
 
@@ -288,12 +295,12 @@ function GerenciarComercios() {
                                         <tr className="table-primary">
                                             <th scope="col">Id</th>
                                             <th scope="col">Nome</th>
-                                            <th scope="col">email</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Telefone</th>
                                             <th scope="col">WhatsApp</th>
                                             <th scope="col">Endereço Completo</th>
                                             <th scope="col">Categoria</th>
-                                            <th scope="col">Logo da impresa</th>
+                                            <th scope="col">Logo</th>
                                             <th scope="col">Descrição</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Ação</th>
@@ -321,7 +328,7 @@ function GerenciarComercios() {
                                                 </tr>
                                             )
                                         }
-                                    </tbody>
+                                    </tbody>    
                                 </table>
 
 
