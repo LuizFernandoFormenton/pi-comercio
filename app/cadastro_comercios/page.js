@@ -26,23 +26,54 @@ export default function CadastroComercios() {
 
         e.preventDefault()
 
+        const auth = {
+
+            email: email,
+            password: senha
+
+        }
+
+        const { data, error } = await supabase.auth.signUp(auth)
+
+        if(data == null){
+
+            alert("Dados inválidos...")
+            return
+
+        }
+
         const objeto = {
 
+            id: data.user.id,
             nome: nome,
-            email: email,
-            senha: senha,
             telefone: telefone,
             whatsapp: whatsapp,
             endereco: endereco,
             categoria: categoria,
             logo: logo,
-            descricao: descricao,
-            status: status,
-            admin: admin
+            descricao: descricao
 
         }
 
-        if (objeto.nome.length == 0){
+        const  resposta  = await supabase
+
+            .from('comercios')
+            .insert(objeto)
+            console.log(resposta.error)
+            console.log(resposta.data)
+
+
+        if (resposta.error == null) {
+
+            alert("Comércio cadastrado!")
+
+        } else {
+
+            alert("Verifique os campos e tente novamnte!")
+
+        }
+
+        if (objeto.nome.length == 0) {
 
             alert("Nome muito curto, digite novamente!")
 
@@ -60,24 +91,6 @@ export default function CadastroComercios() {
             return
         }
 
-        const { error } = await supabase
-
-            .from('comercios')
-            .insert(objeto)
-            alteraAdmin()
-            alteraStatus()
-            console.log(error)
-
-
-            if (error == null){
-
-                alert("Comércio cadastrado!") 
-
-            } else {
-
-                alert("Erro! Seu comércio não foi cadastrado...")
-
-            }
 
     }
 
