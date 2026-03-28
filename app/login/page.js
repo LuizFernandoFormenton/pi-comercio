@@ -32,18 +32,8 @@ export default function Login() {
   }
 
   function desconectar() {
-    alert("Desconectado com sucesso! Até breve!")
-    localStorage.removeItem("logado")
-    alteraAutenticado(false)
+    
   }
-
-  useEffect(() => {
-    const logado = localStorage.getItem("Logado")
-    if (logado == "true") {
-      alteraAutenticado(true)
-    }
-
-  }, [])
 
 
   return (

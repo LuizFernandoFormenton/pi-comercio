@@ -15,8 +15,8 @@ export default function CadastroUsuario() {
   const [confirmarSenha, alteraConfirmarSenha] = useState("")
   const [imagem, alteraImagem] = useState("")
   const [status, alteraStatus] = useState("")
-  
-  
+
+
   const [admin, alteraAdmin] = useState("")
 
   async function salvar(e) {
@@ -24,28 +24,41 @@ export default function CadastroUsuario() {
     e.preventDefault()
 
     if (senha != confirmarSenha) {
-    alert("As senhas não são iguais, confirme a senha digitada")
-    return
-  }
+      alert("As senhas não são iguais, confirme a senha digitada")
+      return
+    }
+    
+    //Autenticação para cadastrar novo usuário
+  
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: senha
+    })
 
+    if(data == null){
+      alert("Dados inválidos...")
+      return
+    }
+
+    //Dados a serem cadastrados na tabela de usuários
     const objeto = {
 
+      id: data.user.id,
       nome: nome,
       cpf: cpf,
       telefone: telefone,
-      email: email,
-      senha: senha,
       imagem: imagem
-      
+
     }
 
-    const { error } = await supabase
+    const resposta = await supabase
       .from('usuarios')
       .insert([objeto])
 
     console.log(error)
 
-    if (error == null) {
+
+    if (resposta.error == null) {
       alert("Usuário cadastrado com sucesso!!! ✅")
       alteraNome("")
       alteraCpf("")
@@ -55,7 +68,7 @@ export default function CadastroUsuario() {
       alteraConfirmarSenha("")
 
     } else {
-      alert("Dados inválidos, verifique os campos e tente novamente...")
+      alert("Verifique os dados inseridos e tente novamente...")
     }
 
   }
@@ -103,7 +116,7 @@ export default function CadastroUsuario() {
 
           {/* Confirmar senha */}
 
-           <div className="col-md-6">
+          <div className="col-md-6">
             <label htmlFor="senha" className="form-label">Confirmar Senha *</label>
             <input value={confirmarSenha} onChange={e => alteraConfirmarSenha(e.target.value)} id="senha" type="password" className="form-control" />
           </div>

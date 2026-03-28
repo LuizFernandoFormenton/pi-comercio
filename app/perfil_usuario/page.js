@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
 
 export default function PerfilUsuario() {
@@ -15,6 +15,25 @@ export default function PerfilUsuario() {
 
     const [editando, alteraEditando] = useState("")
 
+    const [usuario, alteraUsuario] = useState(null)
+
+    const id_usuario = localStorage.getItem("id_usuario")
+
+
+    async function buscarUsuario() {
+
+        const { data, error } = await supabase
+            .from("usuarios")
+            .select()
+            .eq("id", id_usuario)
+
+        console.log(data)
+
+        alteraUsuario(data[0])
+
+        console.log(error)
+    }
+
 
     async function atualizar() {
 
@@ -23,7 +42,7 @@ export default function PerfilUsuario() {
             cpf: cpf,
             telefone: telefone,
             email: email,
-            
+
         }
 
         const { error } = await supabase
@@ -87,6 +106,12 @@ export default function PerfilUsuario() {
 
     }
 
+    useEffect(() => {
+
+        buscarUsuario()
+
+    }, [])
+
 
     return (
         <div className="container-fluid">
@@ -100,7 +125,7 @@ export default function PerfilUsuario() {
 
                         <img className="my-2 text-center rounded-circle" width="200" src="/Programadora.avif" />
                         <h1 className="mt-1 fs-4">Geovana Ribeiro</h1>
-                        <p>Usuário desde 2026</p>
+                        <p>Bem-Vindo {usuario == null ? "Carregando..." : usuario.nome}</p>
                         <button onClick={atualizarImagem} className="btn btn-outline-dark">Alterar Foto</button>
                         <hr />
 
