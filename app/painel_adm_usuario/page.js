@@ -90,7 +90,7 @@ function PainelAdmUsuario() {
 
             <div className="row">
 
-                <div className="col-2 menuLateral">
+                {/* <div className="col-2 menuLateral"> 
                     <div className="text-center">
 
                         <img className="text-center rounded-circle" width="300" src="./Programadora.avif" />
@@ -106,9 +106,9 @@ function PainelAdmUsuario() {
 
                     </div>
 
-                </div>
+                </div> */}
 
-                <div className="col-10" >
+                <div className="" >
 
                     {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 
