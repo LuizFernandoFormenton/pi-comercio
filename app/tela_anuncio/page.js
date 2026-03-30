@@ -2,7 +2,6 @@
 
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link';
-import "./tala_anuncio.css"
 import { useState } from 'react';
 import supabase from '../conexao/supabase';
 
@@ -65,7 +64,6 @@ export default function CadastroAnuncio() {
           <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
 
           <form onSubmit={inscrever}>
-            <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
 
             <div className="mb-3">
               <label className="form-label">Descrição</label>
