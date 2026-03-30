@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link';
 import { useState } from 'react';
 import supabase from '../conexao/supabase';
+tela.className
 
 export default function CadastroAnuncio() {
 
