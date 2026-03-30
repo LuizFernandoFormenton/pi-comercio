@@ -8,16 +8,26 @@ function Pagina_inicial() {
 
   const [listaComercios, alteraListaComercios] = useState([])
   const [listaAnuncios, alteraListaAnuncios] = useState([])
+  const [categoria, setCategoria] = useState("")
 
   async function buscarComercios() {
-    const { data} = await supabase
+  if (categoria === "") {
+    const { data } = await supabase
       .from('comercios')
       .select()
+
+    alteraListaComercios(data)
+  } else {
+    const { data } = await supabase
+      .from('comercios')
+      .select()
+      .eq('categoria', categoria)
+
     alteraListaComercios(data)
   }
-
+}
   async function buscarAnuncios() {
-    const { data} = await supabase
+    const { data } = await supabase
       .from('anuncios')
       .select('*')
     alteraListaAnuncios(data)
@@ -25,12 +35,13 @@ function Pagina_inicial() {
 
   useEffect(() => {
     buscarComercios();
+  }, [categoria]);
+
+  useEffect(() => {
     buscarAnuncios();
   }, []);
 
   return (
-
-
     <div className="container-fluid">
 
       {/* LINHA SUPERIOR */}
@@ -66,7 +77,7 @@ function Pagina_inicial() {
             <li
               className="list-group-item"
               style={{ cursor: "pointer" }}
-              onClick={() => location.href = "/categoria/Restaurantes"}
+              onClick={() => setCategoria("Restaurantes")}
             >
               🍽️ Restaurantes
             </li>
@@ -74,7 +85,7 @@ function Pagina_inicial() {
             <li
               className="list-group-item"
               style={{ cursor: "pointer" }}
-              onClick={() => location.href = "/categoria/Lanchonetes"}
+              onClick={() => setCategoria("Lanchonetes")}
             >
               🍔 Lanchonetes
             </li>
@@ -82,7 +93,7 @@ function Pagina_inicial() {
             <li
               className="list-group-item"
               style={{ cursor: "pointer" }}
-              onClick={() => location.href = "/categoria/Pizzarias"}
+              onClick={() => setCategoria("Pizzarias")}
             >
               🍕 Pizzarias
             </li>
@@ -90,7 +101,7 @@ function Pagina_inicial() {
             <li
               className="list-group-item"
               style={{ cursor: "pointer" }}
-              onClick={() => location.href = "/categoria/Mercados"}
+              onClick={() => setCategoria("Mercados")}
             >
               🛒 Mercados
             </li>
@@ -98,9 +109,17 @@ function Pagina_inicial() {
             <li
               className="list-group-item"
               style={{ cursor: "pointer" }}
-              onClick={() => location.href = "/categoria/Moda"}
+              onClick={() => setCategoria("Moda")}
             >
               👗 Moda
+            </li>
+
+            <li
+              className="list-group-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => setCategoria("")}
+            >
+              🔄 Ver todos
             </li>
           </ul>
         </div>
@@ -108,19 +127,22 @@ function Pagina_inicial() {
         {/* CONTEÚDO */}
         <div className="col-md-9">
           <div className="row justify-content-center g-4">
-            
 
             {/* ANÚNCIOS */}
-
-            <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+            <div
+              id="carouselExampleSlidesOnly"
+              className="carousel slide"
+              data-bs-ride="carousel"
+            >
               <div className="carousel-inner">
-                {listaAnuncios.map((item) => (
+                {listaAnuncios.map((item, index) => (
                   <div
-                    className={"carousel-item active"}
+                    key={item.id || index}
+                    className={index === 0 ? "carousel-item active" : "carousel-item"}
                   >
                     <img
                       src={item.imagem}
-                      className="d-block w-70"
+                      className="d-block w-100"
                       alt="Anúncio"
                       onClick={() => location.href = item.url}
                     />
@@ -130,8 +152,8 @@ function Pagina_inicial() {
             </div>
 
             {/* COMÉRCIOS */}
-            {listaComercios.map((item) => (
-              <div className="col-md-4 d-flex justify-content-center">
+            {listaComercios.map((item, index) => (
+              <div className="col-md-4 d-flex justify-content-center" key={item.id || index}>
                 <div className="card shadow" style={{ width: "22rem" }}>
                   <img
                     src={item.logo}
