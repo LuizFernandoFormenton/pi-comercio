@@ -1,9 +1,7 @@
 'use client'
 
-import "./gerenciar_comercios.css"
-import { useEffect, useState } from 'react'
+
 import { useParams } from 'next/navigation'
-import supabase from "../conexao/supabase"
 import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
 import Link from "next/link"
@@ -20,8 +18,6 @@ function GerenciarComercios() {
         const { data, error } = await supabase
 
             .from('comercios')
-            .select()
-            
             .select(`*`)
             .order('id', { ascending: true })
 
@@ -83,7 +79,7 @@ function GerenciarComercios() {
 
             <div className="row">
 
-                <div className="col-2 menuLateral">
+                {/* <div className="col-2 menuLateral">
                     <div className="text-center">
 
                         <img className="text-center rounded-circle" width="300" src="./Programadora.avif" />
@@ -98,9 +94,9 @@ function GerenciarComercios() {
 
                     </div>
 
-                </div>
+                </div> */}
 
-                <div className="col-10" >
+                <div className="" >
 
                     {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 

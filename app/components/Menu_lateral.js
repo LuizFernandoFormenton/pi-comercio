@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import supabase from "../conexao/supabase";
 
 function MenuLateral() {
 
@@ -91,7 +92,7 @@ function MenuLateral() {
 
 
         
-        <div className=" col-2 menuLateral text-white">
+        <div className="  menuLateral text-white">
 
             
 

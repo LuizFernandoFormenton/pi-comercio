@@ -26,11 +26,27 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
 
-        {children}
+        <div className="container-fluid" >
 
-        <MenuLateral/>
+          <div className="row" > 
+
+          <div className="col-2">
+
+            <MenuLateral />
+
+          </div>
+
+          <div className="col-10" >
+
+            {children}
+
+          </div>
+
+          </div>
+
+        </div>
+
 
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" />
 
