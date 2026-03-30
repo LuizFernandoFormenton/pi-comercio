@@ -120,8 +120,8 @@ export default function PerfilUsuario() {
 
                 {/* Menu Lateral */}
 
-                <div className="col-2 menuLateral">
-                    <div className="text-center">
+                <div className="col- ">
+                    {/* <div className="text-center">
 
                         <img className="my-2 text-center rounded-circle" width="200" src="/Programadora.avif" />
                         <h1 className="mt-1 fs-4">Geovana Ribeiro</h1>
@@ -137,17 +137,17 @@ export default function PerfilUsuario() {
                         <a href="#" className="list-group-item list-group-item-action">Favoritos</a>
                         <a href="#" className="list-group-item list-group-item-action">Editar Perfil</a>
 
-                    </div>
+                    </div> */}
 
-                    <div className="text-center mt-auto">
+                    {/* <div className="text-center mt-auto">
 
                         <button className="my-2 text-center btn btn-outline-light">Sair</button>
 
-                    </div>
+                    </div> */}
 
                 </div>
 
-                <div className="col-2"></div>
+                <div className="col-"></div>
 
                 {/* Perfil do usuário */}
 

@@ -13,7 +13,7 @@ function Produtos() {
     const [created_at, alteraCreated_at] = useState("")
 
     const [listaComercios, alteralistaComercios] = useState([])
-    const [editando, alteraEditando ] = useState(false)
+    const [editando, alteraEditando ] = useState(null)
 
 
     async function buscarComercios() {
@@ -64,7 +64,7 @@ function Produtos() {
 
         alteraEditando(objeto.id)
 
-        alteraNome(objeto.produtos)
+        alteraNome(objeto.nome)
         alteraDescricao(objeto.descricao)
         alteraValor(objeto.valor)
 
@@ -174,10 +174,6 @@ function Produtos() {
                             <input id="valor" type="number" className="form-control" value={valor} onChange={e => alteraValor(e.target.value)} />
                         </div>
 
-                        <div className="col-md-5">
-                            <label htmlFor="valor" className="form-label">Criado em:</label>
-                            <input id="valor" type="number" className="form-control" value={created_at} onChange={e => alteraCreated_at(e.target.value)} />
-                        </div>
 
                     {
                         editando != null ?
@@ -195,18 +191,18 @@ function Produtos() {
                 </div>
             </div >
 
-            {/* <h2 className="text-center mb-4 fw-bold p-3 mt-5" style={{ color: "#ff6b00" }}>
+            <h2 className="text-center mb-4 fw-bold p-3 mt-5" style={{ color: "#ff6b00" }}>
                 Produtos Cadastrados
             </h2>
 
-            <hr /> */}
+            <hr /> 
 
-            {/* <div className="table-responsive">
+             <div className="table-responsive">
                 <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" style={{ color: "#ff6b00" }}>#</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Empresa</th>
+                            <th scope="col" style={{ color: "#ff6b00" }}>Comércio</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Produto</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
@@ -241,7 +237,7 @@ function Produtos() {
                         )}
                     </tbody>
                 </table>
-            </div> */}
+            </div> 
         </div>
     );
 }
