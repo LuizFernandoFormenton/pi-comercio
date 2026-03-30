@@ -45,6 +45,7 @@ export default function CadastroUsuario() {
 
       id: data.user.id,
       nome: nome,
+      email: email,
       cpf: cpf,
       telefone: telefone,
       imagem: imagem
