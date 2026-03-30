@@ -92,7 +92,7 @@ function MenuLateral() {
 
 
         
-        <div className="  menuLateral text-white">
+        <div className=" menuLateral text-white">
 
             
 

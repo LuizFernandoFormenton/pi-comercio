@@ -85,24 +85,11 @@ function PainelAdmAnuncios() {
 
             <div className="row">
 
-                <div className="col-2 menuLateral">
-                    <div className="text-center">
-
-                        <img className="text-center rounded-circle" width="300" src="./Programadora.avif" />
-                        <h1 className="mt-1 fs-4">Adm. Geovana 🌷</h1>
-
-                    </div>
-
-                    <div className="mt-5 fs-5 list-group list-group-flush">
-                        <Link href="/painel_adm_usuario" className="list-group-item list-group-item-action">Usuários</Link>
-                        <Link href="/painel_gerenciar_comercios" className="list-group-item list-group-item-action">Comércios</Link>
-                        <Link href="/painel_aprovacao_anuncio" className="list-group-item list-group-item-action">Aprovação de Anúncios</Link>
-
-                    </div>
+                <div className="">
 
                 </div>
 
-                <div className="col-10" >
+                <div className="" >
 
                     {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 
