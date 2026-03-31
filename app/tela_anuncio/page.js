@@ -52,9 +52,17 @@ export default function CadastroAnuncioModal() {
   return (
     <>
       {/* Botão para disparar a modal (Coloque onde desejar na sua tela) */}
+      <div>
+        <h1 className="text-center mt-5">Bem-vindo ao painel de anúncios!</h1>
+        <p className="text-center mb-4">Crie seu anúncio e destaque seu negócio!</p>
+        
+      </div>
+    <div className='text-center'>
       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastroAnuncio">
         Criar Novo Anúncio
       </button>
+      
+    </div>
 
       {/* Estrutura da Modal */}
       <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -85,6 +93,7 @@ export default function CadastroAnuncioModal() {
                     onChange={e => setPlanos(e.target.value)}
                     className="form-select"
                     required
+                  
                   >
                     <option value="">Selecione</option>
                     <option value="30">30 dias</option>
