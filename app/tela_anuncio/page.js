@@ -1,13 +1,10 @@
 'use client'
 
-import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link';
 import { useState } from 'react';
 import supabase from '../conexao/supabase';
 
-
-export default function CadastroAnuncio() {
-
+export default function CadastroAnuncioModal() {
   const [descricao, setDescricao] = useState("");
   const [planos, setPlanos] = useState("");
   const [link, setLink] = useState("");
@@ -27,7 +24,7 @@ export default function CadastroAnuncio() {
     }
 
     const obj = {
-      id_comercio: id_comercio(),
+      // id_comercio: id_comercio(), // Certifique-se que esta função existe no escopo
       descricao: descricao,
       planos: planos,
       url: link,
@@ -44,6 +41,7 @@ export default function CadastroAnuncio() {
         alert("Erro ao salvar: " + error.message);
       } else {
         alert("Anúncio cadastrado com sucesso!");
+        // Opcional: fechar a modal ou limpar campos aqui
       }
 
     } catch (err) {
@@ -52,77 +50,80 @@ export default function CadastroAnuncio() {
   }
 
   return (
-    <div className="d-flex justify-content-center min-vh-100">
+    <>
+      {/* Botão para disparar a modal (Coloque onde desejar na sua tela) */}
+      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastroAnuncio">
+        Criar Novo Anúncio
+      </button>
 
-      <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "1150px" }}>
-        <div className="container mt-5">
-
-          <Link href= "./perfil_comerciante">
-
-          <button type="submit" className="btn btn-primary">Voltar</button>
-
-          </Link>
-          <h1 className="mb-4">Cadastre seu anúncio e impulsione seu negócio</h1>
-
-          <form onSubmit={inscrever}>
-
-            <div className="mb-3">
-              <label className="form-label">Descrição</label>
-              <input
-                onChange={e => setDescricao(e.target.value)}
-                type="text"
-                className="form-control"
-                required
-              />
+      {/* Estrutura da Modal */}
+      <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-content">
+            
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="modalLabel">Cadastre seu anúncio e impulsione seu negócio</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label">Planos</label>
-              <select
-                onChange={e => setPlanos(e.target.value)}
-                className="form-select"
-                required
-              >
-                <option value="">Selecione</option>
-                <option value="30">30 dias</option>
-                <option value="45">45 dias</option>
-                <option value="60">60 dias</option>
-                <option value="90">90 dias</option>
-              </select>
+            <div className="modal-body">
+              <form onSubmit={inscrever}>
+                
+                <div className="mb-3">
+                  <label className="form-label">Descrição</label>
+                  <input
+                    onChange={e => setDescricao(e.target.value)}
+                    type="text"
+                    className="form-control"
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Planos</label>
+                  <select
+                    onChange={e => setPlanos(e.target.value)}
+                    className="form-select"
+                    required
+                  >
+                    <option value="">Selecione</option>
+                    <option value="30">30 dias</option>
+                    <option value="45">45 dias</option>
+                    <option value="60">60 dias</option>
+                    <option value="90">90 dias</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Link para o site</label>
+                  <input
+                    onChange={e => setLink(e.target.value)}
+                    type="url"
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Adicione o url da imagem</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    onChange={(e) => setImagem(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="modal-footer px-0 pb-0 mt-4">
+                  <button type="submit" className="btn btn-primary"> Enviar </button>
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"> Cancelar </button>
+                </div>
+
+              </form>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label">Link para o site</label>
-              <input
-                onChange={e => setLink(e.target.value)}
-                type="url"
-                className="form-control"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Adicione o url da imagem</label>
-              <input
-                type="file"
-                className="form-control"
-                onChange={(e) => setImagem(e.target.value)}
-                required
-              />
-            </div>
-
-            <hr />
-
-            <button type="submit" className="btn btn-primary">
-              Enviar
-            </button>
-
-            <button type="button" className="btn btn-secondary ms-2">
-              Cancelar
-            </button>
-
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
