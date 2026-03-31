@@ -4,21 +4,21 @@ import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
 
 function Produtos() {
+
     const [produtos, alteraProdutos] = useState([])
 
     const [id_comercio, alteraId_comercio] = useState("")
     const [nome, alteraNome] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [valor, alteraValor] = useState("")
-    const [created_at, alteraCreated_at] = useState("")
 
     const [listaComercios, alteralistaComercios] = useState([])
-    const [editando, alteraEditando ] = useState(null)
+    const [editando, alteraEditando] = useState(null)
 
 
     async function buscarComercios() {
 
-        const { data} = await supabase
+        const { data } = await supabase
             .from('comercios')
             .select()
         alteralistaComercios(data)
@@ -26,16 +26,14 @@ function Produtos() {
 
 
     async function buscar() {
-        const { data } = await supabase
+        const { error, data } = await supabase
             .from('produtos')
-            .select(`
-                *,
-                id_comercio(*)
-            `);
+            .select();
 
         alteraProdutos(data)
+        console.log(error)
     }
-    
+
     function formataData(data) {
         let data_formatadas = new Date(data)
         data_formatadas = data_formatadas.toLocaleDateString()
@@ -57,10 +55,10 @@ function Produtos() {
             .from('produtos')
             .delete()
             .eq('id', id)
-        
+
     }
 
-     function editar(objeto){
+    function editar(objeto) {
 
         alteraEditando(objeto.id)
 
@@ -70,15 +68,15 @@ function Produtos() {
 
     }
 
-     function cancelaEdicao(){
-        
+    function cancelaEdicao() {
+
         alteraEditando(null)
 
         alteraNome("")
         alteraDescricao("")
         alteraValor("")
     }
-        async function atualizar(){
+    async function atualizar() {
 
         const obj = {
             nome: nome,
@@ -91,39 +89,42 @@ function Produtos() {
             .update(obj)
             .eq('id', editando)
 
-        if(error == null){
+        if (error == null) {
             alert("Atualização realizada com sucesso!")
             cancelaEdicao()
             buscar()
-        }else{
+        } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
 
     }
 
     async function salvar(e) {
+
         e.preventDefault();
 
         const objeto = {
-            id_comercio: id_comercio,
+
             nome: nome,
             descricao: descricao,
-            valor: valor.replaceAll(",", "."),
-            created_at: created_at
+            valor: valor.replaceAll(",", ".")
+
         }
+
 
 
         const { error } = await supabase
             .from('produtos')
-            .insert([objeto]);
+            .insert(objeto);
+
+        console.log(error)
 
         if (error == null) {
             alert("Produto cadastrado com sucesso");
-            alteraId_comercio("");
             alteraNome("");
             alteraDescricao("");
             alteraValor("");
-            alteraCreated_at("");
+
 
         }
     }
@@ -137,27 +138,18 @@ function Produtos() {
     return (
         <div className="container-fluid py-5">
 
-            <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
-                Gerenciador de Produtos
-            </h1>
 
 
             <div className="d-flex justify-content-center min-vh-40">
 
                 <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "800px" }}>
 
+                    <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
+                        Criar produto
+                    </h1>
+
                     <form className="row g-3" onSubmit={salvar}>
 
-                        <div className="col-12">
-                            <label htmlFor="empresa" className="form-label">Comércio:</label>
-                            <select id="empresa" className="form-select" value={id_comercio} onChange={e => alteraId_comercio(e.target.value)}>
-                                <option>Selecione o comércio:</option>
-                                {listaComercios.map
-                                    (item => (<option value={item.id}> {item.nome} </option>)
-                                )
-                            }
-                            </select>
-                        </div>
 
                         <div className="col-md-12">
                             <label htmlFor="produto" className="form-label">Produtos</label>
@@ -175,17 +167,17 @@ function Produtos() {
                         </div>
 
 
-                    {
-                        editando != null ?
+                        {
+                            editando != null ?
                                 <div>
-                            <button onClick={atualizar} >Atualizar</button>
-                            <button onClick={ ()=> cancelaEdicao() } >Cancelar</button>
+                                    <button onClick={atualizar} >Atualizar</button>
+                                    <button onClick={() => cancelaEdicao()} >Cancelar</button>
                                 </div>
-                        :
-                                 <div className="col-md-2 p-20">
-                            <button onClick={salvar} class="btn btn-warning p-4">Salvar</button>
-                                 </div>
-                    }
+                                :
+                                <div className="col-md-2 p-20">
+                                    <button onClick={salvar} class="btn btn-warning p-4">Salvar</button>
+                                </div>
+                        }
 
                     </form>
                 </div>
@@ -195,14 +187,13 @@ function Produtos() {
                 Produtos Cadastrados
             </h2>
 
-            <hr /> 
+            <hr />
 
-             <div className="table-responsive">
+            <div className="table-responsive">
                 <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" style={{ color: "#ff6b00" }}>#</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Comércio</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Produto</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
@@ -221,7 +212,6 @@ function Produtos() {
                                 (item, index) => (
                                     <tr>
                                         <td onClick={() => location.href = "/produtos/" + item.id}>{index + 1}</td>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.id_comercio.nome}</td>
                                         <td onClick={() => location.href = "/produtos/" + item.id}>{item.nome}</td>
                                         <td onClick={() => location.href = "/produtos/" + item.id}>{item.descricao}</td>
                                         <td onClick={() => location.href = "/produtos/" + item.id}>
@@ -231,13 +221,13 @@ function Produtos() {
                                             </small>
                                         </td>
                                         <td onClick={() => location.href = "/produtos/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
-                                        <td> <button onClick={ ()=> location.href="/produtos/"+item.id } >Ver</button> <button onClick={ ()=> editar(item) } >Editar</button> <button onClick={ ()=> deletar(item.id) } >Excluir</button> </td>
+                                        <td> <button onClick={() => location.href = "/produtos/" + item.id} >Ver</button> <button onClick={() => editar(item)} >Editar</button> <button onClick={() => deletar(item.id)} >Excluir</button> </td>
                                     </tr>
                                 ))
                         )}
                     </tbody>
                 </table>
-            </div> 
+            </div>
         </div>
     );
 }
