@@ -30,7 +30,7 @@ function Produtos() {
             .delete()
             .eq('id', id)
 
-            buscar()
+        buscar()
 
     }
 
@@ -57,7 +57,7 @@ function Produtos() {
 
     }
 
-    function cancelaEdicao(){
+    function cancelaEdicao() {
 
         alteraEditando(null)
 
@@ -68,28 +68,28 @@ function Produtos() {
 
     }
 
-    async function atualizar(){
+    async function atualizar() {
 
         const objeto = {
 
             nome: nome,
             descricao: descricao,
             valor: valor
-            
+
         }
 
         const { error } = await supabase
-        .from('produtos')
-        .update(objeto)
-        .eq('id', editando)
+            .from('produtos')
+            .update(objeto)
+            .eq('id', editando)
 
-        
 
-        if(error == null){
+
+        if (error == null) {
 
             alert("Produto alterado com sucesso!")
             cancelaEdicao()
-            
+
         } else {
 
             alert("Dados invalidos! Verifique os campos e teste novamnete...")
@@ -105,7 +105,7 @@ function Produtos() {
     }, [])
 
     return (
-        <div  >
+        <div className="row" >
 
             {/* Modal */}
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,12 +121,12 @@ function Produtos() {
                                 <label htmlFor="nome" className="form-label">Nome:</label>
                                 <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
 
-                                <br/>
+                                <br />
 
                                 <label htmlFor="nome" className="form-label">Descrição:</label>
                                 <input value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" id="nome" />
 
-                                <br/>
+                                <br />
 
                                 <label htmlFor="nome" className="form-label">Valor:</label>
                                 <input value={valor} onChange={e => alteraValor(e.target.value)} className="form-control" id="nome" />
@@ -141,9 +141,43 @@ function Produtos() {
                 </div>
             </div>
 
-            <h2 className="mb-4">Meus Produtos</h2>
+            <h1 className="mb-4">Meus Produtos</h1>
 
             <hr />
+
+            <div className="col-10">
+
+                {/* Esse aqui é para pesquisar por nome */}
+                <div className="input-group">
+                    <input type="text" className="form-control" placeholder="Pesquisar..."
+                        aria-label="Recipients username" aria-describedby="basic-addon2" />
+                    <button className="input-group-text" id="basic-addon2">🔍</button>
+                </div>
+
+            </div>
+
+            <div className="col-2">
+
+                <div className="input-group">
+                    <select className="form-select" id="inputGroupSelect01">
+                        <option value="Filtrar" disabled selected>Filtrar</option>
+                        <option value="true">Ativos</option>
+                        <option value="false">Inativos</option>
+                    </select>
+                </div>
+
+            </div>
+            {/* Esse aqui é para filtrar por ativo e inativo */}
+
+
+
+            <div className="text-end my-2">
+
+                <button onClick={()=>{location.href = "gerenciador_produtos"}} className="btn btn-primary">Criar</button>
+
+            </div>
+
+
 
             <div className="table-responsive">
                 <table className="table table-striped table-bordered">
@@ -171,7 +205,7 @@ function Produtos() {
                                     <td>
                                         {new Date(item.created_at).toLocaleString()}
                                     </td>
-                                    <td style={{ width: "1%" }}> <button onClick={() => excluir(item.id) } className=" btn btn-danger" > Excluir </button> <td style={{ width: "1%" }}> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editar(item)} className=" btn btn-primary" > Editar </button> </td> </td>
+                                    <td style={{ width: "1%" }}> <button onClick={() => excluir(item.id)} className=" btn btn-danger" > Excluir </button> <td style={{ width: "1%" }}> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editar(item)} className=" btn btn-primary" > Editar </button> </td> </td>
                                 </tr>
                             ))
                         }

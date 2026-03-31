@@ -16,17 +16,6 @@ export default function PerfilComerciante() {
 
             <Produtos/>
 
-            <div className=" min-vh-100">           
-
-                {/* CONTEÚDO PRINCIPAL */}
-                
-                <div className="">
-
-                    
-
-                </div>
-
-            </div>
         </div>
     );
 }
