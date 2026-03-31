@@ -12,19 +12,10 @@ export default function CadastroAnuncioModal() {
 
   async function inscrever(e) {
     e.preventDefault();
-
-    if (!planos) {
-      alert("Por favor, selecione um plano.");
-      return;
-    }
-
-    if (!imagem) {
-      alert("Adicione uma imagem do anúncio");
-      return;
-    }
+    if (!planos) { alert("Por favor, selecione um plano."); return; }
+    if (!imagem) { alert("Adicione uma imagem do anúncio"); return; }
 
     const obj = {
-      // id_comercio: id_comercio(), // Certifique-se que esta função existe no escopo
       descricao: descricao,
       planos: planos,
       url: link,
@@ -33,68 +24,90 @@ export default function CadastroAnuncioModal() {
     };
 
     try {
-      const { error } = await supabase
-        .from('anuncios')
-        .insert([obj]);
-
+      const { error } = await supabase.from('anuncios').insert([obj]);
       if (error) {
         alert("Erro ao salvar: " + error.message);
       } else {
         alert("Anúncio cadastrado com sucesso!");
-        // Opcional: fechar a modal ou limpar campos aqui
       }
-
     } catch (err) {
       console.error('Erro inesperado:', err);
     }
   }
 
   return (
-    <>
-      {/* Botão para disparar a modal (Coloque onde desejar na sua tela) */}
-      <div className="container mt-5" style={{ color: "#f1701a" }}>
-        <h1 className="text-center mt-5">Bem-vindo ao painel de anúncios!</h1>
-        <p className="text-center mb-4">Crie seu anúncio e destaque seu negócio!</p>
-        
-      </div>
-    <div className='text-center'>
-      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroAnuncio">
-        Criar Novo Anúncio
-      </button>
+    <main style={{
+      position: 'relative',
+      minHeight: '100vh',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden'
+    }}>
       
-    </div>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundImage: 'url("https://caminhodafe.com.br/ptbr/wp-content/uploads/2016/12/Catedral.jpg")', 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'blur(10px)',
+        zIndex: -1,
+        transform: 'scale(1.1)'
 
-      {/* Estrutura da Modal */}
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        zIndex: -1
+      }} />
+
+      <div className="container" zIndex={1} style={{ maxWidth: "600px" }}>
+        <div className="text-center" style={{ color: "white" }}>
+          <h1 className="display-4 fw-bold" style={{ color: "#f06509b6" }}>
+            Bem-vindo ao painel de anúncios!
+          </h1>
+          <p className="fs-5 mb-4">Crie seu anúncio e destaque seu negócio!</p>
+          
+          <button 
+            type="button" 
+            className="btn btn-success btn-lg shadow" 
+            data-bs-toggle="modal" 
+            data-bs-target="#modalCadastroAnuncio"
+          >
+            Criar Novo Anúncio
+          </button>
+        </div>
+      </div>
+
       <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-lg">
-          <div className="modal-content">
-            
+          <div className="modal-content shadow-lg">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="modalLabel">Cadastre seu anúncio e impulsione seu negócio</h1>
+              <h1 className="modal-title fs-5" id="modalLabel">Cadastre seu anúncio</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div className="modal-body" style={{color: "orange"}}>
+            <div className="modal-body" style={{ color: "#e67e22" }}>
               <form onSubmit={inscrever}>
-                
                 <div className="mb-3">
-                  <label className="form-label">Descrição</label>
-                  <input
-                    onChange={e => setDescricao(e.target.value)}
-                    type="text"
-                    className="form-control"
-                    required
-                  />
+                  <label className="form-label fw-bold">Descrição</label>
+                  <input onChange={e => setDescricao(e.target.value)} type="text" className="form-control" required />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">Planos</label>
-                  <select
-                    onChange={e => setPlanos(e.target.value)}
-                    className="form-select"
-                    required
-                  
-                  >
+                  <label className="form-label fw-bold">Planos</label>
+                  <select onChange={e => setPlanos(e.target.value)} className="form-select" required>
                     <option value="">Selecione</option>
                     <option value="30">30 dias</option>
                     <option value="45">45 dias</option>
@@ -104,35 +117,24 @@ export default function CadastroAnuncioModal() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">Link para o site</label>
-                  <input
-                    onChange={e => setLink(e.target.value)}
-                    type="url"
-                    className="form-control"
-                  />
+                  <label className="form-label fw-bold">Link para o site</label>
+                  <input onChange={e => setLink(e.target.value)} type="url" className="form-control" />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">Adicione o url da imagem</label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    onChange={(e) => setImagem(e.target.value)}
-                    required
-                  />
+                  <label className="form-label fw-bold">URL da imagem</label>
+                  <input type="text" className="form-control" onChange={(e) => setImagem(e.target.value)} required placeholder="http://..." />
                 </div>
 
                 <div className="modal-footer px-0 pb-0 mt-4">
-                  <button type="submit" className="btn btn-success"> Enviar </button>
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal"> Cancelar </button>
+                  <button type="submit" className="btn btn-success px-4">Enviar</button>
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
-
               </form>
             </div>
-
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }
