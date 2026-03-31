@@ -12,15 +12,15 @@ export default function PerfilComerciante() {
 
     return (
         
-        <div className="container-fluid">
+        <div  className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
 
             <Produtos/>
 
-            <div className=" min-vh-100">           
+            <div  className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>           
 
                 {/* CONTEÚDO PRINCIPAL */}
                 
-                <div className="">
+                <div  className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>
 
                     
 

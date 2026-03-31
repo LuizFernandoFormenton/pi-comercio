@@ -30,7 +30,7 @@ function Produtos() {
             .delete()
             .eq('id', id)
 
-            buscar()
+        buscar()
 
     }
 
@@ -57,7 +57,7 @@ function Produtos() {
 
     }
 
-    function cancelaEdicao(){
+    function cancelaEdicao() {
 
         alteraEditando(null)
 
@@ -68,28 +68,28 @@ function Produtos() {
 
     }
 
-    async function atualizar(){
+    async function atualizar() {
 
         const objeto = {
 
             nome: nome,
             descricao: descricao,
             valor: valor
-            
+
         }
 
         const { error } = await supabase
-        .from('produtos')
-        .update(objeto)
-        .eq('id', editando)
+            .from('produtos')
+            .update(objeto)
+            .eq('id', editando)
 
-        
 
-        if(error == null){
+
+        if (error == null) {
 
             alert("Produto alterado com sucesso!")
             cancelaEdicao()
-            
+
         } else {
 
             alert("Dados invalidos! Verifique os campos e teste novamnete...")
@@ -121,12 +121,12 @@ function Produtos() {
                                 <label htmlFor="nome" className="form-label">Nome:</label>
                                 <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
 
-                                <br/>
+                                <br />
 
                                 <label htmlFor="nome" className="form-label">Descrição:</label>
                                 <input value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" id="nome" />
 
-                                <br/>
+                                <br />
 
                                 <label htmlFor="nome" className="form-label">Valor:</label>
                                 <input value={valor} onChange={e => alteraValor(e.target.value)} className="form-control" id="nome" />
@@ -154,6 +154,7 @@ function Produtos() {
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Valor</th>
+                            <th>Imagem</th>
                             <th>Criado em</th>
                             <th>Ações</th>
 
@@ -169,9 +170,17 @@ function Produtos() {
                                     <td>{item.descricao}</td>
                                     <td>R$ {item.valor}</td>
                                     <td>
+                                        <img
+                                            src="./supabase/produtos/item.imagem"
+                                            className="text-center rounded-circle"
+                                            width="150"
+                                        />
+                                    </td>
+
+                                    <td>
                                         {new Date(item.created_at).toLocaleString()}
                                     </td>
-                                    <td style={{ width: "1%" }}> <button onClick={() => excluir(item.id) } className=" btn btn-danger" > Excluir </button> <td style={{ width: "1%" }}> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editar(item)} className=" btn btn-primary" > Editar </button> </td> </td>
+                                    <td style={{ width: "1%" }}> <button onClick={() => excluir(item.id)} className=" btn btn-danger" > Excluir </button> <td style={{ width: "1%" }}> <button data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editar(item)} className=" btn btn-primary" > Editar </button> </td> </td>
                                 </tr>
                             ))
                         }

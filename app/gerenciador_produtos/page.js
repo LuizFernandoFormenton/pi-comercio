@@ -11,6 +11,7 @@ function Produtos() {
     const [nome, alteraNome] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [valor, alteraValor] = useState("")
+    const [imagem, alteraImagem] = useState("")
 
     const [listaComercios, alteralistaComercios] = useState([])
     const [editando, alteraEditando] = useState(null)
@@ -65,6 +66,7 @@ function Produtos() {
         alteraNome(objeto.nome)
         alteraDescricao(objeto.descricao)
         alteraValor(objeto.valor)
+        alteraImagem(objeto.imagem)
 
     }
 
@@ -75,13 +77,15 @@ function Produtos() {
         alteraNome("")
         alteraDescricao("")
         alteraValor("")
+        alteraImagem(" ")
     }
     async function atualizar() {
 
         const obj = {
             nome: nome,
             descricao: descricao,
-            valor: valor
+            valor: valor,
+            imagem: imagem
         }
 
         const { error } = await supabase
@@ -107,11 +111,10 @@ function Produtos() {
 
             nome: nome,
             descricao: descricao,
-            valor: valor.replaceAll(",", ".")
+            valor: valor.replaceAll(",", "."),
+            imagem: imagem
 
         }
-
-
 
         const { error } = await supabase
             .from('produtos')
@@ -124,11 +127,10 @@ function Produtos() {
             alteraNome("");
             alteraDescricao("");
             alteraValor("");
-
+            alteraImagem(" ")
 
         }
     }
-
 
     useEffect(() => {
         buscar();
@@ -166,6 +168,12 @@ function Produtos() {
                             <input id="valor" type="number" className="form-control" value={valor} onChange={e => alteraValor(e.target.value)} />
                         </div>
 
+                        <div className="col-md-8">
+                            <label className="form-label">Coloque o link Imagem</label>
+                            <input id="imagem" className="form-control" value={imagem} onChange={e => alteraImagem(e.target.value)} />
+                           
+                        </div>
+
 
                         {
                             editando != null ?
@@ -182,52 +190,7 @@ function Produtos() {
                     </form>
                 </div>
             </div >
-
-            <h2 className="text-center mb-4 fw-bold p-3 mt-5" style={{ color: "#ff6b00" }}>
-                Produtos Cadastrados
-            </h2>
-
-            <hr />
-
-            <div className="table-responsive">
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col" style={{ color: "#ff6b00" }}>#</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Produto</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Valor</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Criado em</th>
-                            <th scope="col" style={{ color: "#ff6b00" }}>Acões</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {produtos.length === 0 ? (
-
-                            <div className="spinner-border text-warning" role="status">
-                                <span className="visually-hidden">Carregando...</span>
-                            </div>
-                        ) : (
-                            produtos.map(
-                                (item, index) => (
-                                    <tr>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>{index + 1}</td>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.nome}</td>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>{item.descricao}</td>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>
-                                            R$ {item.valor.toString().split('.')[0]},
-                                            <small style={{ fontSize: '12px' }}>
-                                                {item.valor.toString().split('.')[1] || '00'}
-                                            </small>
-                                        </td>
-                                        <td onClick={() => location.href = "/produtos/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
-                                        <td> <button onClick={() => location.href = "/produtos/" + item.id} >Ver</button> <button onClick={() => editar(item)} >Editar</button> <button onClick={() => deletar(item.id)} >Excluir</button> </td>
-                                    </tr>
-                                ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
+        
         </div>
     );
 }
