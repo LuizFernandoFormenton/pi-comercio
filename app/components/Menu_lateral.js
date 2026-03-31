@@ -216,13 +216,19 @@ function MenuLateral() {
             </div>
 
             <div className="fs-6 list-group list-group-flush px-2">
-                <Link href="gerenciador_produtos" className="list-group-item list-group-item-action bg-secondary text-white border-0">
-                    Cadastrar produto
+
+                <Link href="/" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                    Início
+                </Link>
+
+                <Link href="perfil_comerciante" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                    Meus Produtos
                 </Link>
 
                 <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
-                    Criar anúncio
+                    Meus Anuncios
                 </Link>
+
 
             </div>
 
