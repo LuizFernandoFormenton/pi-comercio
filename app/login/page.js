@@ -62,6 +62,9 @@ export default function Login() {
             </div>
 
             <button onClick={autenticar} type="button" class="btn btn-outline-dark">Entrar</button>
+            <br/>
+
+            <p className="text-center mb-3">Não tem cadastro ? <Link href="/cadastro_usuario">Clique Aqui </Link> </p>
 
           </form>
 

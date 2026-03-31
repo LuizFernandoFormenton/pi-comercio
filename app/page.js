@@ -3,16 +3,19 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "./conexao/supabase";
+import { Router } from "next/router"
 
 function Pagina_inicial() {
 
   const [listaComercios, alteraListaComercios] = useState([])
   const [listaAnuncios, alteraListaAnuncios] = useState([])
-  const [categoria, setCategoria] = useState("")
+  const [categoria, alteraCategoria] = useState("")
+  const [busca, alteraBusca] = useState("")
+  
 
   async function buscarComercios() {
-  if (categoria === "") {
-    const { data } = await supabase
+  if (categoria == "") {
+    const { data, error } = await supabase
       .from('comercios')
       .select()
 
@@ -24,6 +27,7 @@ function Pagina_inicial() {
       .eq('categoria', categoria)
 
     alteraListaComercios(data)
+    
   }
 }
   async function buscarAnuncios() {
@@ -35,153 +39,118 @@ function Pagina_inicial() {
 
   useEffect(() => {
     buscarComercios();
-  }, [categoria]);
+  }, [categoria, busca]);
 
   useEffect(() => {
     buscarAnuncios();
   }, []);
 
   return (
-    <div className="container-fluid">
+     <div className="container-fluid p-0">
 
-      {/* LINHA SUPERIOR */}
-      <div className="row bg-light p-3 align-items-center">
-        <div className="col">
-          <h4 className="m-0">Guia Comercial</h4>
+      {/* NAvbar Superior */}
+      <nav className="navbar navbar-dark bg-dark px-4 fixed-top">
+        <span className="navbar-brand fw-bold">🚗 Guia Comercial São Carlos</span>
+
+        <div>
+          <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
+          <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
         </div>
+      </nav>
 
-        <div className="col text-end">
-          <Link href="/perfil_comerciante" className="me-2 border border-0">
-            <img
-              width="40"
-              src="https://static.vecteezy.com/system/resources/thumbnails/054/563/337/small/orange-profile-icon-png.png"
-              alt="Perfil"
-            />
-          </Link>
+      <div style={{ marginTop: "80px" }}></div>
 
-          <Link href="/login">
-            <button className="btn btn-outline-warning me-2">LOGIN</button>
-          </Link>
+      {/* Buscar Comércios */}
+      <div className="container mb-4">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar comércio..."
+            value={busca}
+            onChange={(e) => alteraBusca(e.target.value)}/>
 
-          <Link href="/cadastro_usuario">
-            <button className="btn btn-warning">CADASTRAR</button>
-          </Link>
+          <button className="btn btn-warning" onClick={buscarComercios}>Buscar</button>
+
         </div>
       </div>
 
-      <div className="row mt-4">
-        {/* CATEGORIAS */}
-        <div className="col-md-3 border-end">
-          <h5 className="mb-3">Categorias</h5>
-          <ul className="list-group">
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("Restaurantes")}
-            >
-              🍽️ Restaurantes
-            </li>
+      {/* Categorias dos Comércios */}
+      <div className="container mb-4">
+        <div className="d-flex flex-wrap gap-2 justify-content-center">
+          {["Restaurantes", "Lanchonetes", "Pizzarias", "Mercados", "Moda"].map((categorias) => (
+            <button className={`btn ${categoria === categorias ? 'btn-warning' : 'btn-outline-warning'}`}
+              onClick={() => alteraCategoria(categorias)}>{categorias}</button>
+          ))}
 
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("Lanchonetes")}
-            >
-              🍔 Lanchonetes
-            </li>
+          <button className="btn btn-secondary" onClick={() => alteraCategoria("")}>Ver todos</button>
 
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("Pizzarias")}
-            >
-              🍕 Pizzarias
-            </li>
-
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("Mercados")}
-            >
-              🛒 Mercados
-            </li>
-
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("Moda")}
-            >
-              👗 Moda
-            </li>
-
-            <li
-              className="list-group-item"
-              style={{ cursor: "pointer" }}
-              onClick={() => setCategoria("")}
-            >
-              🔄 Ver todos
-            </li>
-          </ul>
         </div>
+      </div>
 
-        {/* CONTEÚDO */}
-        <div className="col-md-9">
-          <div className="row justify-content-center g-4">
+      {/* Anuncios */}
+      <div className="container mb-5">
+              <h4 className="mb-4">Anuncios</h4>
 
-            {/* ANÚNCIOS */}
-            <div
-              id="carouselExampleSlidesOnly"
-              className="carousel slide"
-              data-bs-ride="carousel"
-            >
-              <div className="carousel-inner">
-                {listaAnuncios.map((item, index) => (
-                  <div
-                    key={item.id || index}
-                    className={index === 0 ? "carousel-item active" : "carousel-item"}
-                  >
-                    <img
-                      src={item.imagem}
-                      className="d-block w-100"
-                      alt="Anúncio"
-                      onClick={() => location.href = item.url}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
 
-            {/* COMÉRCIOS */}
-            {listaComercios.map((item, index) => (
-              <div className="col-md-4 d-flex justify-content-center" key={item.id || index}>
-                <div className="card shadow" style={{ width: "22rem" }}>
-                  <img
-                    src={item.logo}
-                    className="card-img-top"
-                    alt={item.nome}
-                    style={{ height: "220px", objectFit: "cover" }}
-                  />
+          <div className="carousel-inner rounded shadow">
+            {listaAnuncios.map(item=> (
 
-                  <div className="card-body">
-                    <h5 className="card-title">{item.nome}</h5>
-                    <p className="card-text">{item.descricao}</p>
-                    <p className="card-text">📞 {item.telefone}</p>
-                    <p className="card-text">📍 {item.endereco}</p>
-                    <p className="card-text">🏷️ {item.categoria}</p>
+              <div className={`carousel-item ${item == 0 ? 'active' : ''}`}>
 
-                    <button
-                      className="btn btn-warning w-100"
-                      onClick={() => location.href = "/comercio/" + item.id_comercio}
-                    >
-                      Ver mais 🔽
-                    </button>
-                  </div>
-                </div>
+                <img
+                  src={item.imagem}
+                  className="d-block w-100"
+                  style={{ height: "400px", objectFit: "cover", cursor: "pointer" }}
+                  onClick={() => Router.push = item.url}/>
               </div>
             ))}
+
           </div>
+
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon"></span>
+          </button>
+
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span className="carousel-control-next-icon"></span>
+          </button>
         </div>
       </div>
+
+      {/* Comercios */}
+      <div className="container">
+        <h4 className="mb-4">Empresas</h4>
+
+        <div className="row g-4">
+          {listaComercios.map(item => (
+            <div className="col-md-4">
+              <div className="card shadow h-100 border-0">
+
+                <img
+                  src={item.logo}
+                  className="card-img-top"
+                  style={{ height: "200px", objectFit: "cover" }}/>
+
+                <div className="card-body">
+                  <p className="card-title fw-bold">{item.nome}</p>
+                  <p className="text-muted small">{item.categoria}</p>
+                  <p className="card-text">{item.descricao}</p>
+                </div>
+
+                <div className="card-footer bg-white border-0">
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => Router.push  = "/comercio/" + item.id_comercio}>Ver mais</button>
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }
