@@ -52,13 +52,13 @@ export default function CadastroAnuncioModal() {
   return (
     <>
       {/* Botão para disparar a modal (Coloque onde desejar na sua tela) */}
-      <div>
+      <div className="container mt-5" style={{ color: "#f1701a" }}>
         <h1 className="text-center mt-5">Bem-vindo ao painel de anúncios!</h1>
         <p className="text-center mb-4">Crie seu anúncio e destaque seu negócio!</p>
         
       </div>
     <div className='text-center'>
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCadastroAnuncio">
+      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroAnuncio">
         Criar Novo Anúncio
       </button>
       
@@ -74,7 +74,7 @@ export default function CadastroAnuncioModal() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div className="modal-body">
+            <div className="modal-body" style={{color: "orange"}}>
               <form onSubmit={inscrever}>
                 
                 <div className="mb-3">
@@ -123,8 +123,8 @@ export default function CadastroAnuncioModal() {
                 </div>
 
                 <div className="modal-footer px-0 pb-0 mt-4">
-                  <button type="submit" className="btn btn-primary"> Enviar </button>
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"> Cancelar </button>
+                  <button type="submit" className="btn btn-success"> Enviar </button>
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal"> Cancelar </button>
                 </div>
 
               </form>
