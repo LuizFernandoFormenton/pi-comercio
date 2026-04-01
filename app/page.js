@@ -13,6 +13,9 @@ function Pagina_inicial() {
   const [busca, alteraBusca] = useState("")
 
 
+  const [listaCategorias, alteraListaCategorias] = useState ([])
+
+
   async function buscarComercios() {
     if (categoria == "") {
       const { data, error } = await supabase
@@ -38,6 +41,8 @@ function Pagina_inicial() {
     alteraListaAnuncios(data)
   }
 
+
+
   useEffect(() => {
     buscarComercios();
   }, [categoria, busca]);
@@ -47,15 +52,15 @@ function Pagina_inicial() {
   }, []);
 
   return (
+
     <div className="container-fluid p-0">
 
-
-
       {/* NAvbar Superior */}
-      <nav className="navbar navbar-dark bg-dark px-4 fixed-top">
-        <span className="navbar-brand fw-bold">🚗 Guia Comercial São Carlos</span>
+      <nav className="navbar navbar-dark bg-dark px-4 fixed-top position-relative ">
+        
+        <span className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
 
-        <div>
+        <div className="ms-auto">
           <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
           <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
         </div>
@@ -97,6 +102,14 @@ function Pagina_inicial() {
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
           <div class="carousel-inner">
 
+
+            {listaAnuncios.map(
+              item => 
+                <div class="carousel-item active" onClick={() => window.location.href = "/anuncios" + item.url}>
+                  <img src={item.imagem}  class="width:640px; height:360px" alt="..." />
+                </div> 
+            )}
+
             <div class="carousel-item active">
               <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
             </div>
@@ -108,6 +121,7 @@ function Pagina_inicial() {
             <div class="carousel-item">
               <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
             </div>
+
 
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

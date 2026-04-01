@@ -90,7 +90,7 @@ function PainelAdmUsuario() {
 
             <div className="row">
 
-                {/* <div className="col-2 menuLateral"> 
+                <div className=" col-2 position-fixed top-0 start-0 vh-100 bg-white shadow" style={{ width: "350px" }}> 
                     <div className="text-center">
 
                         <img className="text-center rounded-circle" width="300" src="./Programadora.avif" />
@@ -106,9 +106,9 @@ function PainelAdmUsuario() {
 
                     </div>
 
-                </div> */}
+                </div>
 
-                <div className="" >
+                <div className="col" style={{ marginLeft: "350px", padding: "20px" }}>
 
                     {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 

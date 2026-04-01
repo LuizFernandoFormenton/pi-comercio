@@ -28,7 +28,7 @@ function PainelAdmAnuncios() {
     async function pesquisaPorNomeAnuncio() {
         const { data, error } = await supabase
             .from('anuncios')
-            .select(`*id_comercio(*)`)
+            .select(`*, id_comercio(*)`)
             .ilike('nome', "%" + pesquisaAnuncio + "%")
 
         alteraAnuncios(data)
@@ -85,11 +85,26 @@ function PainelAdmAnuncios() {
 
             <div className="row">
 
-                <div className="">
+                <div className=" col-2 position-fixed top-0 start-0 vh-100 bg-white shadow" style={{ width: "350px" }}> 
+                    <div className="text-center">
+
+                        <img className="text-center rounded-circle" width="300" src="./Programadora.avif" />
+                        <h1 className="mt-1 fs-4">Adm. Geovana 🌷</h1>
+
+                    </div>
+
+                    <div className="mt-5 fs-5 list-group list-group-flush">
+                        <Link href="/painel_adm_usuario" className="list-group-item list-group-item-action">Usuários</Link>
+                        <Link href="/painel_gerenciar_comercios" className="list-group-item list-group-item-action">Comércios</Link>
+                        <Link href="/painel_aprovacao_anuncio" className="list-group-item list-group-item-action">Analíse de Anúncios</Link>
+
+
+                    </div>
 
                 </div>
 
-                <div className="" >
+                <div className="col" style={{ marginLeft: "350px", padding: "20px" }}>
+
 
                     {/* Parte superior do painel adm onde fica o filtrar e o localizar */}
 
@@ -139,6 +154,7 @@ function PainelAdmAnuncios() {
                                         <th scope="col">Planos</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Imagem</th>
+                                        <th scope="col">Link</th>
                                         <th scope="col">Data de Cadastro</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Ações</th>
@@ -160,6 +176,7 @@ function PainelAdmAnuncios() {
                                             <td>{item.planos}</td>
                                             <td>{item.descricao}</td>
                                             <td>{item.imagem}</td>
+                                            <td>{item.url}</td>
                                             <td>{formataData(item.data)} às {formataHoras(item.data)}</td>
                                             <td>{item.status ? "Ativo" : "Inativo"}</td>
                                             <td>{item.status ? (<button onClick={() => alteraStatusAnuncio(item)}>Desativar</button>) : <button onClick={() => alteraStatusAnuncio(item)}>Aceitar</button>}</td>

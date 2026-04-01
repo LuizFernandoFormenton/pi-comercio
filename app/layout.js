@@ -3,10 +3,8 @@ import "./perfil_comerciante/Perfil_comerciante.css"
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Script from "next/script";
-import MenuLateral from "./components/Menu_lateral";
 import LayoutWrapper from "./components/Pag_sem_menu_lateral"
-
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 const geistSans = Geist({

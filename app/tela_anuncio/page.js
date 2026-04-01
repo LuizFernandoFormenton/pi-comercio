@@ -5,6 +5,7 @@ import { useState } from 'react';
 import supabase from '../conexao/supabase';
 
 export default function CadastroAnuncioModal() {
+
   const [descricao, setDescricao] = useState("");
   const [planos, setPlanos] = useState("");
   const [link, setLink] = useState("");
@@ -15,18 +16,24 @@ export default function CadastroAnuncioModal() {
     if (!planos) { alert("Por favor, selecione um plano."); return; }
     if (!imagem) { alert("Adicione uma imagem do anúncio"); return; }
 
+    const id_usuario = localStorage.getItem("id_usuario")
+
     const obj = {
+
+      
       descricao: descricao,
       planos: planos,
       url: link,
       imagem: imagem,
-      status: false
+      id_comercios: id_usuario
+
     };
 
     try {
-      const { error } = await supabase.from('anuncios').insert([obj]);
+      const { error, data } = await supabase.from('anuncios').insert(obj);
       if (error) {
         alert("Erro ao salvar: " + error.message);
+        console.log(error)
       } else {
         alert("Anúncio cadastrado com sucesso!");
       }
