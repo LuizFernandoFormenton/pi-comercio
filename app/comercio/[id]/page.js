@@ -7,8 +7,8 @@ import supabase from "../../conexao/supabase";
 function Comercio() {
     const params = useParams()
 
-    const [listaComercios, alteraListaComercios] = useState(data || [])
-    const [listaProdutos, alteraListaProdutos] = useState(data || [])
+    const [listaComercios, alteraListaComercios] = useState([])
+    const [listaProdutos, alteraListaProdutos] = useState([])
 
     async function mostraID() {
         const { data, error } = await supabase
@@ -16,7 +16,7 @@ function Comercio() {
             .select('*')
             .eq('id', params.id)
 
-        alteraListaComercios(data || [])
+        alteraListaComercios(data)
         console.log(error)
 
     }
@@ -27,7 +27,7 @@ function Comercio() {
             .select('*,id_comercio')
             .eq('id_comercio', params.id)
 
-        alteraListaProdutos(data || [])
+        alteraListaProdutos(data)
         console.log(error)
     }
 
@@ -66,7 +66,7 @@ function Comercio() {
 
             <hr />
 
-            {listaComercios?.map(item => ( 
+            {listaComercios?.map(item => (
                 <div className="card p-3 shadow mb-4">
                     <img
                         src={item.logo}
@@ -92,7 +92,7 @@ function Comercio() {
                 {listaProdutos?.map(item => (
                     <div className="col-md-4 mb-4">
                         <div className="card h-100 shadow p-3">
-                            
+
                             <p><strong>Produto:</strong> {item.nome}</p>
                             <p><strong>Descrição:</strong> {item.descricao}</p>
                             <p><strong>Valor:</strong> R$ {item.valor}</p>
