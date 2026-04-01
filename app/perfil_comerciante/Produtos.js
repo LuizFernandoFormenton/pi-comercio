@@ -105,7 +105,7 @@ function Produtos() {
     }, [])
 
     return (
-        <div  >
+        <div className="row" >
 
             {/* Modal */}
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,9 +141,43 @@ function Produtos() {
                 </div>
             </div>
 
-            <h2 className="mb-4">Meus Produtos</h2>
+            <h1 className="mb-4">Meus Produtos</h1>
 
             <hr />
+
+            <div className="col-10">
+
+                {/* Esse aqui é para pesquisar por nome */}
+                <div className="input-group">
+                    <input type="text" className="form-control" placeholder="Pesquisar..."
+                        aria-label="Recipients username" aria-describedby="basic-addon2" />
+                    <button className="input-group-text" id="basic-addon2">🔍</button>
+                </div>
+
+            </div>
+
+            <div className="col-2">
+
+                <div className="input-group">
+                    <select className="form-select" id="inputGroupSelect01">
+                        <option value="Filtrar" disabled selected>Filtrar</option>
+                        <option value="true">Ativos</option>
+                        <option value="false">Inativos</option>
+                    </select>
+                </div>
+
+            </div>
+            {/* Esse aqui é para filtrar por ativo e inativo */}
+
+
+
+            <div className="text-end my-2">
+
+                <button onClick={()=>{location.href = "gerenciador_produtos"}} className="btn btn-primary">Criar</button>
+
+            </div>
+
+
 
             <div className="table-responsive">
                 <table className="table table-striped table-bordered">
@@ -154,7 +188,6 @@ function Produtos() {
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Valor</th>
-                            <th>Imagem</th>
                             <th>Criado em</th>
                             <th>Ações</th>
 
@@ -169,14 +202,6 @@ function Produtos() {
                                     <td>{item.nome}</td>
                                     <td>{item.descricao}</td>
                                     <td>R$ {item.valor}</td>
-                                    <td>
-                                        <img
-                                            src="./supabase/produtos/item.imagem"
-                                            className="text-center rounded-circle"
-                                            width="150"
-                                        />
-                                    </td>
-
                                     <td>
                                         {new Date(item.created_at).toLocaleString()}
                                     </td>

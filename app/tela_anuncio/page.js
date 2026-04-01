@@ -87,6 +87,13 @@ export default function CadastroAnuncioModal() {
           >
             Criar Novo Anúncio
           </button>
+          <br />
+          <br />
+          <br />
+          <h2 style={{color: '#c2ec72b6'}}>Saiba se o seu anúncio está sendo aprovado!</h2>
+          <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalStatusAnuncio" onClick={() => {window.location.href = "/listagem_anuncios";}} >
+            Ver Status
+          </button>
         </div>
       </div>
 

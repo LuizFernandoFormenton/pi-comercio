@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "./conexao/supabase";
-
+import { Router } from "next/router"
 
 function Pagina_inicial() {
 
@@ -11,7 +11,7 @@ function Pagina_inicial() {
   const [listaAnuncios, alteraListaAnuncios] = useState([])
   const [categoria, alteraCategoria] = useState("")
   const [busca, alteraBusca] = useState("")
- 
+
 
   const [listaCategorias, alteraListaCategorias] = useState ([])
 
@@ -102,12 +102,26 @@ function Pagina_inicial() {
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
           <div class="carousel-inner">
 
+
             {listaAnuncios.map(
               item => 
                 <div class="carousel-item active" onClick={() => window.location.href = "/anuncios" + item.url}>
                   <img src={item.imagem}  class="width:640px; height:360px" alt="..." />
                 </div> 
             )}
+
+            <div class="carousel-item active">
+              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
+            <div class="carousel-item">
+              <img src="https://uolhost.uol.com.br/blog/wp-content/uploads/2025/09/BANNER_16-09.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
+            <div class="carousel-item">
+              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
 
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -145,7 +159,7 @@ function Pagina_inicial() {
                 <div className="card-footer bg-white border-0">
                   <button
                     className="btn btn-warning w-100"
-                    onClick={() => location.href = "/comercio/" + item.id_comercio}>Ver mais</button>
+                    onClick={() => Router.push = "/comercio/" + item.id_comercio}>Ver mais</button>
                 </div>
 
               </div>
