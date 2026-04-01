@@ -97,15 +97,15 @@ function Pagina_inicial() {
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
           <div class="carousel-inner">
 
-            <div class="carousel-item active" onClick={() => window.location.href = "/anuncios"}>
+            <div class="carousel-item active" onClick={() => window.location.href = "/anuncios/item.url"}>
               <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
             </div>
 
-            <div class="carousel-item" onClick={() => window.location.href = "/anuncios"}>
+            <div class="carousel-item" onClick={() => window.location.href = "/anuncios/item.url"}>
               <img src="https://uolhost.uol.com.br/blog/wp-content/uploads/2025/09/BANNER_16-09.jpg" class="width:640px; height:360px" alt="..." />
             </div>
 
-            <div class="carousel-item" onClick={() => window.location.href = "/anuncios"}>
+            <div class="carousel-item" onClick={() => window.location.href = "/anuncios/item.url"}>
               <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
             </div>
 
