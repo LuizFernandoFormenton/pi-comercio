@@ -71,7 +71,8 @@ export default function CadastroAnuncioModal() {
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
         zIndex: -1
       }} />
-
+      
+      
       <div className="container" zIndex={1} style={{ maxWidth: "600px" }}>
         <div className="text-center" style={{ color: "white" }}>
           <h1 className="display-4 fw-bold" style={{ color: "#f06509b6" }}>
@@ -90,8 +91,8 @@ export default function CadastroAnuncioModal() {
           <br />
           <br />
           <br />
-          <h2 style={{color: '#c2ec72b6'}}>Saiba se o seu anúncio está sendo aprovado!</h2>
-          <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalStatusAnuncio" onClick={() => {window.location.href = "/listagem_anuncios";}} >
+          <h2 style={{color: '#a6ff00'}}>Saiba se o seu anúncio está sendo aprovado!</h2>
+          <button className="btn btn-info" onClick={() => {window.location.href = "/listagem_anuncios";}} >
             Ver Status
           </button>
         </div>
@@ -134,7 +135,7 @@ export default function CadastroAnuncioModal() {
                 </div>
 
                 <div className="modal-footer px-0 pb-0 mt-4">
-                  <button type="submit" className="btn btn-success px-4">Enviar</button>
+                  <button type="submit" className="btn btn-success px-4" alert="Anúncio em análise.">Enviar</button>
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
               </form>
