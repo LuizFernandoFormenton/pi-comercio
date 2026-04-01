@@ -103,12 +103,6 @@ function Pagina_inicial() {
           <div class="carousel-inner">
 
 
-            {listaAnuncios.map(
-              item => 
-                <div class="carousel-item active" onClick={() => window.location.href = "/anuncios" + item.url}>
-                  <img src={item.imagem}  class="width:640px; height:360px" alt="..." />
-                </div> 
-            )}
 
             <div class="carousel-item active">
               <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
@@ -143,7 +137,7 @@ function Pagina_inicial() {
         <div className="row g-4">
           {listaComercios.map(item => (
             <div className="col-md-4">
-              <div className="card shadow h-100 border-0">
+              <div className="card shadow h-100 border-0" class = {item.id || index}>
 
                 <img
                   src={item.logo}
@@ -159,7 +153,7 @@ function Pagina_inicial() {
                 <div className="card-footer bg-white border-0">
                   <button
                     className="btn btn-warning w-100"
-                    onClick={() => Router.push = "/comercio/" + item.id_comercio}>Ver mais</button>
+                    onClick={() => location.href = "/comercio/" + item.id_comercio}>Ver mais</button>
                 </div>
 
               </div>
