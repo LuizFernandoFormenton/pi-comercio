@@ -7,7 +7,7 @@ export default function LayoutWrapper({ children }) {
 
   const pathname = usePathname()
 
-  const paginasSemMenu = ["/login", "/cadastro_comercios", "/"]
+  const paginasSemMenu = ["/login", "/cadastro_comercios", "/", "/painel_adm_usuario", "/painel_aprovacao_anuncio", "/painel_gerenciar_comercios"]
 
   const esconderMenu = paginasSemMenu.includes(pathname)
 

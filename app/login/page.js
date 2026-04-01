@@ -28,11 +28,12 @@ export default function Login() {
 
     alert("Autenticado com sucesso! ✅")
     localStorage.setItem("id_usuario", data.user.id)
+    location.href="/"
 
   }
 
-  function desconectar() {
-    
+  async function desconectar() {
+    const { error } = await supabase.auth.signOut()
   }
 
 
@@ -41,13 +42,13 @@ export default function Login() {
 
     <div className="d-flex justify-content-center min-vh-100">
 
-      <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "650px" }}>
+      <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "550px" }}>
 
         {autenticado == false ?
 
           <form className="row g-3">
 
-            <h1 className="text-center mb-3">Login</h1>
+            <h1 className="text-center mb-3">Bem-Vindo!</h1>
 
             {/* Email */}
             <div className="col-12">
@@ -61,7 +62,7 @@ export default function Login() {
               <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
             </div>
 
-            <button onClick={autenticar} type="button" class="btn btn-outline-dark">Entrar</button>
+            <button onClick={autenticar} type="button" class="btn btn-outline-dark">LOGIN</button>
             <br/>
 
             <p className="text-center mb-3">Não tem cadastro ? <Link href="/cadastro_usuario">Clique Aqui </Link> </p>
