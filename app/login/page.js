@@ -18,24 +18,34 @@ export default function Login() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: senha,
-
     })
+
 
     if(data.user == null){
       alert("Dados inválidos...")
       return
     }
 
-    alert("Autenticado com sucesso! ✅")
     localStorage.setItem("id_usuario", data.user.id)
+    
+    const resposta = await supabase.from('usuarios').select().eq('id', data.user.id)
+    if(resposta.data != 0){
+      console.log("Logado como usuario")
+      localStorage.setItem("nome_usuario", resposta.data[0].nome)
+      localStorage.setItem("comercio", false)
+    }else{
+      console.log("Logado como comerciante")
+      const resposta2 = await supabase.from('comercios').select().eq('id', data.user.id)
+      console.log(resposta2)
+      localStorage.setItem("nome_usuario", resposta2.data[0].nome)
+      localStorage.setItem("comercio", true)
+    }
+
+    alert("Autenticado com sucesso! ✅")
+
     location.href="/"
 
   }
-
-  async function desconectar() {
-    const { error } = await supabase.auth.signOut()
-  }
-
 
   return (
 

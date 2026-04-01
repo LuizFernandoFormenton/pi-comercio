@@ -114,106 +114,114 @@ export default function PerfilUsuario() {
 
 
     return (
-        <div className="container-fluid">
 
-            <div className="row">
+        <div>
+            {
+                usuario == null ? <div></div> :
+                <div className="container-fluid">
 
-                {/* Menu Lateral */}
+                    <div className="row">
 
-                <div className="col- ">
-                    {/* <div className="text-center">
+                        {/* Menu Lateral */}
 
-                        <img className="my-2 text-center rounded-circle" width="200" src="/Programadora.avif" />
-                        <h1 className="mt-1 fs-4">Geovana Ribeiro</h1>
-                        <p>Bem-Vindo {usuario == null ? "Carregando..." : usuario.nome}</p>
-                        <button onClick={atualizarImagem} className="btn btn-outline-dark">Alterar Foto</button>
-                        <hr />
+                        <div className="col- ">
+                            {/* <div className="text-center">
+
+                                <img className="my-2 text-center rounded-circle" width="200" src="/Programadora.avif" />
+                                <h1 className="mt-1 fs-4">Geovana Ribeiro</h1>
+                                <p>Bem-Vindo {usuario == null ? "Carregando..." : usuario.nome}</p>
+                                <button onClick={atualizarImagem} className="btn btn-outline-dark">Alterar Foto</button>
+                                <hr />
+
+                            </div>
+
+
+                            <div className="mt-5 fs-5 list-group list-group-flush">
+                                <a href="#" className="list-group-item list-group-item-action">Cupons</a>
+                                <a href="#" className="list-group-item list-group-item-action">Favoritos</a>
+                                <a href="#" className="list-group-item list-group-item-action">Editar Perfil</a>
+
+                            </div> */}
+
+                            {/* <div className="text-center mt-auto">
+
+                                <button className="my-2 text-center btn btn-outline-light">Sair</button>
+
+                            </div> */}
+
+                        </div>
+
+                        <div className="col-"></div>
+
+                        {/* Perfil do usuário */}
+
+                        <div className="col-6">
+
+                            <div className="editarPerfil align-self-center border rounded p-5 my-5">
+
+
+                                <h2 className="my-2">Perfil do Usuário</h2>
+                                <hr />
+
+
+                                <form onsubmit={(e) => e.preventDefault()}>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Nome Completo *</label>
+                                        <input value={nome} onChange={(e) => alteraNome(e.target.value)} type="text" className="form-control" />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">CPF *</label>
+                                        <input value={cpf} onChange={(e) => alteraCpf(e.target.value)} type="text" className="form-control" />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Telefone *</label>
+                                        <input value={telefone} onChange={(e) => alteraTelefone(e.target.value)} type="tel" className="form-control" />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">E-mail *</label>
+                                        <input value={email} onChange={(e) => alteraEmail(e.target.value)} type="email" className="form-control" />
+                                    </div>
+
+                                    <button onClick={atualizar} type="button" class="btn btn-outline-dark">Atualizar Dados</button>
+
+                                </form >
+
+                                <form onSubmit={(e) => e.preventDefault()}>
+
+                                    <hr />
+                                    <h3>Alterar Senha</h3>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Nova Senha *</label>
+                                        <input value={senha} onChange={(e) => alteraSenha(e.target.value)} type="password" className="form-control" />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Confirmar Senha *</label>
+                                        <input value={confirmarSenha} onChange={(e) => alteraConfirmarSenha(e.target.value)} type="password" className="form-control" />
+                                    </div>
+
+                                    <button onClick={atualizarSenha} type="button" class="btn btn-outline-dark">Alterar Senha</button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        <div className="col-2"></div>
 
                     </div>
 
 
-                    <div className="mt-5 fs-5 list-group list-group-flush">
-                        <a href="#" className="list-group-item list-group-item-action">Cupons</a>
-                        <a href="#" className="list-group-item list-group-item-action">Favoritos</a>
-                        <a href="#" className="list-group-item list-group-item-action">Editar Perfil</a>
-
-                    </div> */}
-
-                    {/* <div className="text-center mt-auto">
-
-                        <button className="my-2 text-center btn btn-outline-light">Sair</button>
-
-                    </div> */}
-
                 </div>
-
-                <div className="col-"></div>
-
-                {/* Perfil do usuário */}
-
-                <div className="col-6">
-
-                    <div className="editarPerfil align-self-center border rounded p-5 my-5">
-
-
-                        <h2 className="my-2">Perfil do Usuário</h2>
-                        <hr />
-
-
-                        <form onsubmit={(e) => e.preventDefault()}>
-
-                            <div className="mb-3">
-                                <label className="form-label">Nome Completo *</label>
-                                <input value={nome} onChange={(e) => alteraNome(e.target.value)} type="text" className="form-control" />
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">CPF *</label>
-                                <input value={cpf} onChange={(e) => alteraCpf(e.target.value)} type="text" className="form-control" />
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">Telefone *</label>
-                                <input value={telefone} onChange={(e) => alteraTelefone(e.target.value)} type="tel" className="form-control" />
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">E-mail *</label>
-                                <input value={email} onChange={(e) => alteraEmail(e.target.value)} type="email" className="form-control" />
-                            </div>
-
-                            <button onClick={atualizar} type="button" class="btn btn-outline-dark">Atualizar Dados</button>
-
-                        </form >
-
-                        <form onSubmit={(e) => e.preventDefault()}>
-
-                            <hr />
-                            <h3>Alterar Senha</h3>
-
-                            <div className="mb-3">
-                                <label className="form-label">Nova Senha *</label>
-                                <input value={senha} onChange={(e) => alteraSenha(e.target.value)} type="password" className="form-control" />
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">Confirmar Senha *</label>
-                                <input value={confirmarSenha} onChange={(e) => alteraConfirmarSenha(e.target.value)} type="password" className="form-control" />
-                            </div>
-
-                            <button onClick={atualizarSenha} type="button" class="btn btn-outline-dark">Alterar Senha</button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-                <div className="col-2"></div>
-
-            </div>
-
-
+            }
         </div>
+
+        
     );
 }

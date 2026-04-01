@@ -7,6 +7,9 @@ import { Router } from "next/router"
 
 function Pagina_inicial() {
 
+  const id_usuario = localStorage.getItem("id_usuario")
+  const comercio = localStorage.getItem("comercio")
+
   const [listaComercios, alteraListaComercios] = useState([])
   const [listaAnuncios, alteraListaAnuncios] = useState([])
   const [categoria, alteraCategoria] = useState("")
@@ -61,8 +64,15 @@ function Pagina_inicial() {
         <span className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
 
         <div className="ms-auto">
-          <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
-          <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
+          {
+            id_usuario == null || id_usuario == "" ?
+              <div>
+                <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
+                <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
+              </div>
+            :
+               <Link href={comercio == "true" ? "/perfil_comerciante" : "/perfil_usuario"} className="btn btn-outline-light me-2">Perfil</Link>
+          }
         </div>
       </nav>
 

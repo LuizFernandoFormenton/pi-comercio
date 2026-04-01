@@ -7,6 +7,10 @@ import supabase from "../conexao/supabase";
 
 function MenuLateral() {
 
+    const id_usuario = localStorage.getItem("id_usuario")
+    const nome_usuario = localStorage.getItem("nome_usuario")
+    const comercio = localStorage.getItem("comercio")
+
     const [nome, alteraNome] = useState()
     const [email, alteraEmail] = useState()
     const [senha, alteraSenha] = useState()
@@ -17,11 +21,37 @@ function MenuLateral() {
     const [logo, alteraLogo] = useState()
     const [descricao, alteraDescricao] = useState()
 
-    const [editando, alteraEditando] = useState(null)
+    const [editando, alteraEditando] = useState(false)
 
-    function editar(objeto) {
+    async function editar() {
 
-        alteraEditando(objeto.id)
+        let usuario = await supabase.from(comercio == "true" ? "comercios" : "usuarios").select().eq("id", id_usuario)
+        usuario = usuario.data[0]
+
+
+        let objeto = {}
+
+        const objeto_usuario = {
+            nome: usuario.nome,
+            email: usuario.email,
+            senha: usuario.senha,
+            telefone: usuario.telefone,
+        }
+
+        if(comercio == "true"){
+            const objeto_comercio = {
+                whatsapp: usuario.whatsapp,
+                endereco: usuario.endereco,
+                categoria: usuario.categoria,
+                logo: usuario.logo,
+                descricao: usuario.descricao
+            }
+            objeto = {...objeto_usuario, ...objeto_comercio}
+        }else{
+            objeto = objeto_usuario
+        }
+
+        alteraEditando(true)
 
         alteraNome(objeto.nome)
         alteraEmail(objeto.email)
@@ -37,7 +67,7 @@ function MenuLateral() {
 
     function cancelaEdicao() {
 
-        alteraEditando(null)
+        alteraEditando(false)
 
         alteraNome("")
         alteraEmail("")
@@ -54,47 +84,64 @@ function MenuLateral() {
 
     async function atualizar() {
 
-        const objeto = {
+        let objeto = {}
 
+        const objeto_usuario = {
             nome: nome,
             email: email,
             senha: senha,
             telefone: telefone,
-            whatsapp: whatsapp,
-            endereco: endereco,
-            categoria: categoria,
-            logo: logo,
-            descricao: descricao
+        }
 
+        if(comercio == "true"){
+            const objeto_comercio = {
+                whatsapp: whatsapp,
+                endereco: endereco,
+                categoria: categoria,
+                logo: logo,
+                descricao: descricao
+            }
+            objeto = {...objeto_usuario, ...objeto_comercio}
+        }else{
+            objeto = objeto_usuario
         }
 
         const { error } = await supabase
-            .from('comercios')
+            .from(comercio == "true" ? 'comercios' : 'usuarios')
             .update(objeto)
-            .eq('id', editando)
+            .eq('id', id_usuario)
 
 
 
         if (error == null) {
 
-            alert("Produto alterado com sucesso!")
+            alert("Ddados alterados com sucesso!")
             cancelaEdicao()
 
         } else {
 
-            alert("Dados invalidos! Verifique os campos e teste novamnete...")
+            alert("Dados invalidos! Verifique os campos e teste novamente...")
 
         }
 
     }
 
+    function sair(){
+        localStorage.removeItem("id_usuario")
+        localStorage.removeItem("nome_usuario")
+        alert("Desconectado com xuxesso")
+        location.href = "/"
+    }
+
     return (
 
+    <div>
+        {
+            id_usuario == null || id_usuario == "" ? <p style={{position: "absolute", left: 0, right: 0, top: "10%", width: "100%", textAlign: "center"}}>Faça <a href="/login">login</a> para acessar seu painel</p> :
 
-        
-        <div className=" menuLateral text-white">
+            <div className=" menuLateral text-white" style={{position: "relative"}}>
 
-            
+            <button class="btn text-light" onClick={sair} style={{position: "absolute", right: 0, left: 0, bottom: 20}}>Sair</button>
 
             <div className="text-center p-3">
 
@@ -105,16 +152,16 @@ function MenuLateral() {
 
                         className="my-2 rounded-circle"
                         width="150"
-                        src="https://placehold.co/400"
+                        src={"https://ui-avatars.com/api/?background=random&name="+nome_usuario}
 
                     />
 
                 </Link>
 
-                <h1 className="mt-2 fs-5">Yachi Restaurante</h1>
-                <p>Usuário desde 2026</p>
+                <h1 className="mt-2 fs-5">{nome_usuario}</h1>
+                {/* <p>Usuário desde 2026</p> */}
 
-                <button type="button" className="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                <button onClick={editar} type="button" className="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                     Editar perfil
                 </button>
 
@@ -131,7 +178,7 @@ function MenuLateral() {
 
                                     {/* Nome */}
                                     <div className="col-12">
-                                        <label htmlFor="nome" className="form-label">Nome da Empresa </label>
+                                        <label htmlFor="nome" className="form-label">Nome </label>
                                         <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
                                     </div>
 
@@ -142,10 +189,10 @@ function MenuLateral() {
                                     </div>
 
                                     {/* Senha */}
-                                    <div className="col-md-6">
+                                    {/* <div className="col-md-6">
                                         <label htmlFor="senha" className="form-label">Senha </label>
                                         <input value={senha} onChange={e => alteraSenha(e.target.value)} type="password" className="form-control" id="senha" />
-                                    </div>
+                                    </div> */}
 
                                     {/* Telefone */}
                                     <div className="col-md-6">
@@ -154,54 +201,61 @@ function MenuLateral() {
                                     </div>
 
                                     {/* WhatsApp */}
-                                    <div className="col-md-6">
-                                        <label htmlFor="whatsapp" className="form-label">WhatsApp</label>
-                                        <input value={whatsapp} type='number' onChange={e => alteraWhatsapp(e.target.value)} className="form-control" id="whatsapp" />
-                                    </div>
+                                    {
+                                        comercio == "true" &&
+                                        <div>
 
-                                    {/* Endereço */}
-                                    <div className="col-12">
-                                        <label htmlFor="endereco" className="form-label">Endereço Completo </label>
-                                        <input value={endereco} onChange={e => alteraEndereco(e.target.value)} className="form-control" id="endereco" />
-                                    </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="whatsapp" className="form-label">WhatsApp</label>
+                                                <input value={whatsapp} type='number' onChange={e => alteraWhatsapp(e.target.value)} className="form-control" id="whatsapp" />
+                                            </div>
 
-                                    {/* Categoria */}
-                                    <div className="col-12">
-                                        <label htmlFor="categoria" className="form-label">Categoria da Empresa </label>
-                                        <select value={categoria} onChange={e => alteraCategoria(e.target.value)} className="form-select" id="categoria">
-                                            <option>Selecione</option>
-                                            <option>Restaurante</option>
-                                            <option>Lanchonete</option>
-                                            <option>Moda</option>
-                                            <option>Eletrônicos</option>
-                                            <option>Saúde e Bem-estar</option>
-                                            <option>Supermercados</option>
-                                        </select>
+                                            {/* Endereço */}
+                                            <div className="col-12">
+                                                <label htmlFor="endereco" className="form-label">Endereço Completo </label>
+                                                <input value={endereco} onChange={e => alteraEndereco(e.target.value)} className="form-control" id="endereco" />
+                                            </div>
 
-                                    </div>
+                                            {/* Categoria */}
+                                            <div className="col-12">
+                                                <label htmlFor="categoria" className="form-label">Categoria da Empresa </label>
+                                                <select value={categoria} onChange={e => alteraCategoria(e.target.value)} className="form-select" id="categoria">
+                                                    <option>Selecione</option>
+                                                    <option>Restaurante</option>
+                                                    <option>Lanchonete</option>
+                                                    <option>Moda</option>
+                                                    <option>Eletrônicos</option>
+                                                    <option>Saúde e Bem-estar</option>
+                                                    <option>Supermercados</option>
+                                                </select>
 
-                                    {/* Logo */}
-                                    <div className="col-12">
-                                        <label htmlFor="logo" className="form-label">Logo da Empresa *</label>
-                                        <input value={logo} onChange={e => alteraLogo(e.target.value)} type="file" className="form-control" id="logo" />
+                                            </div>
 
-                                    </div>
+                                            {/* Logo */}
+                                            <div className="col-12 mb-3">
+                                                <label htmlFor="logo" className="form-label">Logo da Empresa *</label>
+                                                <input value={logo} onChange={e => alteraLogo(e.target.value)} type="file" className="form-control" id="logo" />
+
+                                            </div>
 
 
-                                    {/* Descrição */}
-                                    <div className="col-12">
-                                        <div className="form-floating">
-                                            <textarea
-                                                value={descricao}
-                                                onChange={e => alteraDescricao(e.target.value)}
-                                                className="form-control"
-                                                placeholder="Descrição"
-                                                id="descricao"
-                                                style={{ height: "100px" }}
-                                            ></textarea>
-                                            <label htmlFor="descricao">Descrição *</label>
+                                            {/* Descrição */}
+                                            <div className="col-12">
+                                                <div className="form-floating">
+                                                    <textarea
+                                                        value={descricao}
+                                                        onChange={e => alteraDescricao(e.target.value)}
+                                                        className="form-control"
+                                                        placeholder="Descrição"
+                                                        id="descricao"
+                                                        style={{ height: "100px" }}
+                                                    ></textarea>
+                                                    <label htmlFor="descricao">Descrição *</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+
                                 </div>
                             </div>
 
@@ -215,27 +269,39 @@ function MenuLateral() {
                 <hr />
             </div>
 
-            <div className="fs-6 list-group list-group-flush px-2">
+            <div className="fs-6 list-group list-group-flush px-2" style={{position: "relative"}}>
 
                 <Link href="/" className="list-group-item list-group-item-action bg-secondary text-white border-0">
                     Início
                 </Link>
 
-                <Link href="perfil_comerciante" className="list-group-item list-group-item-action bg-secondary text-white border-0">
-                    Meus Produtos
-                </Link>
+                {
+                    comercio == "true" ?
+                        <div>
+                            <Link href="perfil_comerciante" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                                Meus Produtos
+                            </Link>
 
-                <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
-                    Meus Anuncios
-                </Link>
+                            <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                                Meus Anuncios
+                            </Link>
+                        </div>
+                    :
+                           <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                                Meus Favoritos
+                            </Link>
+                }
+
 
 
             </div>
 
-        </div>
+            </div>
 
+        }
 
-
+    </div>
+        
     );
 }
 
