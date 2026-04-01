@@ -7,8 +7,8 @@ import supabase from "../../conexao/supabase";
 function Comercio() {
     const params = useParams()
 
-    const [listaComercios, alteraListaComercios] = useState(data || [])
-    const [listaProdutos, alteraListaProdutos] = useState(data || [])
+    const [listaComercios, alteraListaComercios] = useState([])
+    const [listaProdutos, alteraListaProdutos] = useState([])
 
     async function mostraID() {
         const { data, error } = await supabase
@@ -18,13 +18,12 @@ function Comercio() {
 
         alteraListaComercios(data || [])
         console.log(error)
-
     }
 
     async function buscarProdutos() {
         const { data, error } = await supabase
             .from('produtos')
-            .select('*,id_comercio')
+            .select('*')
             .eq('id_comercio', params.id)
 
         alteraListaProdutos(data || [])
@@ -51,7 +50,6 @@ function Comercio() {
     }, [params.id]);
 
     return (
-
         <div className="container mt-4">
             <button
                 className="btn btn-outline-warning mb-3"
@@ -60,14 +58,13 @@ function Comercio() {
                 ← Voltar
             </button>
 
-
-            <h1>Detalhes do comércio</h1>
+            <h1 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }} >Detalhes do comércio</h1>
             <p><strong>ID:</strong> {params.id}</p>
 
             <hr />
 
-            {listaComercios?.map(item => ( 
-                <div className="card p-3 shadow mb-4">
+            {listaComercios?.map((item) => (
+                <div className="card p-3 shadow mb-4" key={item.id}>
                     <img
                         src={item.logo}
                         alt="Logo do comércio"
@@ -85,14 +82,13 @@ function Comercio() {
                 </div>
             ))}
 
-            <h2>Produtos do comércio</h2>
+            <h2 className="text-center mb-4 fw-bold" style={{ color: "#ff6b00" }}>Produtos do comércio</h2>
             <hr />
 
             <div className="row">
-                {listaProdutos?.map(item => (
-                    <div className="col-md-4 mb-4">
+                {listaProdutos?.map((item) => (
+                    <div className="col-md-4 mb-4" class= {item.id}>
                         <div className="card h-100 shadow p-3">
-                            
                             <p><strong>Produto:</strong> {item.nome}</p>
                             <p><strong>Descrição:</strong> {item.descricao}</p>
                             <p><strong>Valor:</strong> R$ {item.valor}</p>
