@@ -13,6 +13,9 @@ function Pagina_inicial() {
   const [busca, alteraBusca] = useState("")
  
 
+  const [listaCategorias, alteraListaCategorias] = useState ([])
+
+
   async function buscarComercios() {
     if (categoria == "") {
       const { data, error } = await supabase
@@ -37,6 +40,8 @@ function Pagina_inicial() {
     console.log(data)
     alteraListaAnuncios(data)
   }
+
+
 
   useEffect(() => {
     buscarComercios();

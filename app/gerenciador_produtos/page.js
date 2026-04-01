@@ -16,6 +16,9 @@ function Produtos() {
     const [listaComercios, alteralistaComercios] = useState([])
     const [editando, alteraEditando] = useState(null)
 
+    const id_usuario = localStorage.getItem("id_usuario")
+    const [ usuario, alteraUsuario] = useState (null)
+
 
     async function buscarComercios() {
 
@@ -25,6 +28,14 @@ function Produtos() {
         alteralistaComercios(data)
     }
 
+    async function buscaUsuario() {
+        const {data, error} = await supabase
+        .from ("usuarios")
+        .select()   
+        .eq("id", id_usuario)
+
+        alteraUsuario(data[0])
+    }
 
     async function buscar() {
         const { error, data } = await supabase
@@ -130,11 +141,12 @@ function Produtos() {
             alteraImagem(" ")
 
         }
-    }
+    }    
 
     useEffect(() => {
         buscar();
         buscarComercios();
+        buscaUsuario()
     }, []);
 
     return (
