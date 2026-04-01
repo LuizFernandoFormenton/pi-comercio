@@ -56,9 +56,9 @@ function Pagina_inicial() {
     <div className="container-fluid p-0">
 
       {/* NAvbar Superior */}
-      <nav className="navbar navbar-dark bg-dark px-4 fixed-top position-relative ">
+      <nav className="navbar navbar-dark bg-dark px-4 fixed-top ">
         
-        <span className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
+        <span onClick={()=>{location.href="/"}} className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
 
         <div className="ms-auto">
           <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
