@@ -52,15 +52,15 @@ function Pagina_inicial() {
   }, []);
 
   return (
+
     <div className="container-fluid p-0">
 
-
-
       {/* NAvbar Superior */}
-      <nav className="navbar navbar-dark bg-dark px-4 fixed-top">
-        <span className="navbar-brand fw-bold">🚗 Guia Comercial São Carlos</span>
+      <nav className="navbar navbar-dark bg-dark px-4 fixed-top position-relative ">
+        
+        <span className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
 
-        <div>
+        <div className="ms-auto">
           <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
           <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
         </div>

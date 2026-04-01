@@ -41,6 +41,7 @@ export default function CadastroComercios() {
             return
 
         }
+        
 
         const objeto = {
 

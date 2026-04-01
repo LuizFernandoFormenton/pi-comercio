@@ -114,11 +114,14 @@ function Produtos() {
 
         e.preventDefault();
 
+        const id_usuario = localStorage.getItem("id_usuario")
+
         const objeto = {
 
             nome: nome,
             descricao: descricao,
-            valor: valor.replaceAll(",", ".")
+            valor: valor.replaceAll(",", "."),
+            id_comercio: id_usuario 
 
         }
 
