@@ -1,8 +1,8 @@
 .menuLateral {
-    background-color: rgb(34, 34, 34);
-    color: white;
+    background-color: #ff6b00;
+    color: rgb(46, 46, 46);
     min-height: 100vh;
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 4);
+  
 }
 
 .fundo_card{
@@ -10,7 +10,7 @@
 }
 
 .editarPerfil {
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 4);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 4);
 
 }
 
