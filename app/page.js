@@ -7,6 +7,8 @@ import { Router } from "next/router"
 
 function Pagina_inicial() {
 
+  if(typeof window === "undefined") return null
+
   const id_usuario = localStorage.getItem("id_usuario")
   const comercio = localStorage.getItem("comercio")
 
