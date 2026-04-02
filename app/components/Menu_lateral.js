@@ -7,6 +7,8 @@ import supabase from "../conexao/supabase";
 
 function MenuLateral() {
 
+    if(typeof window === "undefined")return null
+
     const id_usuario = localStorage.getItem("id_usuario")
     const nome_usuario = localStorage.getItem("nome_usuario")
     const comercio = localStorage.getItem("comercio")

@@ -5,6 +5,8 @@ import supabase from "../conexao/supabase";
 
 export default function PerfilUsuario() {
 
+    if(typeof window === "undefined")return null
+
     const [nome, alteraNome] = useState("")
     const [cpf, alteraCpf] = useState("")
     const [telefone, alteraTelefone] = useState("")
