@@ -164,7 +164,7 @@ function Pagina_inicial() {
                 <div className="card-footer bg-white border-0">
                   <button
                     className="btn btn-warning w-100"
-                    onClick={() => location.href = "/comercio/" + item.id_comercio}>Ver mais</button>
+                    onClick={() => location.href = "/comercio/" + item.id}>Ver mais</button>
                 </div>
 
               </div>
