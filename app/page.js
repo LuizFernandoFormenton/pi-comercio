@@ -6,6 +6,7 @@ import supabase from "./conexao/supabase";
 
 function Pagina_inicial() {
 
+  if(typeof window === "undefined")return null
 
   const id_usuario = localStorage.getItem("id_usuario")
   const comercio = localStorage.getItem("comercio")
@@ -96,7 +97,7 @@ function Pagina_inicial() {
       {/* Categorias dos Comércios */}
       <div className="container mb-4">
         <div className="d-flex flex-wrap gap-2 justify-content-center">
-          {["Restaurantes", "Lanchonete", "Pizzarias", "Mercados", "Moda"].map((categorias) => (
+          {["Restaurantes", "Lanchonetes", "Pizzarias", "Mercados", "Moda"].map((categorias) => (
             <button className={`btn ${categoria === categorias ? 'btn-warning' : 'btn-outline-warning'}`}
               onClick={() => alteraCategoria(categorias)}>{categorias}</button>
           ))}
@@ -112,12 +113,20 @@ function Pagina_inicial() {
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
           <div class="carousel-inner">
 
-            {listaAnuncios.map(
-              item => 
-                <div class="carousel-item active" onClick={() => window.location.href = item.url}>
-                  <img src={item.imagem}  class="width:640px; height:360px" alt="..." />
-                </div> 
-            )}
+
+
+            <div class="carousel-item active">
+              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
+            <div class="carousel-item">
+              <img src="https://uolhost.uol.com.br/blog/wp-content/uploads/2025/09/BANNER_16-09.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
+            <div class="carousel-item">
+              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
+            </div>
+
 
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -137,32 +146,29 @@ function Pagina_inicial() {
         <h4 className="mb-4">Empresas</h4>
 
         <div className="row g-4">
-          {listaComercios.map((item, index) => (
-              <div className="col-md-4 d-flex justify-content-center" key={item.id || index}>
-                <div className="card shadow" style={{ width: "22rem" }}>
-                  <img
-                    src={item.logo}
-                    className="card-img-top"
-                    alt={item.nome}
-                    style={{ height: "220px", objectFit: "cover" }}
-                  />
+          {listaComercios.map(item => (
+            <div className="col-md-4">
+              <div className="card shadow h-100 border-0" class = {item.id || index}>
 
-                  <div className="card-body">
-                    <h5 className="card-title">{item.nome}</h5>
-                    <p className="card-text">{item.descricao}</p>
-                    <p className="card-text">📞 {item.telefone}</p>
-                    <p className="card-text">📍 {item.endereco}</p>
-                    <p className="card-text">🏷️ {item.categoria}</p>
+                <img
+                  src={item.logo}
+                  className="card-img-top"
+                  style={{ height: "200px", objectFit: "cover" }} />
 
-                    <button
-                      className="btn btn-warning w-100"
-                      onClick={() => location.href = "/comercio/" + item.id_comercio}
-                    >
-                      Ver mais 🔽
-                    </button>
-                  </div>
+                <div className="card-body">
+                  <p className="card-title fw-bold">{item.nome}</p>
+                  <p className="text-muted small">{item.categoria}</p>
+                  <p className="card-text">{item.descricao}</p>
                 </div>
+
+                <div className="card-footer bg-white border-0">
+                  <button
+                    className="btn btn-warning w-100"
+                    onClick={() => location.href = "/comercio/" + item.id}>Ver mais</button>
                 </div>
+
+              </div>
+            </div>
           ))}
         </div>
       </div>
