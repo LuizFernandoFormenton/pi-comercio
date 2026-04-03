@@ -3,11 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "./conexao/supabase";
-import { Router } from "next/router"
 
 function Pagina_inicial() {
 
-  if(typeof window === "undefined") return null
 
   const id_usuario = localStorage.getItem("id_usuario")
   const comercio = localStorage.getItem("comercio")
@@ -61,9 +59,9 @@ function Pagina_inicial() {
     <div className="container-fluid p-0">
 
       {/* NAvbar Superior */}
-      <nav className="navbar navbar-dark bg-dark px-4 fixed-top position-relative ">
+      <nav className="navbar navbar-dark bg-dark px-4 fixed-top ">
         
-        <span className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
+        <span onClick={()=>{location.href="/"}} className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
 
         <div className="ms-auto">
           {
@@ -113,8 +111,6 @@ function Pagina_inicial() {
 
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
           <div class="carousel-inner">
-
-
 
             {listaAnuncios.map(
               item => 

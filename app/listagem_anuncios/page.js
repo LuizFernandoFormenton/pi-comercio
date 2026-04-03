@@ -54,11 +54,11 @@ export default function ListagemAnuncios() {
 
     return (
         <div className="container mt-5" >
-            <h1>Listagem de Anúncios</h1>
+            <h1><strong>Listagem de Anúncios</strong></h1>
             <p>Aqui você pode ver todos os anúncios cadastrados.</p>
-            <hr></hr>
+            <hr />
                 <table className="table table-hover">
-                    <thead>
+                    <thead style={{ backgroundColor: "#ff6b00", color: "white", fontWeight: "bold", fontSize: "18px"}}>
                         <tr>
                             <th scope="col" style={{ color: "#ff6b00" }}>Descrição</th>
                             <th scope="col" style={{ color: "#ff6b00" }}>Plano</th>
@@ -70,14 +70,14 @@ export default function ListagemAnuncios() {
                     <tbody>
                         {anuncios.map((anuncio) => (
                             <tr key={anuncio.id}>
-                                <td>{anuncio.descricao}</td>
+                                <td><strong>{anuncio.descricao}</strong></td>
                                 <td>{anuncio.planos}</td>
-                                <td><a href={anuncio.url} target="_blank" rel="noopener noreferrer">{anuncio.url}</a></td>
-                                <td><img src={anuncio.imagem} alt="Imagem do anúncio" style={{ width: '100px' }} /></td>
+                                <td><a href={anuncio.url} target="_blank" rel="noopener noreferrer">Acessar link</a></td>
+                                <td><img src={anuncio.imagem} alt="Imagem do anúncio" style={{ width: '300px' }} /></td>
 
                                 <td>
-                                    <button onClick={() => aceitarAnuncio(anuncio.id)}>Aceitar</button>
-                                    <button onClick={() => deletar(anuncio.id)} >Excluir</button>
+                                    <button onClick={() => aceitarAnuncio(anuncio.id)} style={{ backgroundColor: "#28a745", color: "white", border: "none", padding: "5px 10px", marginRight: "5px" }}>Aceitar</button>
+                                    <button onClick={() => deletar(anuncio.id)} style={{ backgroundColor: "#dc3545", color: "white", border: "none", padding: "5px 10px" }}>Excluir</button>
                                 </td>
                             </tr>
                         ))}

@@ -7,7 +7,9 @@ import supabase from "../conexao/supabase";
 
 function MenuLateral() {
 
-    if(typeof window === "undefined") return null
+
+    if(typeof window === "undefined")return null
+
 
     const id_usuario = localStorage.getItem("id_usuario")
     const nome_usuario = localStorage.getItem("nome_usuario")
@@ -141,7 +143,7 @@ function MenuLateral() {
         {
             id_usuario == null || id_usuario == "" ? <p style={{position: "absolute", left: 0, right: 0, top: "10%", width: "100%", textAlign: "center"}}>Faça <a href="/login">login</a> para acessar seu painel</p> :
 
-            <div className=" menuLateral text-white" style={{position: "relative"}}>
+            <div className=" menuLateral text-white" style={{position: "absolute", left: 0, right: 0, top: "0%", width: "15%", textAlign: "center"}}>
 
             <button class="btn text-light" onClick={sair} style={{position: "absolute", right: 0, left: 0, bottom: 20}}>Sair</button>
 
@@ -273,24 +275,24 @@ function MenuLateral() {
 
             <div className="fs-6 list-group list-group-flush px-2" style={{position: "relative"}}>
 
-                <Link href="/" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                <Link href="/" className="list-group-item list-group-item-action">
                     Início
                 </Link>
 
                 {
                     comercio == "true" ?
-                        <div>
-                            <Link href="perfil_comerciante" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                        <div className= "mt-5 fs-5 list-group list-group-flush">
+                            <Link href="perfil_comerciante" className="list-group-item list-group-item-action">
                                 Meus Produtos
                             </Link>
 
-                            <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
+                            <Link href="tela_anuncio" className="list-group-item list-group-item-action">
                                 Meus Anuncios
                             </Link>
                         </div>
                     :
-                           <Link href="tela_anuncio" className="list-group-item list-group-item-action bg-secondary text-white border-0">
-                                Meus Favoritos
+                           <Link href="" className="list-group-item list-group-item-action">
+                                Meus Cupons
                             </Link>
                 }
 

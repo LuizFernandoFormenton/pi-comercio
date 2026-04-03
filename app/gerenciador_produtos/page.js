@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
 
 function Produtos() {
+    
+    if(typeof window === "undefined")return null
 
     if(typeof window === "undefined") return null
     
