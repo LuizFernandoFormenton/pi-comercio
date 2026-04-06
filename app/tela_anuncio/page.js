@@ -85,7 +85,9 @@ export default function CadastroAnuncioModal() {
           <h1 className="display-4 fw-bold" style={{ color: "#f06509b6" }}>
             Bem-vindo ao painel de anúncios!
           </h1>
-          <p className="fs-5 mb-4">Crie seu anúncio e destaque seu negócio!</p>
+          <p className="fs-5 mb-4" style={{ color: "#29c4f3", fontFamily: 'Arial, sans-serif' }} >
+            Crie seu anúncio e destaque seu negócio!
+          </p>
           
           <button 
             type="button" 
@@ -98,7 +100,7 @@ export default function CadastroAnuncioModal() {
           <br />
           <br />
           <br />
-          <h2 style={{color: '#a6ff00'}}>Saiba se o seu anúncio está sendo aprovado!</h2>
+          <h2 style={{color: '#a6ff00', fontFamily: 'Arial, sans-serif'}}>Acompanhe seu anúncio!</h2>
           <button className="btn btn-info" onClick={() => {window.location.href = "/listagem_anuncios";}} >
             Ver Status
           </button>
