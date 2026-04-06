@@ -7,6 +7,8 @@ function Produtos() {
     
     if(typeof window === "undefined")return null
 
+    if(typeof window === "undefined") return null
+    
     const [produtos, alteraProdutos] = useState([])
 
     const [id_comercio, alteraId_comercio] = useState("")

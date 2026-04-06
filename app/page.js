@@ -46,7 +46,6 @@ function Pagina_inicial() {
   }
 
 
-
   useEffect(() => {
     buscarComercios();
   }, [categoria, busca]);
@@ -97,7 +96,7 @@ function Pagina_inicial() {
       {/* Categorias dos Comércios */}
       <div className="container mb-4">
         <div className="d-flex flex-wrap gap-2 justify-content-center">
-          {["Restaurantes", "Lanchonetes", "Pizzarias", "Mercados", "Moda"].map((categorias) => (
+          {["Restaurantes", "Lanchonetes", "Pizzarias", "Supermercados", "Moda"].map((categorias) => (
             <button className={`btn ${categoria === categorias ? 'btn-warning' : 'btn-outline-warning'}`}
               onClick={() => alteraCategoria(categorias)}>{categorias}</button>
           ))}
@@ -114,18 +113,11 @@ function Pagina_inicial() {
           <div class="carousel-inner">
 
 
-
+            {listaAnuncios.map((item, index) => (
             <div class="carousel-item active">
-              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
-
-            <div class="carousel-item">
-              <img src="https://uolhost.uol.com.br/blog/wp-content/uploads/2025/09/BANNER_16-09.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
-
-            <div class="carousel-item">
-              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
+              <img src={item.imagem} class="width:640px; height:360px" alt="..." />
+              {() => item.url}
+            </div>))}
 
 
           </div>
@@ -164,7 +156,7 @@ function Pagina_inicial() {
                 <div className="card-footer bg-white border-0">
                   <button
                     className="btn btn-warning w-100"
-                    onClick={() => location.href = "/comercio/" + item.id_comercio}>Ver mais</button>
+                    onClick={() => location.href = "/comercio/" + item.id}>Ver mais</button>
                 </div>
 
               </div>
