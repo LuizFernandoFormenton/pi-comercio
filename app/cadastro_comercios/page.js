@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export default function CadastroComercios() {
-    
+
     const route = useRouter()
 
     const [nome, alteraNome] = useState("")
@@ -37,13 +37,13 @@ export default function CadastroComercios() {
 
         const { data, error } = await supabase.auth.signUp(auth)
 
-        if(data == null){
+        if (data == null) {
 
             alert("Dados inválidos...")
             return
 
         }
-        
+
 
         const objeto = {
 
@@ -58,12 +58,12 @@ export default function CadastroComercios() {
 
         }
 
-        const  resposta  = await supabase
+        const resposta = await supabase
 
             .from('comercios')
             .insert(objeto)
-            console.log(resposta.error)
-            console.log(resposta.data)
+        console.log(resposta.error)
+        console.log(resposta.data)
 
 
         if (resposta.error == null) {
@@ -105,7 +105,15 @@ export default function CadastroComercios() {
 
                 <form onSubmit={salvar} className="row g-3">
 
-                    <h1 className="text-center mb-3">Cadastro Comércio</h1>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
+                            ← Voltar
+                        </button>
+
+                        <h1 className="m-0">Cadastro Comércio</h1>
+
+                        <div></div> 
+                    </div>
 
                     {/* Nome */}
                     <div className="col-12">
@@ -181,7 +189,7 @@ export default function CadastroComercios() {
                     <div className="col-12 text-center">
 
                         {/* <Link href="login" >*/} <button type="submit" className="btn btn-warning px-5">Cadastrar</button> {/* </Link>  */}
-                        <button onClick={() => route.back()} className="btn btn-warning">Voltar</button>
+
 
                         <br /><br />
 
