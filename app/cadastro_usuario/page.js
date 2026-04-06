@@ -124,7 +124,9 @@ export default function CadastroUsuario() {
 
           {/* Botão */}
           <div className="col-12 text-center">
-            <button type="submit" className="btn btn-outline-dark px-5">Cadastrar</button>
+            <button type="submit" className="btn btn-warning me-2" >Cadastrar</button>
+            
+            <Link href="/" className="btn btn-warning">Pagina inicial</Link>
             <br />
             <br />
 

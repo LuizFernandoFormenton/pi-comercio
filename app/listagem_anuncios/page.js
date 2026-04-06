@@ -71,8 +71,8 @@ export default function ListagemAnuncios() {
                         {anuncios.map((anuncio) => (
                             <tr key={anuncio.id}>
                                 <td><strong>{anuncio.descricao}</strong></td>
-                                <td>{anuncio.planos}</td>
-                                <td><a href={anuncio.url} target="_blank" rel="noopener noreferrer">Acessar link</a></td>
+                                <td>{anuncio.planos} dias</td>
+                                <td><a href={anuncio.url} target="_blank" rel="noopener noreferrer"><strong>Acessar o link da empresa</strong></a></td>
                                 <td><img src={anuncio.imagem} alt="Imagem do anúncio" style={{ width: '300px' }} /></td>
 
                                 <td>

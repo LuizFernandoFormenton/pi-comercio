@@ -157,8 +157,8 @@ export default function CadastroComercios() {
 
                     {/* Logo */}
                     <div className="col-12">
-                        <label htmlFor="logo" className="form-label">Logo da Empresa *</label>
-                        <input onChange={e => alteraLogo(e.target.value)} type="file" className="form-control" id="logo" />
+                        <label htmlFor="logo" className="form-label">Link do logo da Empresa *</label>
+                        <input onChange={e => alteraLogo(e.target.value)} type="text" className="form-control" id="logo" />
                     </div>
 
                     {/* Descrição */}
@@ -178,7 +178,8 @@ export default function CadastroComercios() {
                     {/* Botão */}
                     <div className="col-12 text-center">
 
-                        {/* <Link href="login" >*/} <button type="submit" className="btn btn-primary px-5">Cadastrar</button> {/* </Link>  */}
+                        {/* <Link href="login" >*/} <button type="submit" className="btn btn-warning px-5">Cadastrar</button> {/* </Link>  */}
+                        <Link href="/" className="btn btn-warning">Pagina inicial</Link>
 
                         <br /><br />
 
