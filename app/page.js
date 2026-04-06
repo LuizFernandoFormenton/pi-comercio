@@ -114,18 +114,11 @@ function Pagina_inicial() {
           <div class="carousel-inner">
 
 
-
+            {listaAnuncios.map((item, index) => (
             <div class="carousel-item active">
-              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
-
-            <div class="carousel-item">
-              <img src="https://uolhost.uol.com.br/blog/wp-content/uploads/2025/09/BANNER_16-09.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
-
-            <div class="carousel-item">
-              <img src="https://spiner.com.br/wp-content/uploads/2020/01/anuncios-online-de-sua-empresa.jpg" class="width:640px; height:360px" alt="..." />
-            </div>
+              <img src={item.imagem} class="width:640px; height:360px" alt="..." />
+              {() => item.url}
+            </div>))}
 
 
           </div>
