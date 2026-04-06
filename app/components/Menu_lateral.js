@@ -141,7 +141,7 @@ function MenuLateral() {
 
     <div>
         {
-            id_usuario == null || id_usuario == "" ? <p style={{position: "absolute", left: 0, right: 0, top: "10%", width: "100%", textAlign: "center"}}>Faça <a href="/login">login</a> para acessar seu painel</p> :
+            id_usuario == null || id_usuario == "" ? <p style={{position: "absolute", left: 0, right: 0, top: "2%", width: "100%", textAlign: "center"}}>Faça <a href="/login">login</a> para acessar seu painel</p> :
 
             <div className=" menuLateral text-white" style={{position: "absolute", left: 0, right: 0, top: "0%", width: "15%", textAlign: "center"}}>
 
