@@ -86,7 +86,15 @@ export default function CadastroUsuario() {
 
         <form onSubmit={salvar} className="row g-3">
 
-          <h1 className="text-center mb-3">Cadastro Usuário</h1>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
+                            ← Voltar
+                        </button>
+
+                        <h1 className="m-0">Cadastro usuário</h1>
+
+                        <div></div> 
+                    </div>
 
           {/* Nome */}
           <div className="col-12">

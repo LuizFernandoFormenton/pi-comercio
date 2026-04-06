@@ -61,7 +61,15 @@ export default function Login() {
 
           <form className="row g-3">
 
-            <h1 className="text-center mb-3">Bem-Vindo!</h1>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                        <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
+                            ← Voltar
+                        </button>
+
+                        <h1 className="m-0">Bem vindo </h1>
+
+                        <div></div> 
+                    </div>
 
             {/* Email */}
             <div className="col-12">
@@ -75,7 +83,7 @@ export default function Login() {
               <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
             </div>
 
-            <button onClick={autenticar} type="button" class="btn btn-outline-dark">LOGIN</button>
+            <button onClick={autenticar} type="button" class= "btn btn-warning">LOGIN</button>
             <br/>
 
             <p className="text-center mb-3">Não tem cadastro ? <Link href="/cadastro_usuario">Clique Aqui </Link> </p>
