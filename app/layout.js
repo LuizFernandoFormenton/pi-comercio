@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Script from "next/script";
 import LayoutWrapper from "./components/Pag_sem_menu_lateral"
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./global.css";
 
 
 const geistSans = Geist({

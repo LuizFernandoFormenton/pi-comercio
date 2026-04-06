@@ -58,23 +58,60 @@ function Pagina_inicial() {
 
     <div className="container-fluid p-0">
 
-      {/* NAvbar Superior */}
-      <nav className="navbar navbar-dark bg-dark px-4 fixed-top ">
-        
-        <span onClick={()=>{location.href="/"}} className=" navbar-brand fw-bold position-absolute top-50 start-50 translate-middle "><i class="bi bi-shop"></i> Guia Comercial São Carlos</span>
+      {/* Navbar Superior */}
+<nav 
+  className="navbar navbar-expand-lg fixed-top px-4 shadow-sm"
+  style={{
+    background: "linear-gradient(90deg, #ff9100, #ffb347)",
+    backdropFilter: "blur(6px)"
+  }}
+>
 
-        <div className="ms-auto">
-          {
-            id_usuario == null || id_usuario == "" ?
-              <div>
-                <Link href="/login" className="btn btn-outline-light me-2">Login</Link>
-                <Link href="/cadastro_usuario" className="btn btn-warning">Cadastrar</Link>
-              </div>
-            :
-               <Link href={comercio == "true" ? "/perfil_comerciante" : "/perfil_usuario"} className="btn btn-outline-light me-2">Perfil</Link>
-          }
-        </div>
-      </nav>
+  {/* Logo central */}
+  <span 
+    onClick={()=>{location.href="/"}} 
+    className="navbar-brand fw-bold position-absolute top-50 start-50 translate-middle d-flex align-items-center gap-2"
+    style={{cursor: "pointer"}}
+  >
+    <i className="bi bi-shop text-white bg-dark rounded-circle p-2 shadow-sm"></i>
+    <span className="text-dark">Guia</span>
+    <span className="text-white fw-semibold">Comercial São Carlos</span>
+  </span>
+
+  {/* Botões direita */}
+  <div className="ms-auto d-flex align-items-center gap-2">
+    {
+      id_usuario == null || id_usuario == "" ?
+        <>
+          <Link 
+            href="/login" 
+            className="btn btn-outline-light px-3 rounded-pill fw-semibold"
+          >
+            Entrar
+          </Link>
+
+          <Link 
+            href="/cadastro_usuario" 
+            className="btn px-3 rounded-pill fw-semibold"
+            style={{
+              backgroundColor: "#fff",
+              color: "#ff9100",
+              border: "none"
+            }}
+          >
+            Cadastrar
+          </Link>
+        </>
+      :
+        <Link 
+          href={comercio == "true" ? "/perfil_comerciante" : "/perfil_usuario"} 
+          className="btn btn-outline-light px-3 rounded-pill fw-semibold"
+        >
+          Perfil
+        </Link>
+    }
+  </div>
+</nav>
 
       <div style={{ marginTop: "80px" }}></div>
 
@@ -88,7 +125,7 @@ function Pagina_inicial() {
             value={busca}
             onChange={(e) => alteraBusca(e.target.value)} />
 
-          <button className="btn btn-warning" onClick={buscarComercios}>Buscar</button>
+          <button className="btn fw-semibold btn-warning" onClick={buscarComercios}>Buscar</button>
 
         </div>
       </div>

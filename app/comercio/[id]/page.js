@@ -95,7 +95,6 @@ function Comercio() {
                         <p><strong>Categoria:</strong> {item.categoria}</p>
                         <p><strong>Descrição:</strong> {item.descricao}</p>
 
-                        
 
                     </div>
                 ))}
