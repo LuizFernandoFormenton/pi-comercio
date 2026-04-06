@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import supabase from "../conexao/supabase";
+import { useRouter } from "next/navigation";
 
 
 export default function CadastroUsuario() {
+
+  const route = useRouter()
 
   const [nome, alteraNome] = useState("")
   const [cpf, alteraCpf] = useState("")
@@ -126,7 +129,7 @@ export default function CadastroUsuario() {
           <div className="col-12 text-center">
             <button type="submit" className="btn btn-warning me-2" >Cadastrar</button>
             
-            <Link href="/" className="btn btn-warning">Pagina inicial</Link>
+            <button onClick={() => route.back()} className="btn btn-warning">Pagina inicial</button>
             <br />
             <br />
 

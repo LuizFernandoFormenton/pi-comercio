@@ -4,10 +4,12 @@ import { createClient } from '@supabase/supabase-js'
 const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_publishable_QItyhHGNmCrt94WyCBRqrw_41i_b-63')
 
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 
 export default function CadastroComercios() {
-
+    
+    const route = useRouter()
 
     const [nome, alteraNome] = useState("")
     const [email, alteraEmail] = useState("")
@@ -179,7 +181,7 @@ export default function CadastroComercios() {
                     <div className="col-12 text-center">
 
                         {/* <Link href="login" >*/} <button type="submit" className="btn btn-warning px-5">Cadastrar</button> {/* </Link>  */}
-                        <Link href="/" className="btn btn-warning">Pagina inicial</Link>
+                        <button onClick={() => route.back()} className="btn btn-warning">Voltar</button>
 
                         <br /><br />
 
