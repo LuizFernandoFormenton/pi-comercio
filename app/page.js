@@ -46,7 +46,6 @@ function Pagina_inicial() {
   }
 
 
-
   useEffect(() => {
     buscarComercios();
   }, [categoria, busca]);
@@ -97,7 +96,7 @@ function Pagina_inicial() {
       {/* Categorias dos Comércios */}
       <div className="container mb-4">
         <div className="d-flex flex-wrap gap-2 justify-content-center">
-          {["Restaurantes", "Lanchonetes", "Pizzarias", "Mercados", "Moda"].map((categorias) => (
+          {["Restaurantes", "Lanchonetes", "Pizzarias", "Supermercados", "Moda"].map((categorias) => (
             <button className={`btn ${categoria === categorias ? 'btn-warning' : 'btn-outline-warning'}`}
               onClick={() => alteraCategoria(categorias)}>{categorias}</button>
           ))}

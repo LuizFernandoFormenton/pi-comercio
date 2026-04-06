@@ -146,8 +146,8 @@ export default function CadastroComercios() {
                         <label htmlFor="categoria" className="form-label">Categoria da Empresa *</label>
                         <select onChange={e => alteraCategoria(e.target.value)} className="form-select" id="categoria">
                             <option>Selecione</option>
-                            <option>Restaurante</option>
-                            <option>Lanchonete</option>
+                            <option>Restaurantes</option>
+                            <option>Lanchonetes</option>
                             <option>Moda</option>
                             <option>Eletrônicos</option>
                             <option>Saúde e Bem-estar</option>
