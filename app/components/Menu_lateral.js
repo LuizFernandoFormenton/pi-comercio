@@ -133,7 +133,7 @@ function MenuLateral() {
     function sair(){
         localStorage.removeItem("id_usuario")
         localStorage.removeItem("nome_usuario")
-        alert("Desconectado com xuxesso")
+        alert("Desconectado com sucesso")
         location.href = "/"
     }
 
