@@ -30,15 +30,15 @@ export default function CadastroUsuario() {
       alert("As senhas não são iguais, confirme a senha digitada")
       return
     }
-    
+
     //Autenticação para cadastrar novo usuário
-  
+
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: senha
     })
 
-    if(data == null){
+    if (data == null) {
       alert("Dados inválidos...")
       return
     }
@@ -83,19 +83,20 @@ export default function CadastroUsuario() {
     <div className="d-flex justify-content-center min-vh-100">
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "650px" }}>
+        
 
-        <form onSubmit={salvar} className="row g-3">
-
-                    <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="d-flex justify-content-between align-items-center mb-3">
                         <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
                             ← Voltar
                         </button>
 
-                        <h1 className="m-0">Cadastro usuário</h1>
+                        <h1 className="m-0">Cadastro Usuário</h1>
 
-                        <div></div> 
+                        <div></div>
                     </div>
 
+        <form onSubmit={salvar} className="row g-3">
+          
           {/* Nome */}
           <div className="col-12">
             <label htmlFor="nome" className="form-label">Nome Completo *</label>
@@ -136,12 +137,28 @@ export default function CadastroUsuario() {
           {/* Botão */}
           <div className="col-12 text-center">
             <button type="submit" className="btn btn-warning me-2" >Cadastrar</button>
-            
-            <button onClick={() => route.back()} className="btn btn-warning">Pagina inicial</button>
+
+
             <br />
             <br />
 
-            <p>Quer se cadastrar como comerciante ? <Link href="/cadastro_comercios">Clique Aqui </Link> </p>
+            <Link href="/cadastro_comercios" className="text-decoration-none">
+              <div
+                className="border rounded p-3 text-center"
+                style={{
+                  borderColor: "#ffc107",
+                  backgroundColor: "#fffbf0",
+                  cursor: "pointer",
+                  transition: "background 0.2s"
+                }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#fff3cd"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fffbf0"}
+              >
+                <span className="fw-bold text-dark">🏪 É comerciante?</span>
+                <br />
+                <span className="text-muted small">Clique aqui para cadastrar seu comércio</span>
+              </div>
+            </Link>
 
           </div>
 

@@ -16,7 +16,9 @@ export default function Login() {
   const [email, alteraEmail] = useState("")
   const [senha, alteraSenha] = useState("")
 
-  async function autenticar() {
+  async function autenticar(e) {
+
+    e.preventDefault()
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -24,19 +26,19 @@ export default function Login() {
     })
 
 
-    if(data.user == null){
+    if (data.user == null) {
       alert("Dados inválidos...")
       return
     }
 
     localStorage.setItem("id_usuario", data.user.id)
-    
+
     const resposta = await supabase.from('usuarios').select().eq('id', data.user.id)
-    if(resposta.data != 0){
+    if (resposta.data != 0) {
       console.log("Logado como usuario")
       localStorage.setItem("nome_usuario", resposta.data[0].nome)
       localStorage.setItem("comercio", false)
-    }else{
+    } else {
       console.log("Logado como comerciante")
       const resposta2 = await supabase.from('comercios').select().eq('id', data.user.id)
       console.log(resposta2)
@@ -46,7 +48,7 @@ export default function Login() {
 
     alert("Autenticado com sucesso! ✅")
 
-    location.href="/"
+    location.href = "/"
 
   }
 
@@ -56,35 +58,38 @@ export default function Login() {
     <div className="d-flex justify-content-center min-vh-100">
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "550px" }}>
+        <div className="position-relative mb-3">
+          <button onClick={() => route.back()} className="btn btn-warning position-absolute start-0 top-50 translate-middle-y">
+            ← Voltar
+          </button>
+
+          <div className="" >
+            
+             <h1 className="text-center m-0">Bem vindo </h1>
+
+          </div>
+
+        </div>
 
         {autenticado == false ?
 
-          <form className="row g-3">
+          <form  className="row g-3">
 
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                        <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
-                            ← Voltar
-                        </button>
-
-                        <h1 className="m-0">Bem vindo </h1>
-
-                        <div></div> 
-                    </div>
 
             {/* Email */}
             <div className="col-12">
-              <label htmlFor="email" className="form-label">Email *</label>
+              <label htmlFor="email" className="form-label">Email <span className="text-danger">*</span></label>
               <input value={email} onChange={e => alteraEmail(e.target.value)} id="email" type="email" className="form-control" />
             </div>
 
             {/* Senha */}
             <div className="col-12">
-              <label htmlFor="senha" className="form-label">Senha *</label>
+              <label htmlFor="senha" className="form-label">Senha <span className="text-danger">*</span></label>
               <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
             </div>
 
-            <button onClick={autenticar} type="button" class= "btn btn-warning">LOGIN</button>
-            <br/>
+            <button onClick={autenticar} type="button" class="btn btn-warning">LOGIN</button>
+            <br />
 
             <p className="text-center mb-3">Não tem cadastro ? <Link href="/cadastro_usuario">Clique Aqui </Link> </p>
 

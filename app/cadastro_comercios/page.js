@@ -112,7 +112,7 @@ export default function CadastroComercios() {
 
                         <h1 className="m-0">Cadastro Comércio</h1>
 
-                        <div></div> 
+                        <div></div>
                     </div>
 
                     {/* Nome */}
@@ -193,7 +193,23 @@ export default function CadastroComercios() {
 
                         <br /><br />
 
-                        <p> Se cadastrar como usuário? <Link href="cadastro_usuario" >Clique aqui</Link> </p>
+                        <Link href="/cadastro_usuario" className="text-decoration-none">
+                            <div
+                                className="border rounded p-3 text-center"
+                                style={{
+                                    borderColor: "#ffc107",
+                                    backgroundColor: "#fffbf0",
+                                    cursor: "pointer",
+                                    transition: "background 0.2s"
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.backgroundColor = "#fff3cd"}
+                                onMouseLeave={e => e.currentTarget.style.backgroundColor = "#fffbf0"}
+                            >
+                                <span className="fw-bold text-dark">⭐ É usuário?</span>
+                                <br />
+                                <span className="text-muted small">Clique aqui para cadastrar seu comércio</span>
+                            </div>
+                        </Link>
 
                     </div>
 
