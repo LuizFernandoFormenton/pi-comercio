@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { useEffect, useState } from 'react';
 import supabase from '../conexao/supabase';
@@ -59,8 +59,13 @@ export default function ListagemAnuncios() {
             <hr />
 
             <div className="input-group">
-                <input type="text" className="form-control" placeholder="Pesquisar..."
-                    aria-label="Recipients username" aria-describedby="basic-addon2" />
+                <input  type="text" className="form-control"  placeholder="Pesquisar..."
+                    aria-label="Recipients username" aria-describedby="basic-addon2" onChange={(e) => {
+                        const { value } = e.target;
+                        if (value.trim() === '') {
+                            buscarAnuncios();
+                        }
+                    }}/>
                 <button className="input-group-text" id="basic-addon2">🔍</button>
             </div>
             <br />
@@ -92,4 +97,4 @@ export default function ListagemAnuncios() {
                 </table>
         </div>
     );
-}
+}*/

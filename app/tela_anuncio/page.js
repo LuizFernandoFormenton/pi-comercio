@@ -17,9 +17,13 @@ export default function CadastroAnuncioModal() {
   }, []);
 
   async function buscarAnuncios() {
+
+    const id_usuario = localStorage.getItem("id_usuario");
+
     const { data, error } = await supabase
       .from('anuncios')
-      .select('*');
+      .select('*')
+      .eq('id_comercios', id_usuario);
 
     if (!error) {
       setAnuncios(data);
@@ -41,7 +45,7 @@ export default function CadastroAnuncioModal() {
       return; 
     }
 
-    const id_usuario = localStorage.getItem("id_usuario")
+    const id_usuario = localStorage.getItem("id_usuario");
 
     const obj = {
       descricao: descricao,
@@ -55,7 +59,7 @@ export default function CadastroAnuncioModal() {
 
       const { error } = await supabase
         .from('anuncios')
-        .insert(obj);
+        .insert([obj]);
 
       if (error) {
         alert("Erro ao salvar: " + error.message);
@@ -71,6 +75,11 @@ export default function CadastroAnuncioModal() {
   }
 
   async function deletar(id) {
+
+    const opcao = confirm("Tem certeza que deseja excluir?");
+    if (!opcao) {
+      return;
+    }
 
     const { error } = await supabase
       .from('anuncios')
@@ -99,11 +108,20 @@ export default function CadastroAnuncioModal() {
   return (
 
 <div className="container mt-5">
-    <h1><strong>Cadastro de Anúncios</strong></h1>
-    <p>Aqui você pode criar novos anuncios para sua empresa se destacar.</p>
+    <h1><strong>Listagem de Anúncios</strong></h1>
+    <p>Aqui você pode ver todos os anúncios que você cadastrou.</p>
     <hr />
   
+    <div className="input-group">
+        <input 
+          type="text" 
+          className="form-control" 
+          placeholder="Pesquisar..."
+        />
+        <button className="input-group-text">🔍</button>
+    </div>
 
+    <br />
     
     <button 
         className="btn btn-warning mb-3"
@@ -113,16 +131,71 @@ export default function CadastroAnuncioModal() {
         Cadastrar Novo Anúncio
     </button>
 
+    <table className="table table-hover">
+      
+        <thead style={{ backgroundColor: "#ff6b00", color: "white", fontWeight: "bold", fontSize: "18px"}}>
+            <tr>
+                <th>Descrição</th>
+                <th>Plano</th>
+                <th>Link</th>
+                <th>Imagem</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
+        <tbody>
 
-    <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            {anuncios.map((anuncio) => (
+                <tr key={anuncio.id}>
+                    <td>{anuncio.descricao}</td>
+                    <td>{anuncio.planos} dias</td>
+                    <td>
+                      <a 
+                        href={anuncio.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        Visitar
+                      </a>
+                    </td>
+                    <td>
+                      <img 
+                        src={anuncio.imagem} 
+                        alt="Anúncio" 
+                        style={{ width: '100px' }} 
+                      />
+                    </td>
+                    <td>
+
+                        <button
+                            className="btn btn-success me-2"
+                            onClick={() => aceitarAnuncio(anuncio.id)}
+                        >
+                            Aceitar
+                        </button> 
+
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => deletar(anuncio.id)}
+                        >
+                            Excluir
+                        </button>
+
+                    </td>
+                </tr>
+            ))}
+
+        </tbody>
+    </table>
+
+    <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1">
 
         <div className="modal-dialog modal-dialog-centered modal-lg">
 
             <div className="modal-content shadow-lg">
 
                 <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="modalLabel">Cadastre seu anúncio</h1>
+                    <h1 className="modal-title fs-5">Cadastre seu anúncio</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -171,8 +244,7 @@ export default function CadastroAnuncioModal() {
                             className="form-control"
                             onChange={(e) => setImagem(e.target.value)}
                             required
-                            placeholder="http://..." 
-
+                            placeholder="http://..."
                             />
                         </div>
 
