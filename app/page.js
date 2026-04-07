@@ -45,6 +45,20 @@ function Pagina_inicial() {
     alteraListaAnuncios(data)
   }
 
+  async function buscarComercios() {
+  const { data, error } = await supabase
+    .from('comercios')
+    .select('*')
+    .ilike('nome', `%${busca}%`)
+
+  if (error) {
+    console.log(error)
+    return
+  }
+
+  alteraListaComercios(data || [])
+}
+
 
   useEffect(() => {
     buscarComercios();
