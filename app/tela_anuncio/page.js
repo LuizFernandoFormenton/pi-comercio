@@ -99,16 +99,11 @@ export default function CadastroAnuncioModal() {
   return (
 
 <div className="container mt-5">
-    <h1><strong>Listagem de Anúncios</strong></h1>
-    <p>Aqui você pode ver todos os anúncios cadastrados.</p>
+    <h1><strong>Cadastro de Anúncios</strong></h1>
+    <p>Aqui você pode criar novos anuncios para sua empresa se destacar.</p>
     <hr />
   
-                  <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Pesquisar..."
-                        aria-label="Recipients username" aria-describedby="basic-addon2" />
-                    <button className="input-group-text" id="basic-addon2">🔍</button>
-                </div>
-    <br />
+
     
     <button 
         className="btn btn-warning mb-3"
@@ -118,71 +113,6 @@ export default function CadastroAnuncioModal() {
         Cadastrar Novo Anúncio
     </button>
 
-    <table className="table table-hover">
-
-        <thead style={{ backgroundColor: "#ff6b00", color: "white", fontWeight: "bold", fontSize: "18px"}}>
-            <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Plano</th>
-                <th scope="col">Link</th>
-                <th scope="col">Imagem</th>
-                <th scope="col">Ações</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            {anuncios.map((anuncio) => (
-
-                <tr key={anuncio.id}>
-
-                    <td><strong>{anuncio.descricao}</strong></td>
-
-                    <td>{anuncio.planos} dias</td>
-
-                    <td>
-                        <a 
-                        href={anuncio.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        >
-                        <strong>Acessar o link da empresa</strong>
-                        </a>
-                    </td>
-
-                    <td>
-                        <img 
-                        src={anuncio.imagem} 
-                        alt="Imagem do anúncio" 
-                        style={{ width: '300px' }} 
-                        />
-                    </td>
-
-                    <td>
-
-                        <button
-                        onClick={() => aceitarAnuncio(anuncio.id)}
-                        style={{ backgroundColor: "#28a745", color: "white", border: "none", padding: "5px 10px", marginRight: "5px" }}
-                        >
-                        Aceitar
-                        </button>
-
-                        <button
-                        onClick={() => deletar(anuncio.id)}
-                        style={{ backgroundColor: "#dc3545", color: "white", border: "none", padding: "5px 10px" }}
-                        >
-                        Excluir
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            ))}
-
-        </tbody>
-
-    </table>
 
 
     <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -241,7 +171,8 @@ export default function CadastroAnuncioModal() {
                             className="form-control"
                             onChange={(e) => setImagem(e.target.value)}
                             required
-                            placeholder="http://..."
+                            placeholder="http://..." 
+
                             />
                         </div>
 
