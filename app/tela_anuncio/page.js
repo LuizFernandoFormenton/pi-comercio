@@ -102,7 +102,14 @@ export default function CadastroAnuncioModal() {
     <h1><strong>Listagem de Anúncios</strong></h1>
     <p>Aqui você pode ver todos os anúncios cadastrados.</p>
     <hr />
-
+  
+                  <div className="input-group">
+                    <input type="text" className="form-control" placeholder="Pesquisar..."
+                        aria-label="Recipients username" aria-describedby="basic-addon2" />
+                    <button className="input-group-text" id="basic-addon2">🔍</button>
+                </div>
+    <br />
+    
     <button 
         className="btn btn-warning mb-3"
         data-bs-toggle="modal"
