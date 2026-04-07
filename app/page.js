@@ -6,7 +6,7 @@ import supabase from "./conexao/supabase";
 
 function Pagina_inicial() {
 
-  if(typeof window === "undefined")return null
+  if (typeof window === "undefined") return null
 
   const id_usuario = localStorage.getItem("id_usuario")
   const comercio = localStorage.getItem("comercio")
@@ -17,7 +17,7 @@ function Pagina_inicial() {
   const [busca, alteraBusca] = useState("")
 
 
-  const [listaCategorias, alteraListaCategorias] = useState ([])
+  const [listaCategorias, alteraListaCategorias] = useState([])
 
 
   async function buscarComercios() {
@@ -59,59 +59,59 @@ function Pagina_inicial() {
     <div className="container-fluid p-0">
 
       {/* Navbar Superior */}
-<nav 
-  className="navbar navbar-expand-lg fixed-top px-4 shadow-sm"
-  style={{
-    background: "linear-gradient(90deg, #ff9100, #ffb347)",
-    backdropFilter: "blur(6px)"
-  }}
->
+      <nav
+        className="navbar navbar-expand-lg fixed-top px-4 shadow-sm"
+        style={{
+          background: "linear-gradient(90deg, #ff9100, #ffb347)",
+          backdropFilter: "blur(6px)"
+        }}
+      >
 
-  {/* Logo central */}
-  <span 
-    onClick={()=>{location.href="/"}} 
-    className="navbar-brand fw-bold position-absolute top-50 start-50 translate-middle d-flex align-items-center gap-2"
-    style={{cursor: "pointer"}}
-  >
-    <i className="bi bi-shop text-white bg-dark rounded-circle p-2 shadow-sm"></i>
-    <span className="text-dark">Guia</span>
-    <span className="text-white fw-semibold">Comercial São Carlos</span>
-  </span>
-
-  {/* Botões direita */}
-  <div className="ms-auto d-flex align-items-center gap-2">
-    {
-      id_usuario == null || id_usuario == "" ?
-        <>
-          <Link 
-            href="/login" 
-            className="btn btn-outline-light px-3 rounded-pill fw-semibold"
-          >
-            Entrar
-          </Link>
-
-          <Link 
-            href="/cadastro_usuario" 
-            className="btn px-3 rounded-pill fw-semibold"
-            style={{
-              backgroundColor: "#fff",
-              color: "#ff9100",
-              border: "none"
-            }}
-          >
-            Cadastrar
-          </Link>
-        </>
-      :
-        <Link 
-          href={comercio == "true" ? "/perfil_comerciante" : "/perfil_usuario"} 
-          className="btn btn-outline-light px-3 rounded-pill fw-semibold"
+        {/* Logo central */}
+        <span
+          onClick={() => { location.href = "/" }}
+          className="navbar-brand fw-bold position-absolute top-50 start-50 translate-middle d-flex align-items-center gap-2"
+          style={{ cursor: "pointer" }}
         >
-          Perfil
-        </Link>
-    }
-  </div>
-</nav>
+          <i className="bi bi-shop text-white bg-dark rounded-circle p-2 shadow-sm"></i>
+          <span className="text-dark">Guia</span>
+          <span className="text-white fw-semibold">Comercial São Carlos</span>
+        </span>
+
+        {/* Botões direita */}
+        <div className="ms-auto d-flex align-items-center gap-2">
+          {
+            id_usuario == null || id_usuario == "" ?
+              <>
+                <Link
+                  href="/login"
+                  className="btn btn-outline-light px-3 rounded-pill fw-semibold"
+                >
+                  Entrar
+                </Link>
+
+                <Link
+                  href="/cadastro_usuario"
+                  className="btn px-3 rounded-pill fw-semibold"
+                  style={{
+                    backgroundColor: "#fff",
+                    color: "#ff9100",
+                    border: "none"
+                  }}
+                >
+                  Cadastrar
+                </Link>
+              </>
+              :
+              <Link
+                href={comercio == "true" ? "/perfil_comerciante" : "/perfil_usuario"}
+                className="btn btn-outline-light px-3 rounded-pill fw-semibold"
+              >
+                Perfil
+              </Link>
+          }
+        </div>
+      </nav>
 
       <div style={{ marginTop: "80px" }}></div>
 
@@ -138,7 +138,7 @@ function Pagina_inicial() {
               onClick={() => alteraCategoria(categorias)}>{categorias}</button>
           ))}
 
-          <button className="btn btn-secondary" onClick={() => alteraCategoria("")}>Ver todos</button>
+          <button className="btn btn-warning" onClick={() => alteraCategoria("")}>Ver todos</button>
 
         </div>
       </div>
@@ -151,10 +151,12 @@ function Pagina_inicial() {
 
 
             {listaAnuncios.map((item, index) => (
-            <div class="carousel-item active">
-              <img src={item.imagem} class="width:640px; height:360px" alt="..." />
-              {() => item.url}
-            </div>))}
+              <div class="carousel-item active"
+                onClick={() => window.location.href = item.url}
+                style={{ cursor: "pointer" }}>
+                <img src={item.imagem}  alt="..." />
+                
+              </div>))}
 
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -176,7 +178,7 @@ function Pagina_inicial() {
         <div className="row g-4">
           {listaComercios.map(item => (
             <div className="col-md-4">
-              <div className="card shadow h-100 border-0" class = {item.id || index}>
+              <div className="card shadow h-100 border-0" class={item.id || index}>
 
                 <img
                   src={item.logo}
