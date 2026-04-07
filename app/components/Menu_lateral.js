@@ -15,15 +15,15 @@ function MenuLateral() {
     const nome_usuario = localStorage.getItem("nome_usuario")
     const comercio = localStorage.getItem("comercio")
 
-    const [nome, alteraNome] = useState()
-    const [email, alteraEmail] = useState()
-    const [senha, alteraSenha] = useState()
-    const [telefone, alteraTelefone] = useState()
-    const [whatsapp, alteraWhatsapp] = useState()
-    const [endereco, alteraEndereco] = useState()
-    const [categoria, alteraCategoria] = useState()
-    const [logo, alteraLogo] = useState()
-    const [descricao, alteraDescricao] = useState()
+    const [nome, alteraNome] = useState("")
+    const [email, alteraEmail] = useState("")
+    const [senha, alteraSenha] = useState("")
+    const [telefone, alteraTelefone] = useState("")
+    const [whatsapp, alteraWhatsapp] = useState("")
+    const [endereco, alteraEndereco] = useState("")
+    const [categoria, alteraCategoria] = useState("")
+    const [logo, alteraLogo] = useState("")
+    const [descricao, alteraDescricao] = useState("")
 
     const [editando, alteraEditando] = useState(false)
 
@@ -133,7 +133,7 @@ function MenuLateral() {
     function sair(){
         localStorage.removeItem("id_usuario")
         localStorage.removeItem("nome_usuario")
-        alert("Desconectado com xuxesso")
+        alert("Desconectado com sucesso")
         location.href = "/"
     }
 
@@ -238,7 +238,7 @@ function MenuLateral() {
                                             {/* Logo */}
                                             <div className="col-12 mb-3">
                                                 <label htmlFor="logo" className="form-label">Logo da Empresa *</label>
-                                                <input value={logo} onChange={e => alteraLogo(e.target.value)} type="file" className="form-control" id="logo" />
+                                                <input onChange={e => alteraLogo(e.target.files[0])} type="file" className="form-control" id="logo" />
 
                                             </div>
 

@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import supabase from "../conexao/supabase";
+import { useRouter } from "next/navigation";
 
 
 export default function CadastroUsuario() {
+
+  const route = useRouter()
 
   const [nome, alteraNome] = useState("")
   const [cpf, alteraCpf] = useState("")
@@ -83,7 +86,15 @@ export default function CadastroUsuario() {
 
         <form onSubmit={salvar} className="row g-3">
 
-          <h1 className="text-center mb-3">Cadastro Usuário</h1>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
+                            ← Voltar
+                        </button>
+
+                        <h1 className="m-0">Cadastro usuário</h1>
+
+                        <div></div> 
+                    </div>
 
           {/* Nome */}
           <div className="col-12">
@@ -126,7 +137,7 @@ export default function CadastroUsuario() {
           <div className="col-12 text-center">
             <button type="submit" className="btn btn-warning me-2" >Cadastrar</button>
             
-            <Link href="/" className="btn btn-warning">Pagina inicial</Link>
+            <button onClick={() => route.back()} className="btn btn-warning">Pagina inicial</button>
             <br />
             <br />
 
