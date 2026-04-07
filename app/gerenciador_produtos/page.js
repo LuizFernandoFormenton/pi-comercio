@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
+import "./gerenciador_produtos.css"; 
 
 function Produtos() {
     

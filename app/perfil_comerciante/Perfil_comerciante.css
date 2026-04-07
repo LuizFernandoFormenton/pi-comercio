@@ -19,3 +19,45 @@ a{
     text-decoration: none;
 
 }
+
+/* BOTÃO LARANJA (PADRÃO SISTEMA) */
+.btn-laranja,
+.btn-warning {
+    background: linear-gradient(135deg, #ff8c00, #ff6b35);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-laranja:hover,
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,140,0,0.3);
+}
+
+/* BOTÃO VERMELHO (EXCLUIR) */
+.btn-excluir {
+    background: linear-gradient(135deg, #ff4d4d, #cc0000);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-excluir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,0,0,0.3);
+}
+
+/* BOTÃO CINZA (CANCELAR) */
+.btn-cinza {
+    background: #eee;
+    color: #333;
+    border-radius: 10px;
+    padding: 10px 18px;
+}

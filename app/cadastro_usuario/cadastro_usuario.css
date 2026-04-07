@@ -1,0 +1,117 @@
+/* ===== CORES ===== */
+:root {
+    --laranja-principal: #ff8c00;
+    --laranja-secundario: #ff6b35;
+    --laranja-claro: #ffe8cc;
+    --laranja-muito-claro: #fff5e6;
+}
+
+/* ===== FUNDO ===== */
+body {
+    background: linear-gradient(135deg, #fff5e6, #fffbf0);
+}
+
+/* ===== CARD CENTRAL ===== */
+.container-central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== CAIXA ===== */
+.form-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,140,0,0.2);
+}
+
+/* ===== HEADER ===== */
+.header-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* ===== TÍTULO ===== */
+.header-form h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--laranja-principal);
+}
+
+/* ===== INPUTS ===== */
+.form-label {
+    font-weight: 500;
+    color: #444;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid rgba(255,140,0,0.15);
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--laranja-principal);
+    box-shadow: 0 0 0 0.15rem rgba(255,140,0,0.25);
+}
+
+/* ===== INPUT COM ÍCONE ===== */
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.input-icon input {
+    padding-left: 35px;
+}
+
+/* ===== BOTÃO ===== */
+.btn-warning {
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    color: white;
+    background: linear-gradient(135deg, var(--laranja-principal), var(--laranja-secundario));
+    transition: 0.3s;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,140,0,0.3);
+}
+
+/* ===== CARD COMERCIANTE ===== */
+.card-comerciante {
+    border: 1px solid rgba(255,140,0,0.2);
+    border-radius: 12px;
+    padding: 15px;
+    background: var(--laranja-muito-claro);
+    transition: 0.2s;
+}
+
+.card-comerciante:hover {
+    background: var(--laranja-claro);
+    transform: translateY(-2px);
+}
+
+/* ===== CENTRALIZAÇÃO TEXTO ===== */
+.text-center {
+    text-align: center;
+}
