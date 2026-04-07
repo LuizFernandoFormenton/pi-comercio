@@ -58,14 +58,17 @@ export default function Login() {
     <div className="d-flex justify-content-center min-vh-100">
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "550px" }}>
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <button onClick={() => route.back()} className="btn btn-warning text-left mb-1">
+        <div className="position-relative mb-3">
+          <button onClick={() => route.back()} className="btn btn-warning position-absolute start-0 top-50 translate-middle-y">
             ← Voltar
           </button>
 
-          <h1 className="m-0">Bem vindo </h1>
+          <div className="" >
+            
+             <h1 className="text-center m-0">Bem vindo </h1>
 
-          <div></div>
+          </div>
+
         </div>
 
         {autenticado == false ?
@@ -75,13 +78,13 @@ export default function Login() {
 
             {/* Email */}
             <div className="col-12">
-              <label htmlFor="email" className="form-label">Email *</label>
+              <label htmlFor="email" className="form-label">Email <span className="text-danger">*</span></label>
               <input value={email} onChange={e => alteraEmail(e.target.value)} id="email" type="email" className="form-control" />
             </div>
 
             {/* Senha */}
             <div className="col-12">
-              <label htmlFor="senha" className="form-label">Senha *</label>
+              <label htmlFor="senha" className="form-label">Senha <span className="text-danger">*</span></label>
               <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
             </div>
 
