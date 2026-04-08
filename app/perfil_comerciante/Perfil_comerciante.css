@@ -1,63 +1,187 @@
-.menuLateral {
-    background-color: #ff6b00;
-    color: rgb(46, 46, 46);
-    min-height: 100vh;
-  
+:root {
+    --laranja-principal: #ff8c00;
+    --laranja-secundario: #ff6b35;
+    --laranja-claro: #ffe8cc;
+    --laranja-muito-claro: #fff5e6;
+    --branco: #ffffff;
+    --cinza-texto: #555555;
+    --cinza-escuro: #333333;
+    --cinza-claro: #f4f4f4;
+    --vermelho-principal: #dc3545;
+    --vermelho-secundario: #b02a37;
+    --sombra-leve: 0 4px 15px rgba(0, 0, 0, 0.06);
+    --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.fundo_card{
-    background-color: #ccc;
+body {
+    background: linear-gradient(135deg, #f8f2e8 0%, #f5efe6 100%);
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.editarPerfil {
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 4);
-
+.pagina-produtos {
+    padding: 28px;
 }
 
-a{
-
-    text-decoration: none;
-
+.topo-produtos {
+    margin-bottom: 10px;
 }
 
-/* BOTÃO LARANJA (PADRÃO SISTEMA) */
-.btn-laranja,
-.btn-warning {
-    background: linear-gradient(135deg, #ff8c00, #ff6b35);
-    color: white;
+.titulo-pagina {
+    color: var(--laranja-principal);
+    font-weight: 700;
+    margin: 0;
+}
+
+.linha-suave {
     border: none;
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-weight: 600;
-    transition: 0.3s;
+    border-top: 1px solid #eadfce;
+    margin: 18px 0 28px 0;
 }
 
-.btn-laranja:hover,
-.btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255,140,0,0.3);
+.barra-superior {
+    margin-bottom: 8px;
 }
 
-/* BOTÃO VERMELHO (EXCLUIR) */
-.btn-excluir {
-    background: linear-gradient(135deg, #ff4d4d, #cc0000);
-    color: white;
+.busca-box .form-control,
+.filtro-box {
+    border: 1px solid #e2d4bf;
+    border-radius: 12px;
+    min-height: 48px;
+    box-shadow: none;
+}
+
+.busca-box .form-control:focus,
+.filtro-box:focus,
+.form-control:focus {
+    border-color: var(--laranja-principal);
+    box-shadow: 0 0 0 0.15rem rgba(255, 140, 0, 0.15);
+}
+
+.botao-busca {
+    background: var(--cinza-claro);
+    border: 1px solid #d7d7d7;
+    border-radius: 0 12px 12px 0;
+    min-width: 50px;
+}
+
+.tabela-box {
+    background: var(--branco);
+    border-radius: 18px;
+    box-shadow: var(--sombra-media);
+    overflow: hidden;
+    border: 1px solid #e9e1d4;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    color: var(--laranja-principal);
+    font-weight: 700;
+    background: #f7f1e8;
+    border-bottom: 1px solid #e7d8c3;
+    padding: 18px 14px;
+}
+
+.table tbody td {
+    padding: 18px 14px;
+    vertical-align: middle;
+    border-color: #efefef;
+    background: #ffffffcc;
+}
+
+.table tbody tr:hover td {
+    background: #fffaf3;
+}
+
+.acoes-botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.btn-laranja {
+    background: linear-gradient(135deg, var(--laranja-principal), var(--laranja-secundario));
     border: none;
+    color: white;
     border-radius: 10px;
-    padding: 10px 18px;
+    padding: 8px 14px;
     font-weight: 600;
-    transition: 0.3s;
+    transition: 0.2s ease;
 }
 
-.btn-excluir:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255,0,0,0.3);
+.btn-laranja:hover {
+    background: linear-gradient(135deg, #ff7a00, #ff5a1f);
+    color: white;
+    transform: translateY(-1px);
 }
 
-/* BOTÃO CINZA (CANCELAR) */
+.btn-vermelho {
+    background: linear-gradient(135deg, var(--vermelho-principal), var(--vermelho-secundario));
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-vermelho:hover {
+    background: linear-gradient(135deg, #c82333, #8f1d2a);
+    color: rgb(255, 255, 255);
+    transform: translateY(-1px);
+}
+
 .btn-cinza {
-    background: #eee;
-    color: #333;
+    background: #ececec;
+    border: none;
+    color: var(--cinza-escuro);
     border-radius: 10px;
-    padding: 10px 18px;
+    padding: 8px 14px;
+    font-weight: 600;
+}
+
+.modal-personalizado {
+    border-radius: 18px;
+    border: none;
+    box-shadow: var(--sombra-media);
+}
+
+.titulo-modal {
+    color: var(--laranja-principal);
+    font-weight: 700;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--cinza-escuro);
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #e2d4bf;
+    min-height: 46px;
+}
+
+@media (max-width: 768px) {
+    .pagina-produtos {
+        padding: 18px;
+    }
+
+    .acoes-botoes {
+        flex-direction: column;
+    }
+
+    .btn-laranja,
+    .btn-vermelho {
+        width: 100%;
+    }
+}
+.btn-excluir {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: white; /* 👈 AQUI */
+    border: none;
 }
