@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import supabase from "../conexao/supabase";
 import { useRouter } from "next/navigation";
+import "./cadastro_usuario.css"; // Importar CSS customizado
 
 
 export default function CadastroUsuario() {
