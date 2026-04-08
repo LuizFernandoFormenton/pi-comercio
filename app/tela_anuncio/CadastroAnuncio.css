@@ -1,0 +1,117 @@
+.container {
+  max-width: 1100px;
+}
+
+/* título */
+h1 {
+  color: #ff6b00;
+}
+
+/* campo de pesquisa */
+.input-group input {
+  border-radius: 8px 0 0 8px;
+  border: 1px solid #ddd;
+}
+
+.input-group button {
+  border-radius: 0 8px 8px 0;
+  background-color: #ff6b00;
+  color: white;
+  border: none;
+}
+
+/* botão cadastrar */
+.btn-warning {
+  background-color: #ff6b00;
+  border: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-warning:hover {
+  background-color: #e85d00;
+}
+
+/* tabela */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* cabeçalho */
+.table thead {
+  background-color: #ff6b00;
+  color: white;
+}
+
+/* linhas */
+.table tbody tr {
+  transition: 0.2s;
+}
+
+.table tbody tr:hover {
+  background-color: #fff3eb;
+}
+
+/* imagem anúncio */
+.table img {
+  width: 100px;
+  border-radius: 6px;
+  transition: transform 0.3s;
+}
+
+/* zoom da imagem */
+.table img:hover {
+  transform: scale(1.6);
+  z-index: 10;
+  position: relative;
+}
+
+/* botões */
+.btn-success {
+  background-color: #2ecc71;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background-color: #27ae60;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* modal */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #ff6b00;
+  color: white;
+}
+
+.modal-body label {
+  color: #ff6b00;
+}
+
+/* inputs */
+.form-control,
+.form-select {
+  border-radius: 6px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #ff6b00;
+  box-shadow: 0 0 5px rgba(255,107,0,0.4);
+}
