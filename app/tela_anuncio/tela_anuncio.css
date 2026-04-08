@@ -1,0 +1,106 @@
+:root {
+    --laranja-principal: #ff8c00;
+    --laranja-secundario: #ff6b35;
+    --laranja-claro: #ffe8cc;
+    --fundo: #fff5e6;
+    --branco: #fff;
+    --cinza: #666;
+    --vermelho: #dc3545;
+}
+
+/* FUNDO */
+body {
+    background: linear-gradient(135deg, #fff5e6, #fffbf0);
+}
+
+/* TÍTULO */
+h1 {
+    color: var(--laranja-principal);
+    font-weight: 800;
+}
+
+/* INPUT */
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 1px solid #e2d4bf;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--laranja-principal);
+    box-shadow: 0 0 0 0.15rem rgba(255,140,0,0.2);
+}
+
+/* BOTÃO LARANJA */
+.btn-laranja {
+    background: linear-gradient(135deg, var(--laranja-principal), var(--laranja-secundario));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-laranja:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,140,0,0.3);
+}
+
+/* BOTÃO VERMELHO */
+.btn-vermelho {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+/* BOTÃO CINZA */
+.btn-cinza {
+    background: #eee;
+    border-radius: 10px;
+}
+
+/* TABELA */
+.table {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.table thead {
+    background: linear-gradient(135deg, var(--laranja-principal), var(--laranja-secundario));
+    color: white;
+}
+
+/* LINHA */
+.table tbody tr:hover {
+    background: var(--laranja-claro);
+}
+
+/* BOTÕES LADO A LADO */
+td button {
+    margin-right: 5px;
+}
+
+/* MODAL */
+.modal-content {
+    border-radius: 16px;
+}
+
+.modal-title {
+    color: var(--laranja-principal);
+    font-weight: 700;
+}
+
+.imagem-anuncio {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: auto;
+}
