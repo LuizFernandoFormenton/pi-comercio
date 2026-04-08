@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Diretório de Comércios São Carlos</title>
+    <style>
+        /* ===== CORES LARANJA ===== */
+        :root {
+            --laranja-principal: #ff8c00;
+            --laranja-secundario: #ff6b35;
+            --laranja-claro: #ffe8cc;
+            --laranja-muito-claro: #fff5e6;
+            --branco: #ffffff;
+            --cinza-claro: #f8f9fa;
+            --cinza-texto: #555555;
+            --cinza-escuro: #333333;
+            --sombra-leve: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --sombra-forte: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET E BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #fff5e6 0%, #fffbf0 100%);
+            color: var(--cinza-texto);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            color: var(--branco);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--sombra-media);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            color: var(--branco);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn-primario {
+            background: var(--branco);
+            color: var(--laranja-principal);
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--sombra-media);
+        }
+
+        .btn-primario:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-forte);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== SEÇÕES ===== */
+        section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--laranja-principal);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            border-radius: 2px;
+        }
+
+        /* ===== SEÇÃO HISTÓRIA ===== */
+        .historia {
+            background: var(--branco);
+        }
+
+        .historia-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .historia-texto h3 {
+            font-size: 1.5rem;
+            color: var(--laranja-principal);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .historia-texto p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--cinza-texto);
+        }
+
+        .historia-imagem {
+            background: linear-gradient(135deg, var(--laranja-muito-claro) 0%, var(--laranja-claro) 100%);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 4rem;
+        }
+
+        /* ===== SEÇÃO MISSÃO ===== */
+        .missao {
+            background: linear-gradient(135deg, var(--laranja-muito-claro) 0%, #fff9f0 100%);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--branco);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--sombra-leve);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--laranja-principal);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-forte);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: var(--laranja-principal);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .card p {
+            color: var(--cinza-texto);
+            line-height: 1.7;
+        }
+
+        /* ===== SEÇÃO VALORES ===== */
+        .valores {
+            background: var(--branco);
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .valor-item {
+            padding: 30px;
+            background: linear-gradient(135deg, var(--laranja-muito-claro) 0%, rgba(255, 140, 0, 0.05) 100%);
+            border-left: 4px solid var(--laranja-principal);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .valor-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .valor-item h4 {
+            font-size: 1.2rem;
+            color: var(--laranja-principal);
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .valor-item p {
+            color: var(--cinza-texto);
+            line-height: 1.7;
+        }
+
+        /* ===== SEÇÃO EQUIPE ===== */
+        .equipe {
+            background: linear-gradient(135deg, var(--laranja-muito-claro) 0%, #fff9f0 100%);
+        }
+
+        .equipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .membro {
+            background: var(--branco);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--sombra-leve);
+            transition: all 0.3s ease;
+        }
+
+        .membro:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .membro-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--branco);
+        }
+
+        .membro h4 {
+            font-size: 1.1rem;
+            color: var(--cinza-escuro);
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .membro p {
+            color: var(--laranja-principal);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .membro-desc {
+            color: var(--cinza-texto);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ===== SEÇÃO IMPACTO ===== */
+        .impacto {
+            background: var(--branco);
+        }
+
+        .impacto-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            color: var(--branco);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--sombra-media);
+        }
+
+        .stat-numero {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        /* ===== SEÇÃO CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, var(--laranja-principal) 0%, var(--laranja-secundario) 100%);
+            color: var(--branco);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn-secundario {
+            background: var(--branco);
+            color: var(--laranja-principal);
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secundario:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--cinza-escuro);
+            color: var(--branco);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: var(--laranja-principal);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav a {
+                margin-left: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .historia-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stat-numero {
+                font-size: 2rem;
+            }
+
+            .cta h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                🏪 Diretório São Carlos
+            </div>
+            <nav>
+                <a href="#historia">História</a>
+                <a href="#missao">Missão</a>
+                <a href="#valores">Valores</a>
+                <a href="#equipe">Equipe</a>
+                <a href="/">Voltar</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sobre Nós</h1>
+            <p>Conectando estudantes e comércios locais para fortalecer São Carlos</p>
+            <a href="/" class="btn-primario">Explorar Comércios</a>
+        </div>
+    </section>
+
+    <!-- HISTÓRIA -->
+    <section class="historia" id="historia">
+        <div class="container">
+            <h2 class="section-title">Nossa História</h2>
+            <div class="historia-content">
+                <div class="historia-texto">
+                    <h3>Como Tudo Começou</h3>
+                    <p>
+                        Somos um grupo de estudantes que identificou um problema real: 
+                        muitos alunos e visitantes tinham dificuldade em encontrar e conhecer os comércios locais da cidade.
+                    </p>
+                    <p>
+                        Percebemos que pequenos negócios e estabelecimentos não tinham visibilidade suficiente, enquanto consumidores 
+                        passavam horas procurando o que precisavam. Decidimos criar uma solução simples, mas poderosa.
+                    </p>
+                    <p>
+                        O <strong>Diretório de Comércios São Carlos</strong> nasceu com um objetivo claro: ser a ponte entre 
+                        estudantes, visitantes e os comerciantes locais, promovendo o crescimento econômico da comunidade.
+                    </p>
+                </div>
+                <div class="historia-imagem">
+                    📚🏪💡
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSÃO, VISÃO E VALORES -->
+    <section class="missao" id="missao">
+        <div class="container">
+            <h2 class="section-title">Missão, Visão e Valores</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Nossa Missão</h3>
+                    <p>
+                        Facilitar a descoberta e acesso aos comércios locais de São Carlos, 
+                        criando um espaço digital que valoriza pequenos negócios e fortalece 
+                        a economia local.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌟</div>
+                    <h3>Nossa Visão</h3>
+                    <p>
+                        Ser a plataforma de referência para encontrar comércios em São Carlos, 
+                        conhecida por sua facilidade de uso, confiabilidade e compromisso com 
+                        o desenvolvimento local.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <h3>Nossos Valores</h3>
+                    <p>
+                        Transparência, comunidade, inovação e compromisso com o bem comum. 
+                        Acreditamos no poder de conectar pessoas e negócios para criar 
+                        oportunidades.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALORES DETALHADOS -->
+    <section class="valores" id="valores">
+        <div class="container">
+            <h2 class="section-title">O Que Nos Move</h2>
+            <div class="valores-grid">
+                <div class="valor-item">
+                    <h4>🤝 Comunidade</h4>
+                    <p>
+                        Acreditamos na força da comunidade. Cada comerciante, cada cliente, 
+                        cada estudante faz parte dessa rede que cresce juntos.
+                    </p>
+                </div>
+                <div class="valor-item">
+                    <h4>💡 Inovação</h4>
+                    <p>
+                        Buscamos constantemente melhorar e inovar, trazendo soluções que 
+                        facilitam a vida de quem usa nossa plataforma.
+                    </p>
+                </div>
+                <div class="valor-item">
+                    <h4>🎯 Transparência</h4>
+                    <p>
+                        Informações claras e precisas sobre cada comércio. Sem mistérios, 
+                        sem surpresas desagradáveis.
+                    </p>
+                </div>
+                <div class="valor-item">
+                    <h4>📈 Crescimento</h4>
+                    <p>
+                        Queremos ver os comércios locais crescerem e prosperar. Seu sucesso 
+                        é nosso sucesso.
+                    </p>
+                </div>
+                <div class="valor-item">
+                    <h4>🌱 Sustentabilidade</h4>
+                    <p>
+                        Promovemos o comércio local, reduzindo a necessidade de grandes 
+                        deslocamentos e apoiando negócios sustentáveis.
+                    </p>
+                </div>
+                <div class="valor-item">
+                    <h4>🎓 Educação</h4>
+                    <p>
+                        Acreditamos que informação é poder. Educamos sobre os comércios 
+                        e oportunidades locais.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EQUIPE -->
+    <section class="equipe" id="equipe">
+        <div class="container">
+            <h2 class="section-title">Nossa Equipe</h2>
+            <div class="equipe-grid">
+                <div class="membro">
+                    <div class="membro-avatar">👨‍💻</div>
+                    <h4>Desenvolvimento</h4>
+                    <p>Tech & Inovação</p>
+                    <p class="membro-desc">
+                        Criando a plataforma que conecta você aos melhores comércios de São Carlos.
+                    </p>
+                </div>
+                <div class="membro">
+                    <div class="membro-avatar">👩‍💼</div>
+                    <h4>Gestão</h4>
+                    <p>Estratégia & Operações</p>
+                    <p class="membro-desc">
+                        Garantindo que tudo funcione perfeitamente para você e para os comerciantes.
+                    </p>
+                </div>
+                <div class="membro">
+                    <div class="membro-avatar">🎨</div>
+                    <h4>Design</h4>
+                    <p>UX & Criatividade</p>
+                    <p class="membro-desc">
+                        Tornando a experiência bonita, intuitiva e agradável para todos.
+                    </p>
+                </div>
+                <div class="membro">
+                    <div class="membro-avatar">📱</div>
+                    <h4>Marketing</h4>
+                    <p>Comunicação & Crescimento</p>
+                    <p class="membro-desc">
+                        Levando o Diretório para mais pessoas e negócios em São Carlos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACTO -->
+    <section class="impacto">
+        <div class="container">
+            <h2 class="section-title">Nosso Impacto</h2>
+            <div class="impacto-stats">
+                <div class="stat">
+                    <div class="stat-numero">500+</div>
+                    <div class="stat-label">Comércios Cadastrados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-numero">10K+</div>
+                    <div class="stat-label">Usuários Ativos</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-numero">50K+</div>
+                    <div class="stat-label">Visitantes Mensais</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-numero">100%</div>
+                    <div class="stat-label">Dedicação à Comunidade</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta">
+        <div class="container">
+            <h2>Faça Parte Dessa Comunidade</h2>
+            <p>Seja você um comerciante querendo crescer ou um cliente descobrindo novos lugares</p>
+            <a href="/" class="btn-secundario">Explorar Agora</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 Diretório de Comércios São Carlos. Feito com ❤️ por estudantes da UFSCar.</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="#historia">Sobre</a>
+            <a href="/">Contato</a>
+            <a href="/">Política de Privacidade</a>
+        </div>
+    </footer>
+</body>
+</html>

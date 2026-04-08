@@ -145,7 +145,7 @@ function MenuLateral() {
 
             <div className=" menuLateral text-white" style={{position: "absolute", left: 0, right: 0, top: "0%", width: "15%", textAlign: "center"}}>
 
-            <button class="btn text-light" onClick={sair} style={{position: "absolute", right: 0, left: 0, bottom: 20}}>Sair</button>
+            <button class="btn btn-outline-light btn-sm" onClick={sair} style={{position: "absolute", right: 100, left: 100, bottom: 20}}>Sair</button>
 
             <div className="text-center p-3">
 
@@ -163,7 +163,7 @@ function MenuLateral() {
                 </Link>
 
                 <h1 className="mt-2 fs-5">{nome_usuario}</h1>
-                {/* <p>Usuário desde 2026</p> */}
+              
 
                 <button onClick={editar} type="button" className="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                     Editar perfil
@@ -291,9 +291,9 @@ function MenuLateral() {
                             </Link>
                         </div>
                     :
-                           <Link href="" className="list-group-item list-group-item-action">
-                                Meus Cupons
-                            </Link>
+                           <div>
+
+                           </div>
                     
                 }
 

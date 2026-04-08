@@ -7,9 +7,9 @@ export default function LayoutWrapper({ children }) {
 
   const pathname = usePathname()
 
-  const paginasSemMenu = ["/login", "/cadastro_comercios", "/", "/painel_adm_usuario", "/painel_aprovacao_anuncio", "/painel_gerenciar_comercios", "/cadastro_usuario", "/comercio"]
+  const paginasSemMenu = ["/login", "/cadastro_comercios", "/", "/painel_adm_usuario", "/painel_aprovacao_anuncio", "/painel_gerenciar_comercios", "/cadastro_usuario", "/comercio/"]
 
-  const esconderMenu = paginasSemMenu.includes(pathname)
+  const esconderMenu = paginasSemMenu.includes(pathname) || paginasSemMenu.indexOf("/comercio/") != -1
 
   return (
     <div className="container-fluid">

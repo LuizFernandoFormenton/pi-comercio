@@ -4,3 +4,68 @@
 
 }
 
+.cupom-card {
+    background: #fff3e6;
+    border: 1px dashed #ff7a00;
+    transition: 0.2s;
+}
+
+.cupom-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.favorito-card {
+    transition: 0.2s;
+    border-radius: 12px;
+}
+
+.favorito-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.menuLateral {
+  height: 100vh;
+  width: 250px;
+  background: linear-gradient(180deg, #ff7a18, #ffb347);
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.menuLateral img {
+  border: 3px solid rgba(255,255,255,0.5);
+  transition: 0.3s;
+}
+
+.menuLateral img:hover {
+  transform: scale(1.05);
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateX(5px);
+}
+
+.btn-custom {
+  background: rgb(255, 220, 144);
+  color: #ff6e06;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-custom:hover {
+  background: #ff9a35;
+}
+

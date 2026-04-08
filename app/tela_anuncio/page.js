@@ -11,37 +11,62 @@ export default function CadastroAnuncioModal() {
   const [link, setLink] = useState("");
   const [imagem, setImagem] = useState(null);
   const [anuncios, setAnuncios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
+    const id_usuario = localStorage.getItem("id_usuario");
+    if (!id_usuario) {
+      alert("Você precisa estar logado para acessar esta página.");
+      setCarregando(false);
+      return;
+    }
     buscarAnuncios();
   }, []);
 
   async function buscarAnuncios() {
+    setCarregando(true);
+
+    const id_usuario = localStorage.getItem("id_usuario");
+
+    if (!id_usuario) {
+      console.warn("Usuário não autenticado.");
+      setCarregando(false);
+      return;
+    }
+
     const { data, error } = await supabase
       .from('anuncios')
-      .select('*');
+      .select('*')
+      .eq('id_comercios', id_usuario);
 
     if (!error) {
       setAnuncios(data);
     } else {
       console.log(error);
     }
+
+    setCarregando(false);
   }
 
   async function inscrever(e) {
     e.preventDefault();
 
-    if (!planos) { 
-      alert("Por favor, selecione um plano."); 
-      return; 
+    if (!planos) {
+      alert("Por favor, selecione um plano.");
+      return;
     }
 
-    if (!imagem) { 
-      alert("Adicione uma imagem do anúncio"); 
-      return; 
+    if (!imagem) {
+      alert("Adicione uma imagem do anúncio");
+      return;
     }
 
-    const id_usuario = localStorage.getItem("id_usuario")
+    const id_usuario = localStorage.getItem("id_usuario");
+
+    if (!id_usuario) {
+      alert("Você precisa estar logado para cadastrar um anúncio.");
+      return;
+    }
 
     const obj = {
       descricao: descricao,
@@ -55,11 +80,11 @@ export default function CadastroAnuncioModal() {
 
       const { error } = await supabase
         .from('anuncios')
-        .insert(obj);
+        .insert([obj]);
 
       if (error) {
         alert("Erro ao salvar: " + error.message);
-        console.log(error)
+        console.log(error);
       } else {
         alert("Anúncio cadastrado com sucesso!");
         buscarAnuncios();
@@ -71,6 +96,11 @@ export default function CadastroAnuncioModal() {
   }
 
   async function deletar(id) {
+
+    const opcao = confirm("Tem certeza que deseja excluir?");
+    if (!opcao) {
+      return;
+    }
 
     const { error } = await supabase
       .from('anuncios')
@@ -98,183 +128,180 @@ export default function CadastroAnuncioModal() {
 
   return (
 
-<div className="container mt-5">
-    <h1><strong>Listagem de Anúncios</strong></h1>
-    <p>Aqui você pode ver todos os anúncios cadastrados.</p>
-    <hr />
-  
-                  <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Pesquisar..."
-                        aria-label="Recipients username" aria-describedby="basic-addon2" />
-                    <button className="input-group-text" id="basic-addon2">🔍</button>
-                </div>
-    <br />
-    
-    <button 
+    <div className="container mt-5">
+      <h1><strong>Listagem de Anúncios</strong></h1>
+      <p>Aqui você pode ver todos os anúncios que você cadastrou.</p>
+      <hr />
+
+      <div className="input-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Pesquisar..."
+        />
+        <button className="input-group-text">🔍</button>
+      </div>
+
+      <br />
+
+      <button
         className="btn btn-warning mb-3"
         data-bs-toggle="modal"
         data-bs-target="#modalCadastroAnuncio"
-    >
+      >
         Cadastrar Novo Anúncio
-    </button>
+      </button>
 
-    <table className="table table-hover">
+      {carregando ? (
+        <p>Carregando anúncios...</p>
+      ) : anuncios.length === 0 ? (
+        <p>Você ainda não possui anúncios cadastrados.</p>
+      ) : (
+        <table className="table table-hover">
 
-        <thead style={{ backgroundColor: "#ff6b00", color: "white", fontWeight: "bold", fontSize: "18px"}}>
+          <thead style={{ backgroundColor: "#ff6b00", color: "white", fontWeight: "bold", fontSize: "18px" }}>
             <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Plano</th>
-                <th scope="col">Link</th>
-                <th scope="col">Imagem</th>
-                <th scope="col">Ações</th>
+              <th>Descrição</th>
+              <th>Plano</th>
+              <th>Link</th>
+              <th>Imagem</th>
+              <th>Ações</th>
             </tr>
-        </thead>
+          </thead>
 
-        <tbody>
-
+          <tbody>
             {anuncios.map((anuncio) => (
+              <tr key={anuncio.id}>
+                <td>{anuncio.descricao}</td>
+                <td>{anuncio.planos} dias</td>
+                <td>
+                  <a
+                    href={anuncio.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visitar
+                  </a>
+                </td>
+                <td>
+                  <img
+                    src={anuncio.imagem}
+                    alt="Anúncio"
+                    style={{ width: '100px' }}
+                  />
+                </td>
+                <td>
+                  <button
+                    className="btn btn-success me-2"
+                    onClick={() => aceitarAnuncio(anuncio.id)}
+                  >
+                    Aceitar
+                  </button>
 
-                <tr key={anuncio.id}>
-
-                    <td><strong>{anuncio.descricao}</strong></td>
-
-                    <td>{anuncio.planos} dias</td>
-
-                    <td>
-                        <a 
-                        href={anuncio.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        >
-                        <strong>Acessar o link da empresa</strong>
-                        </a>
-                    </td>
-
-                    <td>
-                        <img 
-                        src={anuncio.imagem} 
-                        alt="Imagem do anúncio" 
-                        style={{ width: '300px' }} 
-                        />
-                    </td>
-
-                    <td>
-
-                        <button
-                        onClick={() => aceitarAnuncio(anuncio.id)}
-                        style={{ backgroundColor: "#28a745", color: "white", border: "none", padding: "5px 10px", marginRight: "5px" }}
-                        >
-                        Aceitar
-                        </button>
-
-                        <button
-                        onClick={() => deletar(anuncio.id)}
-                        style={{ backgroundColor: "#dc3545", color: "white", border: "none", padding: "5px 10px" }}
-                        >
-                        Excluir
-                        </button>
-
-                    </td>
-
-                </tr>
-
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deletar(anuncio.id)}
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
             ))}
+          </tbody>
 
-        </tbody>
+        </table>
+      )}
 
-    </table>
-
-
-    <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div className="modal fade" id="modalCadastroAnuncio" tabIndex="-1">
 
         <div className="modal-dialog modal-dialog-centered modal-lg">
 
-            <div className="modal-content shadow-lg">
+          <div className="modal-content shadow-lg">
 
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="modalLabel">Cadastre seu anúncio</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+            <div className="modal-header">
+              <h1 className="modal-title fs-5">Cadastre seu anúncio</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div className="modal-body" style={{ color: "#e67e22" }}>
+
+              <form onSubmit={inscrever}>
+
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Descrição</label>
+                  <input
+                    onChange={e => setDescricao(e.target.value)}
+                    type="text"
+                    className="form-control"
+                    required
+                  />
                 </div>
 
-                <div className="modal-body" style={{ color: "#e67e22" }}>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Planos</label>
+                  <select
+                    onChange={e => setPlanos(e.target.value)}
+                    className="form-select"
+                    required
+                  >
+                    <option value="">Selecione</option>
+                    <option value="30">30 dias</option>
+                    <option value="45">45 dias</option>
+                    <option value="60">60 dias</option>
+                    <option value="90">90 dias</option>
+                  </select>
+                </div>
 
-                    <form onSubmit={inscrever}>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link para o site</label>
+                  <input
+                    onChange={e => setLink(e.target.value)}
+                    type="url"
+                    className="form-control"
+                  />
+                </div>
 
-                        <div className="mb-3">
-                            <label className="form-label fw-bold">Descrição</label>
-                            <input
-                            onChange={e => setDescricao(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            />
-                        </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">URL da imagem</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    onChange={(e) => setImagem(e.target.value)}
+                    required
+                    placeholder="http://..."
+                  />
+                </div>
 
-                        <div className="mb-3">
-                            <label className="form-label fw-bold">Planos</label>
-                            <select
-                            onChange={e => setPlanos(e.target.value)}
-                            className="form-select"
-                            required
-                            >
-                                <option value="">Selecione</option>
-                                <option value="30">30 dias</option>
-                                <option value="45">45 dias</option>
-                                <option value="60">60 dias</option>
-                                <option value="90">90 dias</option>
-                            </select>
-                        </div>
+                <div className="modal-footer px-0 pb-0 mt-4">
 
-                        <div className="mb-3">
-                            <label className="form-label fw-bold">Link para o site</label>
-                            <input
-                            onChange={e => setLink(e.target.value)}
-                            type="url"
-                            className="form-control"
-                            />
-                        </div>
+                  <button
+                    type="submit"
+                    className="btn btn-success px-4"
+                  >
+                    Enviar
+                  </button>
 
-                        <div className="mb-3">
-                            <label className="form-label fw-bold">URL da imagem</label>
-                            <input
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => setImagem(e.target.value)}
-                            required
-                            placeholder="http://..."
-                            />
-                        </div>
-
-                        <div className="modal-footer px-0 pb-0 mt-4">
-
-                            <button
-                            type="submit"
-                            className="btn btn-success px-4"
-                            >
-                            Enviar
-                            </button>
-
-                            <button
-                            type="button"
-                            className="btn btn-danger"
-                            data-bs-dismiss="modal"
-                            >
-                            Cancelar
-                            </button>
-
-                        </div>
-
-                    </form>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
 
                 </div>
+
+              </form>
 
             </div>
 
+          </div>
+
         </div>
 
-    </div>
+      </div>
 
-</div>
+    </div>
 
   );
 
