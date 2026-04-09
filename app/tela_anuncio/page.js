@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import supabase from '../conexao/supabase';
 import "./tela_anuncio.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function CadastroAnuncioModal() {
 
@@ -106,7 +108,7 @@ export default function CadastroAnuncioModal() {
 
       <div className="topo-anuncios">
         <h1 className="titulo-anuncios"><strong>Listagem de Anúncios</strong></h1>
-        <p className="subtitulo-anuncios">Aqui você pode ver todos os anúncios que você cadastrou.</p>
+        <p className="subtitulo-anuncios">Aqui você pode ver todos os anúncios que você cadastrou.  </p>
       </div>
 
       <hr className="linha-anuncios" />
@@ -131,7 +133,7 @@ export default function CadastroAnuncioModal() {
       <div className="table-responsive tabela-anuncios-box">
         <table className="table table-hover align-middle mb-0">
           <thead className="thead-anuncios">
-            <tr>
+            <tr className="thead-anuncios" style={{ backgroundColor: "#FF8C00" }} >
               <th>Descrição</th>
               <th>Plano</th>
               <th>Link</th>
@@ -140,7 +142,7 @@ export default function CadastroAnuncioModal() {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="tbody-anuncios" style={{ backgroundColor: "#FF8C00" }}> 
             {anuncios.map((anuncio) => (
               <tr key={anuncio.id}>
                 <td>{anuncio.descricao}</td>
@@ -174,6 +176,16 @@ export default function CadastroAnuncioModal() {
                     <button
                       className="btn btn-vermelho"
                       onClick={() => deletar(anuncio.id)}
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalExcluirAnuncio"
+                      data-bs-id={anuncio.id}
+                      data-bs-descricao={anuncio.descricao}
+                      data-bs-plano={anuncio.planos}
+                      data-bs-link={anuncio.url}
+                      data-bs-imagem={anuncio.imagem}
+                      data-bs-status={anuncio.status}
+                      data-bs-id_comercios={anuncio.id_comercios}
+                      
                     >
                       Excluir
                     </button>
@@ -237,6 +249,11 @@ export default function CadastroAnuncioModal() {
                     onChange={(e) => setImagem(e.target.value)}
                     required
                     placeholder="http://..."
+                    value={imagem}
+                    style={{ backgroundColor: "#FF8C00" }}
+                    color="white"
+                    
+
                   />
                 </div>
 
@@ -252,6 +269,12 @@ export default function CadastroAnuncioModal() {
                     type="button"
                     className="btn btn-cinza"
                     data-bs-dismiss="modal"
+                    onClick={() => {
+                      setDescricao("");
+                      setPlanos("");
+                      setLink("");
+                      setImagem("");
+                    }}
                   >
                     Cancelar
                   </button>
