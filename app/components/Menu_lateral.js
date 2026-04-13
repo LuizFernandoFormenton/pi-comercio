@@ -186,99 +186,117 @@ function MenuLateral() {
                             </button>
                         </div>
 
-                        {/* Modal */}
-                        <div className="text-start modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                            <div className="modal-dialog modal-lg modal-dialog-centered">
-                                <div className="modal-content modal-personalizado">
-                                    <div className="modal-header border-0">
-                                        <h1 className="modal-title fs-5 titulo-modal" id="exampleModalLabel1">
-                                            Editar perfil
-                                        </h1>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-
-                                    <div className="modal-body">
-                                        <div className="row g-3">
-
-                                            <div className="col-12">
-                                                <label htmlFor="nome" className="form-label">Nome</label>
-                                                <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
-                                            </div>
-
-                                            <div className="col-md-6">
-                                                <label htmlFor="email" className="form-label">Email</label>
-                                                <input value={email} onChange={e => alteraEmail(e.target.value)} type="email" className="form-control" id="email" />
-                                            </div>
-
-                                            <div className="col-md-6">
-                                                <label htmlFor="telefone" className="form-label">Telefone</label>
-                                                <input value={telefone} type="number" onChange={e => alteraTelefone(e.target.value)} className="form-control" id="telefone" />
-                                            </div>
-
-                                            {
-                                                comercio == "true" &&
-                                                <>
-                                                    <div className="col-md-6">
-                                                        <label htmlFor="whatsapp" className="form-label">WhatsApp</label>
-                                                        <input value={whatsapp} type="number" onChange={e => alteraWhatsapp(e.target.value)} className="form-control" id="whatsapp" />
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <label htmlFor="endereco" className="form-label">Endereço Completo</label>
-                                                        <input value={endereco} onChange={e => alteraEndereco(e.target.value)} className="form-control" id="endereco" />
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <label htmlFor="categoria" className="form-label">Categoria da Empresa</label>
-                                                        <select value={categoria} onChange={e => alteraCategoria(e.target.value)} className="form-select" id="categoria">
-                                                            <option>Selecione</option>
-                                                            <option>Restaurante</option>
-                                                            <option>Lanchonete</option>
-                                                            <option>Moda</option>
-                                                            <option>Eletrônicos</option>
-                                                            <option>Saúde e Bem-estar</option>
-                                                            <option>Supermercados</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <label htmlFor="logo" className="form-label">Logo da Empresa</label>
-                                                        <input onChange={e => alteraLogo(e.target.files[0])} type="file" className="form-control" id="logo" />
-                                                    </div>
-
-                                                    <div className="col-12">
-                                                        <div className="form-floating">
-                                                            <textarea
-                                                                value={descricao}
-                                                                onChange={e => alteraDescricao(e.target.value)}
-                                                                className="form-control"
-                                                                placeholder="Descrição"
-                                                                id="descricao"
-                                                                style={{ height: "100px" }}
-                                                            ></textarea>
-                                                            <label htmlFor="descricao">Descrição</label>
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div className="modal-footer border-0 justify-content-center">
-                                        <button onClick={atualizar} type="button" className="btn btn-laranja">
-                                            Atualizar
-                                        </button>
-                                        <button onClick={() => cancelaEdicao()} type="button" className="btn btn-cinza" data-bs-dismiss="modal">
-                                            Cancelar
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 )
             }
+
+            {/* Modal FORA do menuLateral para evitar conflito de z-index com position:fixed */}
+            <div
+                className="text-start modal fade"
+                id="exampleModal1"
+                tabIndex="-1"
+                aria-labelledby="exampleModalLabel1"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content modal-personalizado">
+                        <div className="modal-header border-0">
+                            <h1 className="modal-title fs-5 titulo-modal" id="exampleModalLabel1">
+                                Editar perfil
+                            </h1>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                onClick={cancelaEdicao}
+                            ></button>
+                        </div>
+
+                        <div className="modal-body">
+                            <div className="row g-3">
+
+                                <div className="col-12">
+                                    <label htmlFor="nome" className="form-label">Nome</label>
+                                    <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
+                                </div>
+
+                                <div className="col-md-6">
+                                    <label htmlFor="email" className="form-label">Email</label>
+                                    <input value={email} onChange={e => alteraEmail(e.target.value)} type="email" className="form-control" id="email" />
+                                </div>
+
+                                <div className="col-md-6">
+                                    <label htmlFor="telefone" className="form-label">Telefone</label>
+                                    <input value={telefone} type="number" onChange={e => alteraTelefone(e.target.value)} className="form-control" id="telefone" />
+                                </div>
+
+                                {
+                                    comercio == "true" &&
+                                    <>
+                                        <div className="col-md-6">
+                                            <label htmlFor="whatsapp" className="form-label">WhatsApp</label>
+                                            <input value={whatsapp} type="number" onChange={e => alteraWhatsapp(e.target.value)} className="form-control" id="whatsapp" />
+                                        </div>
+
+                                        <div className="col-12">
+                                            <label htmlFor="endereco" className="form-label">Endereço Completo</label>
+                                            <input value={endereco} onChange={e => alteraEndereco(e.target.value)} className="form-control" id="endereco" />
+                                        </div>
+
+                                        <div className="col-12">
+                                            <label htmlFor="categoria" className="form-label">Categoria da Empresa</label>
+                                            <select value={categoria} onChange={e => alteraCategoria(e.target.value)} className="form-select" id="categoria">
+                                                <option>Selecione</option>
+                                                <option>Restaurante</option>
+                                                <option>Lanchonete</option>
+                                                <option>Moda</option>
+                                                <option>Eletrônicos</option>
+                                                <option>Saúde e Bem-estar</option>
+                                                <option>Supermercados</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="col-12">
+                                            <label htmlFor="logo" className="form-label">Logo da Empresa</label>
+                                            <input onChange={e => alteraLogo(e.target.files[0])} type="file" className="form-control" id="logo" />
+                                        </div>
+
+                                        <div className="col-12">
+                                            <div className="form-floating">
+                                                <textarea
+                                                    value={descricao}
+                                                    onChange={e => alteraDescricao(e.target.value)}
+                                                    className="form-control"
+                                                    placeholder="Descrição"
+                                                    id="descricao"
+                                                    style={{ height: "100px" }}
+                                                ></textarea>
+                                                <label htmlFor="descricao">Descrição</label>
+                                            </div>
+                                        </div>
+                                    </>
+                                }
+                            </div>
+                        </div>
+
+                        <div className="modal-footer border-0 justify-content-center">
+                            <button onClick={atualizar} type="button" className="btn btn-laranja">
+                                Atualizar
+                            </button>
+                            <button
+                                onClick={cancelaEdicao}
+                                type="button"
+                                className="btn btn-cinza"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 }

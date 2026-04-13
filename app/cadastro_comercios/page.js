@@ -94,6 +94,8 @@ export default function CadastroComercios() {
             return
         }
 
+        location.href = "/login"
+
 
     }
 
