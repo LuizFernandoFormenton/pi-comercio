@@ -74,61 +74,35 @@ function Produtos() {
     return (
         <div className="pagina-produtos">
 
-            {/* Modal */}
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content modal-personalizado">
+            {/* Remova o modal Bootstrap e substitua por este: */}
+            {editando !== null && (
+                <div className="modal-overlay" onClick={cancelaEdicao}>
+                    <div className="modal-content modal-personalizado" onClick={e => e.stopPropagation()}>
                         <div className="modal-header border-0">
-                            <h1 className="modal-title fs-5 titulo-modal" id="exampleModalLabel">
-                                Editar produto
-                            </h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h1 className="modal-title fs-5 titulo-modal">Editar produto</h1>
+                            <button type="button" className="btn-laranja btn-sm" onClick={cancelaEdicao}></button>
                         </div>
 
                         <div className="modal-body">
                             <div className="col-12">
                                 <label htmlFor="nome" className="form-label">Nome</label>
-                                <input
-                                    value={nome}
-                                    onChange={e => alteraNome(e.target.value)}
-                                    className="form-control"
-                                    id="nome"
-                                />
+                                <input value={nome} onChange={e => alteraNome(e.target.value)} className="form-control" id="nome" />
 
                                 <label htmlFor="descricao" className="form-label mt-3">Descrição</label>
-                                <input
-                                    value={descricao}
-                                    onChange={e => alteraDescricao(e.target.value)}
-                                    className="form-control"
-                                    id="descricao"
-                                />
+                                <input value={descricao} onChange={e => alteraDescricao(e.target.value)} className="form-control" id="descricao" />
 
                                 <label htmlFor="valor" className="form-label mt-3">Valor</label>
-                                <input
-                                    value={valor}
-                                    onChange={e => alteraValor(e.target.value)}
-                                    className="form-control"
-                                    id="valor"
-                                />
+                                <input value={valor} onChange={e => alteraValor(e.target.value)} className="form-control" id="valor" />
                             </div>
                         </div>
 
                         <div className="modal-footer border-0">
-                            <button onClick={atualizar} type="button" className="btn btn-laranja">
-                                Atualizar
-                            </button>
-                            <button
-                                onClick={() => cancelaEdicao()}
-                                type="button"
-                                className="btn btn-cinza"
-                                data-bs-dismiss="modal"
-                            >
-                                Cancelar
-                            </button>
+                            <button onClick={atualizar} type="button" className="btn btn-laranja">Atualizar</button>
+                            <button onClick={cancelaEdicao} type="button" className="btn btn-cinza">Cancelar</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             <div className="topo-produtos">
                 <h1 className="titulo-pagina">Meus Produtos</h1>
