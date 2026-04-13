@@ -76,6 +76,8 @@ export default function CadastroUsuario() {
       alert("Verifique os dados inseridos e tente novamente...")
     }
 
+    location.href = "/login"
+
   }
 
 
