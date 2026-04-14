@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import supabase from '../conexao/supabase';
 import "./tela_anuncio.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function CadastroAnuncioModal() {
 
@@ -15,6 +14,7 @@ export default function CadastroAnuncioModal() {
   const [anuncios, setAnuncios] = useState([]);
 
   useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
     buscarAnuncios();
   }, []);
 
