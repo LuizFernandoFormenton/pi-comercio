@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
 import { useRouter } from "next/navigation";
+import "./login.css";
 
 
 export default function Login() {
