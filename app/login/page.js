@@ -59,7 +59,7 @@ export default function Login() {
 
       <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "550px" }}>
         <div className="position-relative mb-3">
-          <button onClick={() => route.back()} className="btn btn-warning position-absolute start-0 top-50 translate-middle-y">
+          <button onClick={() => route.back()} className="btn-laranja btn-sm position-absolute start-0 top-50 translate-middle-y">
             ← Voltar
           </button>
 
@@ -88,7 +88,7 @@ export default function Login() {
               <input value={senha} onChange={e => alteraSenha(e.target.value)} id="senha" type="password" className="form-control" />
             </div>
 
-            <button onClick={autenticar} type="button" class="btn btn-warning">LOGIN</button>
+            <button onClick={autenticar} type="button" className="btn-laranja btn-sm">LOGIN</button>
             <br />
 
             <p className="text-center mb-3">Não tem cadastro ? <Link href="/cadastro_usuario">Clique Aqui </Link> </p>

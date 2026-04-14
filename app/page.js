@@ -568,7 +568,7 @@ export default function Pagina_inicial() {
         <div className="gc-section">
           <div className="section-header">
             <h2>Mais Estabelecimentos</h2>
-            <a href="#" onClick={() => alteraCategoria("")}>Ver todos →</a>
+            <a href="" onClick={() => alteraCategoria("")}>Ver todos →</a>
           </div>
           <div className="cards-grid">
             {listaComercios.map((item) => {

@@ -6,6 +6,7 @@ const supabase = createClient('https://myrdwyenvuxdgrbdbjgl.supabase.co', 'sb_pu
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
+import "./cadastro_comercios.css"; // Importar CSS customizado
 
 export default function CadastroComercios() {
 
@@ -103,7 +104,7 @@ export default function CadastroComercios() {
     return (
 
         <div className="d-flex justify-content-center vh-100">
-            <div className="align-self-center border rounded p-4 w-100" style={{ maxWidth: "700px" }}>
+            <div className="align-self-center border rounded p-4 w-100">
 
                 <form onSubmit={salvar} className="row g-3">
 
